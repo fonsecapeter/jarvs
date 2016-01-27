@@ -88,5 +88,7 @@ I also would've shown you this report:
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
  > dependencies: mac os x or linux-based operating system, bash shell, python 2, matplotlib
+ 
  >> if using linux: pandas, weather-util, weather-util-data
+
  >> if using mac: coreutils, icalbuddy, recommend also using homebrew package manager
