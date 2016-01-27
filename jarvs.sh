@@ -40,27 +40,27 @@ set_name () {
 
 set_color () {
 	echo "What is your favorite color?"
-	sleep 1s
+	sleep 0.5s
 	echo "choices are:"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 1
 	echo "red"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 2
 	echo "green"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 3
 	echo "orange"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 4
 	echo "blue"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 5
 	echo "purple"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 6
 	echo "light-blue"
-	sleep 1s
+	sleep 0.5s
 	tput setaf 7
 	echo "white"
 	tput sgr0
@@ -104,7 +104,7 @@ set_color () {
 	clr=`cat ./app/preferences/clr.txt`
 	tput setaf $clr
 		echo "Much better, Thanks!"
-		sleep 3s
+		sleep 1s
 		echo "If you ever change your mind,"
 		echo "just ask me to change your preferences."
 	tput sgr0
@@ -126,12 +126,13 @@ if [ ! -f ./app/preferences/clr.txt ]; then
 		mkdir ./app/preferences
 	fi
 	echo "Hello, ${USER}"
-	sleep 3s
-	echo "My name is Jarvs, and I am your personal assistant."
 	sleep 2s
+	echo "My name is Jarvs, and I am your personal assistant."
+	sleep 1s
 	echo "Peter built me to help manage the rvs program."
+	sleep 1s
 	echo "I hope you find that I make life easier."
-	sleep 3s
+	sleep 1s
 	echo "Before we get started, I have a few questions for you."
 	set_name
 	echo "Also,"
