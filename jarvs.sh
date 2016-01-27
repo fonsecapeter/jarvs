@@ -276,12 +276,14 @@ while true; do
 				else
 					open ./app/rvs/sample_docs/rvs_lifecycle.png
 				fi
-				puts "This followed the life of 12377's visit on January 4th, 2016."
+				puts "This follows the life of 12377's rvs from January 4th, 2016."
 				puts "I would've sent Dr. Hibbert this email:"
 				echo ""
 				tput setaf $clr
 				cat ./sample_email.txt
 				tput sgr0
+				echo ""
+				puts "---------------------------"
 				echo ""
 				puts "I also would've shown you this report:"
 				if [ $OS == "Linux" ]; then

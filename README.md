@@ -58,7 +58,7 @@ A graphical explanation of the flow of an rvs can be seen here:
 ![rvs_lifecycle.png](app/rvs/sample_docs/rvs_lifecycle.png)
 
 ```
-This followed the life of 12377's visit on January 4th, 2016.
+This follows the life of 12377's rvs from January 4th, 2016.
 I would've sent Dr. Hibbert this email:
 
 -----Original Message-----
@@ -78,9 +78,9 @@ You have [5] RVS's outstanding. [4] of these are overdue, please approve.
 
 Files are in rvs/Outstanding/Hibbert,Julius
 
----------------------------
-
 Do not reply to this email, please contact Peter.Fonseca@notarealemailaddress.com if you have any questions.
+
+---------------------------
 
 I also would've shown you this report:
 ```
