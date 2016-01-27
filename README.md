@@ -11,7 +11,8 @@ Jarvs also remembers a few basic preferences that can be changed.
 A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
 
 * What is an rvs?
-`An rvs is a research visit summary.
+```
+An rvs is a research visit summary.
 It includes the entire life-hisotry of the particpant
 in a semi-standard fashion, organized by history of
 present illness, medical history, social history, family
@@ -27,10 +28,12 @@ In a large research project, many research participants
 come in for visits. During a visit, the participant will
 see different researchers and clinicians. A visit is
 always overseen by an attending physician (attending), who
-must give final approval of the rvs.`
+must give final approval of the rvs.
+```
 
 * What does the rvs manger do?
-`You must be the rvs manager, a clinical research
+```
+You must be the rvs manager, a clinical research
 coordinator responsible for overseeing the rvs program.
 It is crucial to ensure that every note is written,
 approved, sent, and archived. This can be a source of
@@ -49,11 +52,13 @@ currently assist on the attending side of things, producing
 and logging reports, as well as sending weekly reminders to
 any attending with at least one outstanding rvs.
 
-A graphical explanation of the flow of an rvs can be seen here:`
+A graphical explanation of the flow of an rvs can be seen here:
+```
 
 ![rvs_lifecycle.png](app/rvs/sample_docs/rvs_lifecycle.png)
 
-`This followed the life of 12377's visit on January 4th, 2016.
+```
+This followed the life of 12377's visit on January 4th, 2016.
 I would've sent Dr. Hibbert this email:
 
 -----Original Message-----
@@ -77,7 +82,8 @@ Files are in rvs/Outstanding/Hibbert,Julius
 
 Do not reply to this email, please contact Peter.Fonseca@notarealemailaddress.com if you have any questions.
 
-I also would've shown you this report:`
+I also would've shown you this report:
+```
 
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
