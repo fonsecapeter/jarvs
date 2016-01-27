@@ -125,7 +125,7 @@ if [ ! -f ./app/preferences/clr.txt ]; then
 	set_color
 fi
 
-if [ ! -d ./app/rvs/Outstanding ]
+if [ ! -d ./app/rvs/Outstanding ]; then
 	puts "I'm going to set up the rvs-clone."
 	tput setaf $clr
 	./app/rvs/RVS_test_setup.sh
@@ -390,7 +390,7 @@ while true; do
 				puts "I'll show you all the rvs's currently waiting"
 				puts "for approval"
 				tput setaf $clr
-				if [ -f ./RVS_reporter.sh ]
+				if [ -f ./RVS_reporter.sh ]; then
 					./RVS_reporter.sh
 				else
 					./app/rvs/RVS_reporter.sh
@@ -405,7 +405,7 @@ while true; do
 				puts "since the last time I reported."
 				puts "I won't log the data on this one"
 				tput setaf $clr
-				if [ -f ./RVS_vis.py ]
+				if [ -f ./RVS_vis.py ]; then
 					./RVS_vis.py
 				else
 					./app/rvs/RVS_vis.py
@@ -445,7 +445,7 @@ while true; do
 			*"email"*)
 				puts "No problem, let me write these up."
 				tput setaf $clr
-				if [ -f ./RVS_emailer.sh ]
+				if [ -f ./RVS_emailer.sh ]; then
 					./RVS_emailer.sh
 				else
 					./app/rvs/RVS_emailer.sh
