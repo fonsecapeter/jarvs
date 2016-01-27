@@ -40,20 +40,28 @@ set_name () {
 
 set_color () {
 	echo "What is your favorite color?"
+	sleep 1s
 	echo "choices are:"
+	sleep 1s
 	tput setaf 1
 	echo "red"
+	sleep 1s
 	tput setaf 2
 	echo "green"
+	sleep 1s
 	tput setaf 3
 	echo "orange"
+	sleep 1s
 	tput setaf 4
 	echo "blue"
+	sleep 1s
 	tput setaf 5
 	echo "purple"
+	sleep 1s
 	tput setaf 6
 	echo "light-blue"
-	tput setaf 7sss
+	sleep 1s
+	tput setaf 7
 	echo "white"
 	tput sgr0
 	read fav_clr
@@ -96,6 +104,7 @@ set_color () {
 	clr=`cat ./app/preferences/clr.txt`
 	tput setaf $clr
 		echo "Much better, Thanks!"
+		sleep 3s
 		echo "If you ever change your mind,"
 		echo "just ask me to change your preferences."
 	tput sgr0
@@ -103,6 +112,7 @@ set_color () {
 
 set_email () {
 	echo "What is your email address?"
+	sleep 2s
 	echo "Don't worry, I wont spam you with promotions."
 	read user_email
 	echo "Got it."
@@ -112,10 +122,13 @@ set_email () {
 
 # if first time using jarvs, set preferences
 if [ ! -f ./app/preferences/clr.txt ]; then
-	mkdir ./app/preferences
+	if [ ! -d ./app/preferences ]; then
+		mkdir ./app/preferences
+	fi
 	echo "Hello, ${USER}"
 	sleep 3s
 	echo "My name is Jarvs, and I am your personal assistant."
+	sleep 2s
 	echo "Peter built me to help manage the rvs program."
 	echo "I hope you find that I make life easier."
 	sleep 3s
@@ -128,9 +141,9 @@ if [ ! -f ./app/preferences/clr.txt ]; then
 fi
 
 if [ ! -d ./app/rvs/Outstanding ]; then
-	puts "I'm going to set up the rvs-clone."
-	sleep 3s
 	tput setaf $clr
+	echo "I'm going to set up the rvs-clone."
+	sleep 3s
 	./app/rvs/RVS_test_setup.sh
 	tput sgr0
 fi
