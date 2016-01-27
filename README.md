@@ -56,11 +56,28 @@ A graphical explanation of the flow of an rvs can be seen here:`
 `This followed the life of 12377's visit on January 4th, 2016.
 I would've sent Dr. Hibbert this email:`
 
-![sample_email.txt](app/rvs/sample_docs/sample_email.txt)
+`-----Original Message-----
+From: peter fonseca 
+Sent: Monday, January 11, 2016 11:36 AM
+To: Hibbert, Julius
+Subject: Overdue RVS's
+
+Dr. Julius Hibbert,
+You have [5] RVS's outstanding. [4] of these are overdue, please approve.
+
+  1183 from 2015-04-12 is OVERDUE
+  12306 from 2015-01-14 is OVERDUE
+  12377 from 2016-01-04 is due 2016-01-25
+  12705 from 2015-06-17 is OVERDUE
+  13191 from 2015-03-06 is OVERDUE
+
+Files are in rvs/Outstanding/Hibbert,Julius
+
+Do not reply to this email, please contact Peter.Fonseca@notarealemailaddress.com if you have any questions.`
 
 `I also would've shown you this report:`
 
-![figure_1.png](app/rvs/figure_1.png)
+![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
  > dependencies: mac os x or linux-based operating system, bash shell, python 2, matplotlib
  >> if using linux: pandas, weather-util, weather-util-data
