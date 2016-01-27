@@ -112,7 +112,7 @@ set_email () {
 
 # if first time using jarvs, set preferences
 if [ ! -f ./app/preferences/clr.txt ]; then
-	mkdir preferences
+	mkdir ./app/preferences
 	echo "Hello, ${USER}"
 	echo "My name is Jarvs, and I am your personal assistant."
 	echo "Peter built me to help manage the rvs program."

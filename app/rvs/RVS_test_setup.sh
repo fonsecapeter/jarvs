@@ -28,12 +28,12 @@ attds[11]="Lemon,Elizabeth"
 mkdir "./app/rvs/Outstanding"
 
 mkdir "./app/rvs/Outstanding/DONE"
-ln -s "${PWD}/Converted" "${PWD}/app/rvs/DONE/Converted"
+ln -s "${PWD}/app/rvs/Converted" "${PWD}/app/rvs/DONE/Converted"
 
 mkdir "./app/rvs/Converted"
-ln -s "${PWD}/Uploaded" "${PWD}/app/rvs/Converted/Uploaded"
+ln -s "${PWD}/app/rvs/Uploaded" "${PWD}/app/rvs/Converted/Uploaded"
 
-mkdir "Uploaded"
+mkdir "./app/rvs/Uploaded"
 
 # loop through attendings
 for i in "${attds[@]}"; do
