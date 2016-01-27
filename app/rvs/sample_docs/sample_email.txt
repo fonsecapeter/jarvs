@@ -1,0 +1,18 @@
+-----Original Message-----
+From: peter fonseca 
+Sent: Monday, January 11, 2016 11:36 AM
+To: Hibbert, Julius
+Subject: Overdue RVS's
+
+Dr. Julius Hibbert,
+You have [5] RVS's outstanding. [4] of these are overdue, please approve.
+
+  1183 from 2015-04-12 is OVERDUE
+  12306 from 2015-01-14 is OVERDUE
+  12377 from 2016-01-04 is due 2016-01-25
+  12705 from 2015-06-17 is OVERDUE
+  13191 from 2015-03-06 is OVERDUE
+
+Files are in rvs/Outstanding/Hibbert,Julius
+
+Do not reply to this email, please contact Peter.Fonseca@notarealemailaddress.com if you have any questions.

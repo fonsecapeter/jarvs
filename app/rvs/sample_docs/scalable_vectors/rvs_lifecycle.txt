@@ -1,0 +1,48 @@
+
+  --lifecycle of an rvs--
+    (follow the arrows)
+
+[>] rvs
+ |
+ |                           # rvs manager moves to appropriate dir
+ |                           # & notifies attd
+ |-------[>] Outstanding [RVS START]>>>>>>>v            # attd completes &
+ |        |                                v            # moves to DONE
+ |        |----[>] Benes,Elaine (contains link to DONE)>>>>>>>>>>v
+ |        |                                                      v
+ |        |----[>] Costanza,George (contains link to DONE)>>>>>>>v
+ |        |                                                      v
+ |        |----[>] DONE (contains link to To be converted)<<<<<<<X
+ |        |                                        v             ^
+ |        |                                        v             ^
+ |        |                                        v             ^      # rvs manager converts
+ |        |                                        v>>>>>>>>>>>>)^(>>v  # to pdf & moves both to
+ |        |                                                      ^   v  # To Be Converted
+ |        |                                                      ^   v
+ |        |----[>] Fonseca,Peter (contains link to DONE)>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Hibbert,Julius (contains link to DONE)>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Kent,Clark (contains link to DONE)>>>>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Kramer,Cosmo (contains link to DONE)>>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Lemon,Elizabeth (contains link to DONE)>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Luthor,Lex (contains link to DONE)>>>>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Riviera,Nick (contains link to DONE)>>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Seinfeld,Jerry (contains link to DONE)>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Vance,Bob (contains link to DONE)>>>>>>>>>>>>>^   v
+ |        |                                                      ^   v
+ |        |----[>] Vandalay,Art (contains link to DONE)>>>>>>>>>>^   v
+ |                                                                   v
+ |                                                                   v
+ |                                                                   v
+ |-------[>] Converted (containts link to Uploaded)<<<<<<<<<<<<<<<<<<v
+ |                                           v
+ |                                           v  # rvs manager uploads to
+ |                                           v  # database and moves doc/pdf
+ |-------[>] Uploaded [RVS END]<<<<<<<<<<<<<<v  # pair to Uploaded
