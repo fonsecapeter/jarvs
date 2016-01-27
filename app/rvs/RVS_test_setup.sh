@@ -28,7 +28,7 @@ attds[11]="Lemon,Elizabeth"
 mkdir "./app/rvs/Outstanding"
 
 mkdir "./app/rvs/Outstanding/DONE"
-ln -s "${PWD}/app/rvs/Converted" "${PWD}/app/rvs/DONE/Converted"
+ln -s "${PWD}/app/rvs/Converted" "${PWD}/app/rvs/Outstanding/DONE/Converted"
 
 mkdir "./app/rvs/Converted"
 ln -s "${PWD}/app/rvs/Uploaded" "${PWD}/app/rvs/Converted/Uploaded"

@@ -114,9 +114,11 @@ set_email () {
 if [ ! -f ./app/preferences/clr.txt ]; then
 	mkdir ./app/preferences
 	echo "Hello, ${USER}"
+	sleep 3s
 	echo "My name is Jarvs, and I am your personal assistant."
 	echo "Peter built me to help manage the rvs program."
 	echo "I hope you find that I make life easier."
+	sleep 3s
 	echo "Before we get started, I have a few questions for you."
 	set_name
 	echo "Also,"
@@ -127,6 +129,7 @@ fi
 
 if [ ! -d ./app/rvs/Outstanding ]; then
 	puts "I'm going to set up the rvs-clone."
+	sleep 3s
 	tput setaf $clr
 	./app/rvs/RVS_test_setup.sh
 	tput sgr0
