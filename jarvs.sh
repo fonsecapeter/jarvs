@@ -390,7 +390,11 @@ while true; do
 				puts "I'll show you all the rvs's currently waiting"
 				puts "for approval"
 				tput setaf $clr
-				./app/rvs/RVS_reporter.sh
+				if [ -f ./RVS_reporter.sh ]
+					./RVS_reporter.sh
+				else
+					./app/rvs/RVS_reporter.sh
+				fi
 				tput sgr0
 				continue
 			;;
@@ -401,7 +405,11 @@ while true; do
 				puts "since the last time I reported."
 				puts "I won't log the data on this one"
 				tput setaf $clr
-				./app/rvs/RVS_vis.py
+				if [ -f ./RVS_vis.py ]
+					./RVS_vis.py
+				else
+					./app/rvs/RVS_vis.py
+				fi
 				tput sgr0
 				continue
 			;;
@@ -437,7 +445,11 @@ while true; do
 			*"email"*)
 				puts "No problem, let me write these up."
 				tput setaf $clr
-				./app/rvs/RVS_emailer.sh
+				if [ -f ./RVS_emailer.sh ]
+					./RVS_emailer.sh
+				else
+					./app/rvs/RVS_emailer.sh
+				fi
 				tput sgr0
 				continue
 			;;
