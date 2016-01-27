@@ -55,7 +55,7 @@ any attending with at least one outstanding rvs.
 A graphical explanation of the flow of an rvs can be seen here:
 ```
 
-<a href="url"><img src="https://github.com/fonsecapeter/jarvs/app/rvs/sample_docs/rvs_lifecycle.png" align="left"width="48"></a>
+<a href="url"><img src="https://github.com/fonsecapeter/jarvs/tree/master/app/rvs/sample_docs/rvs_lifecycle.png" align="left"width="48"></a>
 
 ```
 This follows the life of 12377's rvs from January 4th, 2016.
