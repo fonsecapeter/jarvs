@@ -59,7 +59,7 @@ A graphical explanation of the flow of an rvs can be seen here:
 
 ```
 This follows the life of 12377's rvs from January 4th, 2016.
-I would've sent Dr. Hibbert this email:
+I would have sent Dr. Hibbert this email:
 
 -----Original Message-----
 From: peter fonseca 
@@ -82,13 +82,14 @@ Do not reply to this email, please contact Peter.Fonseca@notarealemailaddress.co
 
 ---------------------------
 
-I also would've shown you this report:
+I also would have shown you this report:
 ```
 
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
- > dependencies: mac os x or linux-based operating system, bash shell, python 2, matplotlib
- 
- >> if using linux: pandas, weather-util, weather-util-data
-
- >> if using mac: coreutils, icalbuddy, recommend also using homebrew package manager
+> dependencies: 
+mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more)
+>> if using linux:
+weather-util, weather-util-data
+>> if using mac:
+coreutils, icalbuddy, recommend also using homebrew package manager

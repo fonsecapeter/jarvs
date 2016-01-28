@@ -301,7 +301,7 @@ while true; do
 					open ./app/rvs/sample_docs/rvs_lifecycle.png
 				fi
 				puts "This follows the life of 12377's rvs from January 4th, 2016."
-				puts "I would've sent Dr. Hibbert this email:"
+				puts "I would have sent Dr. Hibbert this email:"
 				echo ""
 				tput setaf $clr
 				cat ./sample_email.txt
@@ -309,7 +309,7 @@ while true; do
 				echo ""
 				puts "---------------------------"
 				echo ""
-				puts "I also would've shown you this report:"
+				puts "I also would have shown you this report:"
 				if [ $OS == "Linux" ]; then
 					# 2> /dev/null suppresses error notifications
 					eog ./app/rvs/sample_docs/figure_1.png 2> /dev/null
