@@ -89,7 +89,6 @@ I also would have shown you this report:
 
 > dependencies: 
 mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more)
->> if using linux:
-gcalcli, weather-util, weather-util-data
->> if using mac:
-coreutils, icalbuddy, recommend also using homebrew package manager
+>> if using linux: gcalcli, weather-util, weather-util-data
+>>
+>> if using mac: coreutils, icalbuddy, recommend also using homebrew package manager
