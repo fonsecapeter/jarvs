@@ -176,7 +176,7 @@ while true; do
 		case "$cmd" in
 
 			*"list"*)
-				puts "<bye> <help> <list> <preferences> <eamil> <report>"
+				puts "<bye> <help> <list> <preferences> <attending>"
 				puts "<date> <agenda> <weather>"
 				continue
 			;;
@@ -215,7 +215,7 @@ while true; do
 			;;
 
 			*"list"*)
-				puts "<bye> <help> <list> <preferences> <eamil> <report>"
+				puts "<bye> <help> <list> <preferences> <attending>"
 				puts "<date> <agenda> <weather>"
 				continue
 			;;
@@ -244,7 +244,7 @@ while true; do
 				echo ""
 			;;
 
-			# need to download icalbuddy and test on mac
+			# ical-buddy only works on mac
 			*"today"*)
 				puts "Here is your agenda for the day:"
 				echo ""
@@ -260,15 +260,9 @@ while true; do
 				break
 			;;
 
-			*"report"*)
+			*"attending"*)
 				puts "Of course, I am programmed to tell you how the attendings are doing."
-				menu="report"
-				break
-			;;
-
-			*"email"*)
-				puts "Of course, I am programmed to help you send emails."
-				menu="email"
+				menu="attending"
 				break
 			;;
 
@@ -382,7 +376,7 @@ while true; do
 
 			*"list"*)
 				puts "<email> <color> <name>"
-				puts "<bye> <help> <list> <eamil> <report>"
+				puts "<bye> <help> <list> <attending>"
 				puts "<date> <agenda> <weather>"
 				continue
 			;;
@@ -401,10 +395,10 @@ while true; do
 		esac
 	done
 
-	# reporting menu ----------------------------------------
-	while [ $menu == "report" ]; do
+	# attending menu ----------------------------------------
+	while [ $menu == "attending" ]; do
 
-		puts "How can I help you with reporting?"
+		puts "How can I help you with the attendings?"
 		read cmd
 
 		case $cmd in
@@ -442,34 +436,6 @@ while true; do
 				continue
 			;;
 
-			*"list"*)
-				puts "<report> <vis>"
-				puts "<bye> <help> <list> <preferences> <eamil>"
-				puts "<date> <agenda> <weather>"
-				continue
-			;;
-
-			*"help"*)
-				puts "You last told me that wanted some help reporting."
-				puts "If you need something else, just let me know."
-				continue
-			;;
-
-			*)
-				prev_menu="$menu"
-				menu="utils"
-				break
-			;;
-		esac
-	done
-
-	# emailing menu ----------------------------------------
-	while [ $menu == "email" ]; do
-		puts "How can I help you with emails?"
-		read cmd
-
-		case $cmd in
-
 			*"email"*)
 				puts "No problem, let me write these up."
 				tput setaf $clr
@@ -485,14 +451,14 @@ while true; do
 			;;
 
 			*"list"*)
-				puts "<email>"
-				puts "<bye> <help> <list> <preferences> <report>"
+				puts "<report> <vis> <eamil>"
+				puts "<bye> <help> <list> <preferences>"
 				puts "<date> <agenda> <weather>"
 				continue
 			;;
 
 			*"help"*)
-				puts "You last told me that wanted some help sending emails."
+				puts "You last told me that wanted some help with the attendings."
 				puts "If you need something else, just let me know."
 				continue
 			;;
@@ -504,5 +470,4 @@ while true; do
 			;;
 		esac
 	done
-
 done
