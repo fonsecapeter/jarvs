@@ -160,6 +160,8 @@ puts () {
 	tput sgr0
 }
 
+jarvs_dir="$PWD"
+
 puts "Hello, ${user_name}. What can I help you with?"
 
 menu="main"
@@ -232,7 +234,12 @@ while true; do
 				puts "Always good to stay oriented."
 				echo ""
 				tput setaf $clr
-				cal
+				if [ $OS == "Linux" ]; then
+					cal
+				else
+					# mac does not highlight current day
+					cal | grep --color -EC6 "\b$(date +%e | sed "s/ //g")"
+				fi
 				tput sgr0
 				echo ""
 			;;
@@ -407,8 +414,10 @@ while true; do
 				puts "I'll show you all the rvs's currently waiting"
 				puts "for approval"
 				tput setaf $clr
-				if [ -f ./RVS_reporter.sh ]; then
+				if [ -f ../RVS_reporter.sh ]; then
+					cd ..
 					./RVS_reporter.sh
+					cd "$jarvs_dir"
 				else
 					./app/rvs/RVS_reporter.sh
 				fi
@@ -422,8 +431,10 @@ while true; do
 				puts "since the last time I reported."
 				puts "I won't log the data on this one"
 				tput setaf $clr
-				if [ -f ./RVS_vis.py ]; then
+				if [ -f ../RVS_vis.py ]; then
+					cd ..
 					./RVS_vis.py
+					cd "$jarvs_dir"
 				else
 					./app/rvs/RVS_vis.py
 				fi
@@ -462,8 +473,10 @@ while true; do
 			*"email"*)
 				puts "No problem, let me write these up."
 				tput setaf $clr
-				if [ -f ./RVS_emailer.sh ]; then
+				if [ -f ../RVS_emailer.sh ]; then
+					cd ..
 					./RVS_emailer.sh
+					cd "$jarvs_dir"
 				else
 					./app/rvs/RVS_emailer.sh
 				fi
