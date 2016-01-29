@@ -162,9 +162,11 @@ puts () {
 
 jarvs_dir="$PWD"
 
-puts "Hello, ${user_name},"
-sleep 1s
-puts "what can I help you with?"
+tput setaf $clr
+./app/jarvisms/greeting_1.sh
+sleep 0.5s
+./app/jarvisms/greeting_2.sh
+tput sgr0
 
 menu="main"
 

@@ -1,5 +1,5 @@
-# want to output a string of randomly pieced together greeting
-
+# want to output a string of the first line of a greeting
+cd ./app/jarvisms
 # get username
 user_name=`cat ../preferences/user_name.txt`
 
@@ -100,3 +100,4 @@ else
 		generate_night_greeting
 	fi
 fi
+cd ../..
