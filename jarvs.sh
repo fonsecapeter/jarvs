@@ -112,7 +112,7 @@ set_color () {
 
 set_email () {
 	echo "What is your email address?"
-	sleep 2s
+	sleep 1s
 	echo "Don't worry, I wont spam you with promotions."
 	read user_email
 	echo "Got it."
@@ -126,7 +126,7 @@ if [ ! -f ./app/preferences/clr.txt ]; then
 		mkdir ./app/preferences
 	fi
 	echo "Hello, ${USER}"
-	sleep 2s
+	sleep 1s
 	echo "My name is Jarvs, and I am your personal assistant."
 	sleep 1s
 	echo "Peter built me to help manage the rvs program."
@@ -162,7 +162,9 @@ puts () {
 
 jarvs_dir="$PWD"
 
-puts "Hello, ${user_name}. What can I help you with?"
+puts "Hello, ${user_name},"
+sleep 1s
+pust "what can I help you with?"
 
 menu="main"
 
