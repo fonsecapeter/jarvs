@@ -249,15 +249,15 @@ while true; do
 			# ical-buddy only works on mac
 			*"today"*|*"agenda"*|*"docket"*|*"schedule"*)
 				puts "Here is your agenda for the day:"
-				if [ $OS == "Linux" ]; then
+				#if [ $OS == "Linux" ]; then
 					gcalcli agenda
-				else
-					echo ""
-					tput setaf $clr
-					icalbuddy -f -sc eventsToday
-					tput sgr0
-					echo ""
-				fi
+				#else
+				#	echo ""
+				#	tput setaf $clr
+				#	icalbuddy -f -sc eventsToday
+				#	tput sgr0
+				#	echo ""
+				#fi
 			;;
 
 			*"week"*)
