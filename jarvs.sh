@@ -164,7 +164,7 @@ jarvs_dir="$PWD"
 
 puts "Hello, ${user_name},"
 sleep 1s
-pust "what can I help you with?"
+puts "what can I help you with?"
 
 menu="main"
 
