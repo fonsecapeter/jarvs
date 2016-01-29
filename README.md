@@ -8,6 +8,8 @@ Jarvs is currently programmed to also contain a number of utilities, such as the
 
 Here is Jarvs helping me out while I'm at work:
 
+![screenshot_linux.png](app/design/screenshot_linux.png)
+
 <a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/design/screenshot_linux.png" width="600"></a>
 
 Jarvs also remembers a few basic preferences that can be changed.
