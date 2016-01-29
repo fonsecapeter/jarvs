@@ -10,8 +10,6 @@ Here is Jarvs helping me out while I'm at work:
 
 ![screenshot_linux.png](app/design/screenshot_linux.png)
 
-<a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/design/screenshot_linux.png" width="600"></a>
-
 Jarvs also remembers a few basic preferences that can be changed.
 
 At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs works off of the clone. A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
