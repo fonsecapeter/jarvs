@@ -2,13 +2,17 @@
 
 #### Jarvs is a personal assistant living the terminal that was initially built to be a 'JARVIS' for rvs management.
 
- > The code written to support the rvs program is immortalized within jarvs, containing a clone of the real rvs server. See the rvs repository for more detail on the rvs code, though it is included in Jarvs.
+ > The code written to support the rvs program is immortalized within jarvs, containing a clone of the real rvs server with fake names and data. See the rvs repository for more detail on rvs-related code.
 
-Jarvs is currently programmed to also contain very useful utilities, such as the current date, ical (and gcal if synced) appointments, and weather information (in San Francisco). I sourced all of these utilities from pre-existing tools, just putting them all together in an easily accessible way. More utilities are in the works and full Linux/Mac cross-compatibility is underway. As such, some of the utility functions are set to only work in one OS, though the plan is to move away from this.
+Jarvs is currently programmed to also contain a number of utilities, such as the current date, gcoogle calendar appointments, and weather information (in San Francisco). I sourced all of these utilities from pre-existing tools, just putting them together in an easily accessible way. More utilities are in the works. My work computer runs a Linux operating system and I use a mac-book at home, so Jarvs is fully Linux/Mac cross-compatibile.
+
+Here is Jarvs helping me out while I'm at work:
+
+<a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/design/screenshot_linux.png" width="600"></a>
 
 Jarvs also remembers a few basic preferences that can be changed.
 
-A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
+At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs works off of the clone. A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
 
 * What is an rvs?
 ```
@@ -88,7 +92,7 @@ I also would have shown you this report:
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
 > dependencies: 
-mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more)
->> if using linux: gcalcli, weather-util, weather-util-data
+mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more), gcalcli
+>> if using linux: weather-util, weather-util-data
 >>
->> if using mac: coreutils, icalbuddy, recommend also using homebrew package manager
+>> if using mac: coreutils, recommend also using homebrew package manager
