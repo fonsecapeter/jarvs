@@ -10,6 +10,10 @@ Here is Jarvs helping me out while I'm at work:
 
 ![screenshot_linux.png](app/design/screenshot_linux.png)
 
+Here is Jarvs helping me out from home:
+
+![screenshot_mac.png](app/design/screenshot_mac.png)
+
 Jarvs also remembers a few basic preferences that can be changed.
 
 At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs works off of the clone. A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
@@ -66,7 +70,7 @@ This follows the life of 12377's rvs from January 4th, 2016.
 I would have sent Dr. Hibbert this email:
 
 -----Original Message-----
-From: peter fonseca 
+From: peter fonseca
 Sent: Monday, January 11, 2016 11:36 AM
 To: Hibbert, Julius
 Subject: Overdue RVS's
@@ -91,7 +95,7 @@ I also would have shown you this report:
 
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
-> dependencies: 
+> dependencies:
 mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more), gcalcli
 >> if using linux: weather-util, weather-util-data
 >>
