@@ -18,6 +18,8 @@ Jarvs also remembers a few basic preferences that can be changed.
 
 At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs works off of the clone. A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
 
+![what_is_rvs.png](app/design/what_is_rvs.png)
+
 * What is an rvs?
 ```
 An rvs is a research visit summary.
@@ -38,6 +40,8 @@ see different researchers and clinicians. A visit is
 always overseen by an attending physician (attending), who
 must give final approval of the rvs.
 ```
+
+![what_is_rvs_manager_1.png](app/design/what_is_rvs_manager_1.png)
 
 * What does the rvs manger do?
 ```
@@ -64,6 +68,8 @@ A graphical explanation of the flow of an rvs can be seen here:
 ```
 
 <a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/rvs/sample_docs/rvs_lifecycle.png" width="600"></a>
+
+![what_is_rvs_manager_2.png](app/design/what_is_rvs_manager_2.png)
 
 ```
 This follows the life of 12377's rvs from January 4th, 2016.
