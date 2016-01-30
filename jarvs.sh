@@ -309,7 +309,7 @@ while true; do
 				puts "I would have sent Dr. Hibbert this email:"
 				echo ""
 				tput setaf $clr
-				cat ./sample_email.txt
+				cat ./app/rvs/sample_email.txt
 				tput sgr0
 				echo ""
 				puts "---------------------------"
