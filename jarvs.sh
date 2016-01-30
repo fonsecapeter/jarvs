@@ -145,6 +145,7 @@ if [ ! -d ./app/rvs/Outstanding ]; then
 	tput setaf $clr
 	echo "I'm going to set up the rvs-clone."
 	sleep 3s
+
 	./app/rvs/RVS_test_setup.sh
 	tput sgr0
 fi
@@ -238,7 +239,7 @@ while true; do
 				puts "Always good to stay oriented."
 				echo ""
 				tput setaf $clr
-				if [ $OS == "Linux" ]; then
+				if [ $OS == "Linux" ] 2> /dev/null; then
 					cal
 				else
 					# mac does not highlight current day
@@ -251,33 +252,17 @@ while true; do
 			# ical-buddy only works on mac
 			*"today"*|*"agenda"*|*"docket"*|*"schedule"*)
 				puts "Here is your agenda for the day:"
-				#if [ $OS == "Linux" ]; then
 					gcalcli agenda
-				#else
-				#	echo ""
-				#	tput setaf $clr
-				#	icalbuddy -f -sc eventsToday
-				#	tput sgr0
-				#	echo ""
-				#fi
 			;;
 
 			*"week"*)
 				puts "Here is your agenda for the week"
-				if [ $OS == "Linux" ]; then
 					gcalcli calw
-				else
-					puts "Program icalbuddy here"
-				fi
 			;;
 
 			*"month"*)
 				puts "Here is your agenda for the month"
-				if [ $OS == "Linux" ]; then
 					gcalcli calm
-				else
-					puts "Program icalbuddy here"
-				fi
 			;;
 
 			*"preference"*)
@@ -314,7 +299,7 @@ while true; do
 				puts ""
 				puts "A graphical explanation of the flow of an rvs can be seen here:"
 				# first instance of linux vs os compatibility
-				if [ $OS == "Linux" ]; then
+				if [ $OS == "Linux" ] 2> /dev/null; then
 					# 2> /dev/null suppresses error notifications
 					eog ./app/rvs/sample_docs/rvs_lifecycle.png 2> /dev/null
 				else
@@ -330,7 +315,7 @@ while true; do
 				puts "---------------------------"
 				echo ""
 				puts "I also would have shown you this report:"
-				if [ $OS == "Linux" ]; then
+				if [ $OS == "Linux" ] 2> /dev/null; then
 					# 2> /dev/null suppresses error notifications
 					eog ./app/rvs/sample_docs/figure_1.png 2> /dev/null
 				else
@@ -439,7 +424,9 @@ while true; do
 					./RVS_reporter.sh
 					cd "$jarvs_dir"
 				else
-					./app/rvs/RVS_reporter.sh
+					cd ./app/rvs
+					./RVS_reporter.sh
+					cd ../..
 				fi
 				tput sgr0
 				continue
@@ -456,7 +443,9 @@ while true; do
 					./RVS_vis.py
 					cd "$jarvs_dir"
 				else
-					./app/rvs/RVS_vis.py
+					cd ./app/rvs
+					./RVS_vis.py
+					cd ../..
 				fi
 				tput sgr0
 				continue
@@ -470,7 +459,9 @@ while true; do
 					./RVS_emailer.sh
 					cd "$jarvs_dir"
 				else
-					./app/rvs/RVS_emailer.sh
+					cd ./app/rvs
+					./RVS_emailer.sh
+					cd ../..
 				fi
 				tput sgr0
 				continue

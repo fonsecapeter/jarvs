@@ -21,7 +21,7 @@ datedash=$(date +%Y-%m-%d)
 ##echo "today is [$DATE]"
 
 # first get all files in one var
-files="$(ls -1 ./app/rvs/Outstanding/$name_dir/*RVS*)"
+files="$(ls -1 ./Outstanding/$name_dir/*RVS*)"
 ##echo "files: $files"
 # parse into each files
 arr=$(echo "$files" | tr ";" "\n")
@@ -66,7 +66,7 @@ do
 done
 
 # append new line to RVS_report.csv with attending's notes
-echo "$name_first,$datedash,$rvscount,$rvsoverduecount"  >> ./app/rvs/RVS_report.csv
+echo "$name_first,$datedash,$rvscount,$rvsoverduecount"  >> ./RVS_report.csv
 echo "> $name_first's RVS's reported on [$datedash]"
 }
 
@@ -89,4 +89,4 @@ reporter "Clark" "Kent,Clark"
 reporter "Elizabeth" "Lemon,Elizabeth"
 
 # visualize the RVS_report.csv
-./app/rvs/RVS_vis.py
+./RVS_vis.py

@@ -73,7 +73,7 @@ if [ $greet_type == "tod" ]; then
 	generate_generic_greeting
 else
 	# decide time of day
-	if [ $OS == "Linux" ]; then
+	if [ $OS == "Linux" ] 2> /dev/null; then
 		h=`date +%H`
 	else
 		h=`gdate +%H`
