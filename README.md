@@ -19,13 +19,9 @@ Jarvs also remembers a few basic preferences that can be changed.
 At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs works off of the clone. A detailed description of the rvs program (what an rvs is and what the rvs manager does) can be explained by jarvs as below:
 
 ![what_is_rvs.png](app/design/what_is_rvs.png)
-
 ![what_is_rvs_manager_1.png](app/design/what_is_rvs_manager_1.png)
-
 <a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/rvs/sample_docs/rvs_lifecycle.png" width="600"></a>
-
 ![what_is_rvs_manager_2.png](app/design/what_is_rvs_manager_2.png)
-
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
 > dependencies:
