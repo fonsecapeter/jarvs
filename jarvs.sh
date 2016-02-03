@@ -366,6 +366,11 @@ while true; do
 	# preferences menu ----------------------------------------
 	while [ $menu == "preferences" ]; do
 		puts "What can I do differently?"
+		echo ""
+		puts "  Your name is:  ${user_name}"
+		puts " Your email is:  ${user_email}"
+		puts "   My color is:  ${clr}"
+		echo ""
 		read cmd
 
 		case $cmd in
