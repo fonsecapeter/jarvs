@@ -24,6 +24,9 @@ At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs work
 ![what_is_rvs_manager_2.png](app/design/what_is_rvs_manager_2.png)
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
+A gui is in the works...
+![jarvs_gui.png](app/design/jarvs_gui.png)
+
 > dependencies:
 mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more), gcalcli
 >> if using linux: weather-util, weather-util-data
