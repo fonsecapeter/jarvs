@@ -26,7 +26,7 @@ At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs work
 
 A gui is in the works...
 
-![jarvs_gui.png](app/design/jarvs_gui.png)
+![jarvs_gui_mac.png](app/design/jarvs_gui_mac.png)
 
 > dependencies:
 mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, recommend  anaconda (comes with all python libraries and more), gcalcli
