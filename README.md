@@ -25,6 +25,7 @@ At work, Jarvs will pull the real rvs data and commands, but at home, Jarvs work
 ![figure_1.png](app/rvs/sample_docs/figure_1.png)
 
 A gui is in the works...
+
 ![jarvs_gui.png](app/design/jarvs_gui.png)
 
 > dependencies:
