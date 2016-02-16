@@ -39,48 +39,34 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue)
-		self.text_content.pack()
+		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="white", height=12, state=NORMAL)
+		self.text_content.pack(side=LEFT, fill=BOTH)
+
+		self.text_content.insert(END, "Hi, Peter," + '\n')
+		self.text_content.insert(END, "How may I assist you?" + '\n')
+		self.text_content.config(state=DISABLED)
+
+		self.content_scroll = Scrollbar(dialogue, command=self.text_content.yview)
+		self.content_scroll.pack(side=RIGHT, fill=Y)
+		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
 		# form
 		form = Frame(self.parent, bg="white")
 		form.pack(fill=BOTH, expand=True)
 
-		label_1 = Label(form, text="Hi, Peter,", anchor=W, bg="white")
-		label_2 = Label(form, text="How many I assist you?", anchor=W, bg="white")
-
-		label_1.grid(row=0, column=0, sticky=W)
-		label_2.grid(row=1, column=0, sticky=W)
-
 		self.input_content = StringVar()
 		self.entry_main = Entry(form, bd=0)
-		self.entry_main.grid(row=2, column=0, padx=2, pady=2)
-
-		# functional button
-		button_1 = Button(form, text="Enter", bd=0, bg="white", command=self.callback)
-		##button_1.bind("<Button-1>", self.do_not_do_something) # lclick = <Button-1>, mclick = <Button-2>, lclick = <Button-3>
-		button_1.grid(row=3, column=0, padx=2, pady=2)
-
-
-		# status bar
-		##status = Label(self, text="Preparing to do nothing", bg="white", anchor=W) # anchor is text align, N E S W
-		##status.pack(side=BOTTOM, fill=X)
-
-		# test dynamic check button
-		cb = Checkbutton(form, text="show title", variable=self.var, command=self.toggle_title)
-		cb.select()
-		cb.grid(row=4, column=0, columnspan=2, padx=2, pady=2)
+		self.entry_main.bind('<Return>', self.callback)
+		self.entry_main.pack(fill=X, padx=2, pady=2)
 
 	# functionality
-	def callback(self):
+	def callback(self, event):
+		self.text_content.config(state=NORMAL)
 		self.input_content = self.entry_main.get()
 		self.text_content.insert(END, self.input_content + '\n')
-
-	def toggle_title(self):
-		if self.var.get() == True:
-			self.master.title("Jarvs Gui")
-		else:
-			self.master.title("")
+		self.text_content.see(END)
+		self.entry_main.delete(0, END)
+		self.text_content.config(state=DISABLED)
 
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
@@ -89,7 +75,7 @@ class Jarvs(Frame):
 		print "I'm not doing anything"
 
 	def quit(self):
-		self.quit()
+		quit()
 
 	def vis(self):
 		# only at work
