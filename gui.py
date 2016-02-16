@@ -80,7 +80,16 @@ class Jarvs(Frame):
 			self.text_content.config(state=DISABLED)
 			self.after(500, self.vis)
 		elif 'report' in self.input_content:
-			self.report()
+			self.text_content.config(state=NORMAL)
+			self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
+			self.text_content.insert(END, "I'll show you all the rvs's currently waiting" + '\n')
+			self.text_content.insert(END, "for approval." + '\n')
+			self.text_content.insert(END, "I will log the data on this one." + '\n')
+			self.text_content.see(END)
+			self.text_content.config(state=DISABLED)
+			self.after(500, self.report)
+		elif 'bye' in self.input_content:
+			self.quit()
 
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
@@ -102,7 +111,7 @@ class Jarvs(Frame):
 		# only at work
 		root_dir = os.getcwd()
 		os.chdir("..")
-		subprocess.call("./RVS_reporter.sh", shell=True)
+		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
 		os.chdir(root_dir)
 
 
