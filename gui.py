@@ -39,14 +39,16 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="white", height=12, state=NORMAL)
+		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH)
 
 		self.text_content.insert(END, "Hi, Peter," + '\n')
 		self.text_content.insert(END, "How may I assist you?" + '\n')
 		self.text_content.config(state=DISABLED)
 
-		self.content_scroll = Scrollbar(dialogue, command=self.text_content.yview)
+		self.text_content.tag_configure('user', foreground="white")
+
+		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview)
 		self.content_scroll.pack(side=RIGHT, fill=Y)
 		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
@@ -63,7 +65,7 @@ class Jarvs(Frame):
 	def callback(self, event):
 		self.text_content.config(state=NORMAL)
 		self.input_content = self.entry_main.get()
-		self.text_content.insert(END, self.input_content + '\n')
+		self.text_content.insert(END, self.input_content + '\n', ('user'))
 		self.text_content.see(END)
 		self.entry_main.delete(0, END)
 		self.text_content.config(state=DISABLED)
