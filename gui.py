@@ -35,22 +35,31 @@ class Jarvs(Frame):
 		main_menu.add_cascade(label="edit", menu=edit_menu)
 		edit_menu.add_command(label="Redo", command=self.do_nothing)
 
+		# dialogue
+		dialogue = Frame(self.parent)
+		dialogue.pack(fill=BOTH, expand=True)
+
+		self.text_content = Text(dialogue)
+		self.text_content.pack()
+
 		# form
 		form = Frame(self.parent, bg="white")
 		form.pack(fill=BOTH, expand=True)
 
 		label_1 = Label(form, text="Hi, Peter,", anchor=W, bg="white")
 		label_2 = Label(form, text="How many I assist you?", anchor=W, bg="white")
-		entry_1 = Entry(form, bd=0)
 
 		label_1.grid(row=0, column=0, sticky=W)
 		label_2.grid(row=1, column=0, sticky=W)
-		entry_1.grid(row=2, column=0, padx=2, pady=2)
+
+		self.input_content = StringVar()
+		self.entry_main = Entry(form, bd=0)
+		self.entry_main.grid(row=2, column=0, padx=2, pady=2)
 
 		# functional button
-		##button_1 = Button(form, text="Enter", bd=0, bg="white")
+		button_1 = Button(form, text="Enter", bd=0, bg="white", command=self.callback)
 		##button_1.bind("<Button-1>", self.do_not_do_something) # lclick = <Button-1>, mclick = <Button-2>, lclick = <Button-3>
-		##button_1.grid(row=3, column=0, padx=2, pady=2)
+		button_1.grid(row=3, column=0, padx=2, pady=2)
 
 
 		# status bar
@@ -63,6 +72,9 @@ class Jarvs(Frame):
 		cb.grid(row=4, column=0, columnspan=2, padx=2, pady=2)
 
 	# functionality
+	def callback(self):
+		self.input_content = self.entry_main.get()
+		self.text_content.insert(END, self.input_content + '\n')
 
 	def toggle_title(self):
 		if self.var.get() == True:
