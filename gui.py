@@ -40,7 +40,7 @@ class Jarvs(Frame):
 		dialogue.pack(fill=BOTH, expand=True)
 
 		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
-		self.text_content.pack(side=LEFT, fill=BOTH)
+		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, "Hi, Peter," + '\n')
 		self.text_content.insert(END, "How may I assist you?" + '\n')
@@ -70,6 +70,18 @@ class Jarvs(Frame):
 		self.entry_main.delete(0, END)
 		self.text_content.config(state=DISABLED)
 
+		if 'vis' in self.input_content:
+			self.text_content.config(state=NORMAL)
+			self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
+			self.text_content.insert(END, "I'll show you all the rvs's waiting for approval" + '\n')
+			self.text_content.insert(END, "since the last full report." + '\n')
+			self.text_content.insert(END, "I won't log the data on this one." + '\n')
+			self.text_content.see(END)
+			self.text_content.config(state=DISABLED)
+			self.after(500, self.vis)
+		elif 'report' in self.input_content:
+			self.report()
+
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
 
@@ -83,7 +95,7 @@ class Jarvs(Frame):
 		# only at work
 		root_dir = os.getcwd()
 		os.chdir("..")
-		exec(open("./RVS_vis.py").read(), globals())
+		subprocess.Popen(["python", "./RVS_vis.py"])
 		os.chdir(root_dir)
 
 	def report(self):
