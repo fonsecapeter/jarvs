@@ -48,9 +48,9 @@ class Jarvs(Frame):
 		entry_1.grid(row=2, column=0, padx=2, pady=2)
 
 		# functional button
-		button_1 = Button(form, text="Enter", bd=0, bg="white")
-		button_1.bind("<Button-1>", self.do_not_do_something) # lclick = <Button-1>, mclick = <Button-2>, lclick = <Button-3>
-		button_1.grid(row=3, column=0, padx=2, pady=2)
+		##button_1 = Button(form, text="Enter", bd=0, bg="white")
+		##button_1.bind("<Button-1>", self.do_not_do_something) # lclick = <Button-1>, mclick = <Button-2>, lclick = <Button-3>
+		##button_1.grid(row=3, column=0, padx=2, pady=2)
 
 
 		# status bar
@@ -60,7 +60,7 @@ class Jarvs(Frame):
 		# test dynamic check button
 		cb = Checkbutton(form, text="show title", variable=self.var, command=self.toggle_title)
 		cb.select()
-		cb.grid(row=3, column=0, columnspan=2, padx=2, pady=2)
+		cb.grid(row=4, column=0, columnspan=2, padx=2, pady=2)
 
 	# functionality
 
