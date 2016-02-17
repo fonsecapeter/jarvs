@@ -112,6 +112,7 @@ class Jarvs(Frame):
 		prefs_window = Frame(prefs)
 		prefs_window.pack(fill=BOTH, expand=True)
 
+		# user_name
 		self.user_name_label = Label(prefs_window, text="User Name: ")
 		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
 		self.user_name_entry = Entry(prefs_window, bd=0)
