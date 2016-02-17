@@ -4,7 +4,8 @@ from Tkinter import *
 import tkMessageBox
 import os
 import subprocess
-import greeting_1
+# import jarvs-specific methods
+import greeting_1, greeting_2
 
 class Jarvs(Frame):
 
@@ -44,7 +45,7 @@ class Jarvs(Frame):
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, greeting_1.main() + '\n')
-		self.text_content.insert(END, "How may I assist you?" + '\n')
+		self.text_content.insert(END, greeting_2.main() + '\n')
 		self.text_content.config(state=DISABLED)
 
 		self.text_content.tag_configure('user', foreground="white")
@@ -120,7 +121,7 @@ class Jarvs(Frame):
 
 def init():
 	with open('./app/preferences/user_name.txt') as user_name_file:
-		global user_name 
+		global user_name
 		user_name = user_name_file.read().rstrip()
 
 
