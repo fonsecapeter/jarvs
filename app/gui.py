@@ -42,14 +42,14 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue, bd=0, bg="#333333", fg=user_color, height=12, state=NORMAL)
+		self.text_content = Text(dialogue, bd=0, bg=background_color, fg=jarvs_color, height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, jarvisms.greeting_1() + '\n')
 		self.text_content.insert(END, jarvisms.greeting_2() + '\n')
 		self.text_content.config(state=DISABLED)
 
-		self.text_content.tag_configure('user', foreground="white")
+		self.text_content.tag_configure('user', foreground=user_color)
 
 		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview)
 		self.content_scroll.pack(side=RIGHT, fill=Y)
@@ -133,19 +133,34 @@ class Jarvs(Frame):
 		self.user_email_entry.bind('<Return>', self.save_user_email)
 		
 		# color
-		self.color_label = Label(prefs_window, text="-- enter color or hex in double quotes --")
-		self.color_label.grid(row=2, column=0, columnspan=2, padx=2, pady=2)
 		self.user_color_label = Label(prefs_window, text="User Color: ")
-		self.user_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
+		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
 		self.user_color_entry = Entry(prefs_window, bd=0)
 		self.user_color_entry.insert(END, user_color)
-		self.user_color_entry.grid(row=3, column=1, padx=2, pady=2)
+		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
 		self.user_color_entry.bind('<Return>', self.save_user_color)
+
+		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ")
+		self.jarvs_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
+		self.jarvs_color_entry = Entry(prefs_window, bd=0)
+		self.jarvs_color_entry.insert(END, jarvs_color)
+		self.jarvs_color_entry.grid(row=3, column=1, padx=2, pady=2)
+		self.jarvs_color_entry.bind('<Return>', self.save_jarvs_color)
+
+		self.background_color_label = Label(prefs_window, text="Background Color: ")
+		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
+		self.background_color_entry = Entry(prefs_window, bd=0)
+		self.background_color_entry.insert(END, background_color)
+		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
+		self.background_color_entry.bind('<Return>', self.save_background_color)
+
+		self.color_label = Label(prefs_window, text="( enter color as name or as hex in double quotes )")
+		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
 
 		# save all button
 		self.save_prefs_button = Button(prefs_window, text="Save", bd=0)
 		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
-		self.save_prefs_button.grid(row=4, column=0, columnspan=2, padx=2, pady=2)
+		self.save_prefs_button.grid(row=6, column=0, columnspan=2, padx=2, pady=2)
 
 	# unit saves
 	def save_user_name(self, event):
@@ -160,13 +175,24 @@ class Jarvs(Frame):
 		self.user_color_shell = "echo " + self.user_color_entry.get().rstrip() + " > ./preferences/user_color.txt"
 		os.system(self.user_color_shell)
 
+	def save_jarvs_color(self, event):
+		self.jarvs_color_shell = "echo " + self.jarvs_color_entry.get().rstrip() + " > ./preferences/jarvs_color.txt"
+		os.system(self.jarvs_color_shell)
+
+	def save_background_color(self, event):
+		self.background_color_shell = "echo " + self.background_color_entry.get().rstrip() + " > ./preferences/background_color.txt"
+		os.system(self.background_color_shell)
+
 	# save all
 	def save_all_preferences(self, event):
 		self.save_user_name(event)
 		self.save_user_email(event)
 		self.save_user_color(event)
+		self.save_jarvs_color(event)
+		self.save_background_color(event)
 		init_vars()
-		self.text_content.configure(fg=user_color)
+		self.text_content.configure(fg=jarvs_color, bg=background_color)
+		self.text_content.tag_configure('user', foreground=user_color)
 		self.update()
 
 	# <--- rvs functionality --->
@@ -199,6 +225,14 @@ def init_vars():
 	with open('./preferences/user_color.txt') as user_color_file:
 		global user_color
 		user_color = user_color_file.read().rstrip()
+
+	with open('./preferences/jarvs_color.txt') as jarvs_color_file:
+		global jarvs_color
+		jarvs_color = jarvs_color_file.read().rstrip()
+
+	with open('./preferences/background_color.txt') as background_color_file:
+		global background_color
+		background_color = background_color_file.read().rstrip()
 
 
 def main():
