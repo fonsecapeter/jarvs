@@ -19,19 +19,19 @@ class Jarvs(Frame):
 
 		self.parent.title("Jarvs Gui")
 		self.pack(fill=BOTH, expand=True)
-		self.var = BooleanVar()
 
-		# main men with dropdowns
+		# main menu with dropdowns
 
 		main_menu = Menu(self.parent, bd=0, activeborderwidth=0)
 		self.parent.config(menu=main_menu) # tkinter does everything!
 
-		file_menu = Menu(main_menu, bd=0, activeborderwidth=0)
-		main_menu.add_cascade(label="file", menu=file_menu)
-		file_menu.add_command(label="Quick visual", command=self.vis)
-		file_menu.add_command(label="Full report", command=self.report)
-		file_menu.add_separator()
-		file_menu.add_command(label="Exit", command=self.quit)
+		jarvs_menu = Menu(main_menu, bd=0, activeborderwidth=0)
+		main_menu.add_cascade(label="jarvs", menu=jarvs_menu)
+		jarvs_menu.add_command(label="Preferences", command=self.set_preferences)
+		jarvs_menu.add_command(label="Quick visual", command=self.vis)
+		jarvs_menu.add_command(label="Full report", command=self.report)
+		jarvs_menu.add_separator()
+		jarvs_menu.add_command(label="Exit", command=self.quit)
 
 		edit_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="edit", menu=edit_menu)
@@ -96,11 +96,20 @@ class Jarvs(Frame):
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
 
-	def do_not_do_something(event):
-		print "I'm not doing anything"
-
 	def quit(self):
 		quit()
+
+	def set_preferences(self):
+		self.prefs = Toplevel()
+		self.prefs.wm_title("Jarvs Preferences")
+		self.prefs.pack(fil=BOTH, expand=True)
+
+		self.user_name_label = Label(prefs, text="User Name: ", sticky=E)
+		self.user_name_label.grid(row=0, column=0, padx=2, pady=2)
+		self.user_name_entry = Entry(prefs, text=user_name, bd=0)
+		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
+		##self.user_name_entry.bind(''<Return>', self.save_user_name)
+
 
 	def vis(self):
 		# only at work
