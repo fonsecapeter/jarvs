@@ -110,7 +110,7 @@ class Jarvs(Frame):
 
 	# <--- preferences --->
 	def set_preferences(self):
-		init()
+		init_vars()
 		prefs = Toplevel(self.parent)
 		prefs.wm_title("Jarvs Preferences")
 		prefs_window = Frame(prefs)
@@ -133,17 +133,19 @@ class Jarvs(Frame):
 		self.user_email_entry.bind('<Return>', self.save_user_email)
 		
 		# color
+		self.color_label = Label(prefs_window, text="-- enter color or hex in double quotes --")
+		self.color_label.grid(row=2, column=0, columnspan=2, padx=2, pady=2)
 		self.user_color_label = Label(prefs_window, text="User Color: ")
-		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
+		self.user_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
 		self.user_color_entry = Entry(prefs_window, bd=0)
 		self.user_color_entry.insert(END, user_color)
-		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
+		self.user_color_entry.grid(row=3, column=1, padx=2, pady=2)
 		self.user_color_entry.bind('<Return>', self.save_user_color)
 
 		# save all button
 		self.save_prefs_button = Button(prefs_window, text="Save", bd=0)
 		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
-		self.save_prefs_button.grid(row=3, column=0, columnspan=2, padx=2, pady=2)
+		self.save_prefs_button.grid(row=4, column=0, columnspan=2, padx=2, pady=2)
 
 	# unit saves
 	def save_user_name(self, event):
@@ -163,6 +165,9 @@ class Jarvs(Frame):
 		self.save_user_name(event)
 		self.save_user_email(event)
 		self.save_user_color(event)
+		init_vars()
+		self.text_content.configure(fg=user_color)
+		self.update()
 
 	# <--- rvs functionality --->
 	def vis(self):
@@ -182,7 +187,7 @@ class Jarvs(Frame):
 
 # run gui
 
-def init():
+def init_vars():
 	with open('./preferences/user_name.txt') as user_name_file:
 		global user_name
 		user_name = user_name_file.read().rstrip()
@@ -203,5 +208,5 @@ def main():
 
 # conditionally execute script or as module if imported elsewhere
 if __name__ == '__main__':
-	init()
+	init_vars()
 	main()
