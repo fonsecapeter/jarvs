@@ -6,7 +6,7 @@ import os
 import subprocess
 import time
 # import jarvs-specific methods
-import greeting_1, greeting_2, signoff
+import jarvisms
 
 class Jarvs(Frame):
 
@@ -45,8 +45,8 @@ class Jarvs(Frame):
 		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
-		self.text_content.insert(END, greeting_1.main() + '\n')
-		self.text_content.insert(END, greeting_2.main() + '\n')
+		self.text_content.insert(END, jarvisms.greeting_1() + '\n')
+		self.text_content.insert(END, jarvisms.greeting_2() + '\n')
 		self.text_content.config(state=DISABLED)
 
 		self.text_content.tag_configure('user', foreground="white")
@@ -99,7 +99,7 @@ class Jarvs(Frame):
 
 	def end_jarvs(self):
 		self.text_content.config(state=NORMAL)
-		self.text_content.insert(END, signoff.main() + '\n')
+		self.text_content.insert(END, jarvisms.signoff() + '\n')
 		self.text_content.see(END)
 		self.text_content.config(state=DISABLED)
 		self.update()
