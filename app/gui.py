@@ -107,15 +107,17 @@ class Jarvs(Frame):
 		quit()
 
 	def set_preferences(self):
-		self.prefs = Toplevel()
-		self.prefs.wm_title("Jarvs Preferences")
-		self.prefs.pack(fil=BOTH, expand=True)
+		prefs = Toplevel(self.parent)
+		prefs.wm_title("Jarvs Preferences")
+		prefs_window = Frame(prefs)
+		prefs_window.pack(fil=BOTH, expand=True)
 
-		self.user_name_label = Label(prefs, text="User Name: ", sticky=E)
-		self.user_name_label.grid(row=0, column=0, padx=2, pady=2)
-		self.user_name_entry = Entry(prefs, text=user_name, bd=0)
+		self.user_name_label = Label(prefs_window, text="User Name: ")
+		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
+		self.user_name_entry = Entry(prefs_window, bd=0)
+		self.user_name_entry.insert(END, user_name)
 		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
-		##self.user_name_entry.bind(''<Return>', self.save_user_name)
+		self.user_name_entry.bind('<Return>', self.save_user_name)
 
 
 	def vis(self):
