@@ -4,6 +4,7 @@ from Tkinter import *
 import tkMessageBox
 import os
 import subprocess
+import greeting_1
 
 class Jarvs(Frame):
 
@@ -42,7 +43,7 @@ class Jarvs(Frame):
 		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
-		self.text_content.insert(END, "Hi, " + user_name)
+		self.text_content.insert(END, greeting_1.main())
 		self.text_content.insert(END, "How may I assist you?" + '\n')
 		self.text_content.config(state=DISABLED)
 
@@ -119,8 +120,9 @@ class Jarvs(Frame):
 
 def init():
 	with open('./app/preferences/user_name.txt') as user_name_file:
-		global user_name
-		user_name = user_name_file.read()
+		global user_name 
+		user_name = user_name_file.read().rstrip()
+
 
 def main():
 	root = Tk()
