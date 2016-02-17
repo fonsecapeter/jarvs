@@ -52,7 +52,7 @@ def main():
 	greet_type = random.choice(greet_types)
 
 	# return appropriate greeting
-	if greet_type == "generic":
+	if greet_type is "generic":
 		output = generate_generic_greeting()
 	else:
 		current_hour = datetime.now().hour
