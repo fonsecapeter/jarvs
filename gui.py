@@ -43,7 +43,7 @@ class Jarvs(Frame):
 		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
-		self.text_content.insert(END, greeting_1.main())
+		self.text_content.insert(END, greeting_1.main() + '\n')
 		self.text_content.insert(END, "How may I assist you?" + '\n')
 		self.text_content.config(state=DISABLED)
 
