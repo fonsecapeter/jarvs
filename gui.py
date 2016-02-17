@@ -42,7 +42,7 @@ class Jarvs(Frame):
 		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
-		self.text_content.insert(END, "Hi, Peter," + '\n')
+		self.text_content.insert(END, "Hi, " + user_name)
 		self.text_content.insert(END, "How may I assist you?" + '\n')
 		self.text_content.config(state=DISABLED)
 
@@ -117,6 +117,11 @@ class Jarvs(Frame):
 
 # run gui
 
+def init():
+	with open('./app/preferences/user_name.txt') as user_name_file:
+		global user_name
+		user_name = user_name_file.read()
+
 def main():
 	root = Tk()
 	app = Jarvs(root)
@@ -124,4 +129,5 @@ def main():
 
 # conditionally execute script or as module if imported elsewhere
 if __name__ == '__main__':
+	init()
 	main()
