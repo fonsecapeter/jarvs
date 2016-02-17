@@ -110,7 +110,7 @@ class Jarvs(Frame):
 		prefs = Toplevel(self.parent)
 		prefs.wm_title("Jarvs Preferences")
 		prefs_window = Frame(prefs)
-		prefs_window.pack(fil=BOTH, expand=True)
+		prefs_window.pack(fill=BOTH, expand=True)
 
 		self.user_name_label = Label(prefs_window, text="User Name: ")
 		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
@@ -118,8 +118,16 @@ class Jarvs(Frame):
 		self.user_name_entry.insert(END, user_name)
 		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
 		self.user_name_entry.bind('<Return>', self.save_user_name)
+		self.save_prefs_button = Button(prefs_window, text="Save", bd=0)
+		self.save_prefs_button.bind('<Button-1>', self.save_user_name)
+		self.save_prefs_button.grid(row=1, column=0, columnspan=2, padx=2, pady=2)
 
+	# preferences
+	def save_user_name(self, event):
+		self.user_shell = "echo " + self.user_name_entry.get().rstrip() + " > ./preferences/user_name.txt"
+		os.system(self.user_shell)
 
+	# rvs functionality
 	def vis(self):
 		# only at work
 		root_dir = os.getcwd()
