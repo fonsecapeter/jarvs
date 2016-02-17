@@ -4,8 +4,9 @@ from Tkinter import *
 import tkMessageBox
 import os
 import subprocess
+import time
 # import jarvs-specific methods
-import greeting_1, greeting_2
+import greeting_1, greeting_2, signoff
 
 class Jarvs(Frame):
 
@@ -31,7 +32,7 @@ class Jarvs(Frame):
 		jarvs_menu.add_command(label="Quick visual", command=self.vis)
 		jarvs_menu.add_command(label="Full report", command=self.report)
 		jarvs_menu.add_separator()
-		jarvs_menu.add_command(label="Exit", command=self.quit)
+		jarvs_menu.add_command(label="Exit", command=self.end_jarvs)
 
 		edit_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="edit", menu=edit_menu)
@@ -91,12 +92,18 @@ class Jarvs(Frame):
 			self.text_content.config(state=DISABLED)
 			self.after(500, self.report)
 		elif 'bye' in self.input_content:
-			self.quit()
+			self.end_jarvs()
 
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
 
-	def quit(self):
+	def end_jarvs(self):
+		self.text_content.config(state=NORMAL)
+		self.text_content.insert(END, signoff.main() + '\n')
+		self.text_content.see(END)
+		self.text_content.config(state=DISABLED)
+		self.update()
+		time.sleep(1)
 		quit()
 
 	def set_preferences(self):
