@@ -42,7 +42,7 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue, bd=0, bg="#333333", fg="#e29d36", height=12, state=NORMAL)
+		self.text_content = Text(dialogue, bd=0, bg="#333333", fg=user_color, height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, jarvisms.greeting_1() + '\n')
@@ -91,6 +91,8 @@ class Jarvs(Frame):
 			self.text_content.see(END)
 			self.text_content.config(state=DISABLED)
 			self.after(500, self.report)
+		elif 'preferences' in self.input_content:
+			self.set_preferences()
 		elif 'bye' in self.input_content:
 			self.end_jarvs()
 
@@ -106,7 +108,9 @@ class Jarvs(Frame):
 		time.sleep(1)
 		quit()
 
+	# <--- preferences --->
 	def set_preferences(self):
+		init()
 		prefs = Toplevel(self.parent)
 		prefs.wm_title("Jarvs Preferences")
 		prefs_window = Frame(prefs)
@@ -119,16 +123,48 @@ class Jarvs(Frame):
 		self.user_name_entry.insert(END, user_name)
 		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
 		self.user_name_entry.bind('<Return>', self.save_user_name)
+
+		# email
+		self.user_email_label = Label(prefs_window, text="User Email: ")
+		self.user_email_label.grid(row=1, column=0, sticky=E, padx=2, pady=2)
+		self.user_email_entry = Entry(prefs_window, bd=0)
+		self.user_email_entry.insert(END, user_email)
+		self.user_email_entry.grid(row=1, column=1, padx=2, pady=2)
+		self.user_email_entry.bind('<Return>', self.save_user_email)
+		
+		# color
+		self.user_color_label = Label(prefs_window, text="User Color: ")
+		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
+		self.user_color_entry = Entry(prefs_window, bd=0)
+		self.user_color_entry.insert(END, user_color)
+		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
+		self.user_color_entry.bind('<Return>', self.save_user_color)
+
+		# save all button
 		self.save_prefs_button = Button(prefs_window, text="Save", bd=0)
-		self.save_prefs_button.bind('<Button-1>', self.save_user_name)
-		self.save_prefs_button.grid(row=1, column=0, columnspan=2, padx=2, pady=2)
+		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
+		self.save_prefs_button.grid(row=3, column=0, columnspan=2, padx=2, pady=2)
 
-	# preferences
+	# unit saves
 	def save_user_name(self, event):
-		self.user_shell = "echo " + self.user_name_entry.get().rstrip() + " > ./preferences/user_name.txt"
-		os.system(self.user_shell)
+		self.user_name_shell = "echo " + self.user_name_entry.get().rstrip() + " > ./preferences/user_name.txt"
+		os.system(self.user_name_shell)
 
-	# rvs functionality
+	def save_user_email(self, event):
+		self.user_email_shell = "echo " + self.user_email_entry.get().rstrip() + " > ./preferences/user_email.txt"
+		os.system(self.user_email_shell)
+
+	def save_user_color(self, event):
+		self.user_color_shell = "echo " + self.user_color_entry.get().rstrip() + " > ./preferences/user_color.txt"
+		os.system(self.user_color_shell)
+
+	# save all
+	def save_all_preferences(self, event):
+		self.save_user_name(event)
+		self.save_user_email(event)
+		self.save_user_color(event)
+
+	# <--- rvs functionality --->
 	def vis(self):
 		# only at work
 		root_dir = os.getcwd()
@@ -150,6 +186,14 @@ def init():
 	with open('./preferences/user_name.txt') as user_name_file:
 		global user_name
 		user_name = user_name_file.read().rstrip()
+
+	with open('./preferences/user_email.txt') as user_email_file:
+		global user_email
+		user_email = user_email_file.read().rstrip()
+
+	with open('./preferences/user_color.txt') as user_color_file:
+		global user_color
+		user_color = user_color_file.read().rstrip()
 
 
 def main():
