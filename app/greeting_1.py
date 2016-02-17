@@ -2,7 +2,7 @@
 import random
 from datetime import *
 
-with open('./app/preferences/user_name.txt') as user_name_file:
+with open('./preferences/user_name.txt') as user_name_file:
 	global user_name
 	user_name = user_name_file.read().rstrip()
 

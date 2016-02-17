@@ -13,6 +13,8 @@ def generate_generic_greeting():
     generic.append("What do you want?")
     generic.append("Are you about done then?")
     generic.append("What brings you my way?")
+    generic.append("What can I do ya for?")
+    generic.append("You rang?")
 
     return random.choice(generic)
 

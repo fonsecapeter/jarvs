@@ -114,14 +114,14 @@ class Jarvs(Frame):
 	def vis(self):
 		# only at work
 		root_dir = os.getcwd()
-		os.chdir("..")
+		os.chdir("../..")
 		subprocess.Popen(["python", "./RVS_vis.py"])
 		os.chdir(root_dir)
 
 	def report(self):
 		# only at work
 		root_dir = os.getcwd()
-		os.chdir("..")
+		os.chdir("../..")
 		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
 		os.chdir(root_dir)
 
@@ -129,7 +129,7 @@ class Jarvs(Frame):
 # run gui
 
 def init():
-	with open('./app/preferences/user_name.txt') as user_name_file:
+	with open('./preferences/user_name.txt') as user_name_file:
 		global user_name
 		user_name = user_name_file.read().rstrip()
 
