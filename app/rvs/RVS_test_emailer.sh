@@ -30,7 +30,6 @@ rvscount="0"
 rvsoverduecount="0"
 echo "Dr. $name_first $name_last," | cat > email.txt                         # initialize txt for email
 echo "" | cat > premail.txt
-
 if [ $OS == "Linux" ] 2> /dev/null; then
   DATE=$(date +%Y%m%d)
 else
@@ -65,7 +64,8 @@ do
       else
         DUEDATE=$(gdate -d "$rvsdate 3 weeks" +%Y%m%d)                           # calculate due date of 3 weeks after visit for each RVS
         DUEDATEDASH=$(gdate -d "$DUEDATE" +%Y-%m-%d)
-      fi                             # calculate due date formatted for email
+      fi
+      # calculate due date formatted for email
       if [ "$DATE" -ge "$DUEDATE" ]; then
         let rvsoverduecount++                                                 # count overdue rvs's
         echo "  $rvspidn from ${rvsdatedash} is OVERDUE" | cat >> premail.txt

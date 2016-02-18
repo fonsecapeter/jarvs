@@ -16,8 +16,13 @@ parsecount="0"
 rvscount="0"
 rvsoverduecount="0"
 
-DATE=$(date +%Y%m%d)
-datedash=$(date +%Y-%m-%d)
+if [ $OS == "Linux" ] 2> /dev/null; then
+  DATE=$(date +%Y%m%d)
+  datedash=$(date +%Y-%m-%d)
+else
+  DATE=$(gdate +%Y%m%d)
+  datedash=$(gdate +%Y-%m-%d)
+fi
 ##echo "today is [$DATE]"
 
 # first get all files in one var
@@ -53,7 +58,11 @@ do
       # for each rvs
       # gdate for mac, date for linux
       # must brew install coreutils to use gdate
-      DUEDATE=$(gdate -d "$rvsdate 6 months" +%Y%m%d)
+      if [ $OS == "Linux" ] 2> /dev/null; then
+        DUEDATE=$(date -d "$rvsdate 6 months" +%Y%m%d)
+      else
+        DUEDATE=$(gdate -d "$rvsdate 6 months" +%Y%m%d)
+      fi
       ##echo "due: $DUEDATE"
       if [ "$DATE" -ge "$DUEDATE" ]; then
         # count overdue rvs's
