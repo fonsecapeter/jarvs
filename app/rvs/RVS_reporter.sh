@@ -7,6 +7,10 @@
 # header is: name,daterported,numrvs,numoverdue
 # troubleshooting/development commands denoted by ##
 
+# import RVS.db
+source RVS_db_data_fetch.cfg
+
+# main method
 reporter () {
   name_first=$1
   name_dir=$2
@@ -26,7 +30,8 @@ fi
 ##echo "today is [$DATE]"
 
 # first get all files in one var
-files="$(ls -1 ./Outstanding/$name_dir/*RVS*)"
+##files="$(ls -1 ./Outstanding/$name_dir/*RVS*)"
+files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
 ##echo "files: $files"
 # parse into each files
 arr=$(echo "$files" | tr ";" "\n")
@@ -51,7 +56,7 @@ do
     fi
     if [ $parsecount -eq 3 ]; then
       ##echo "date_$rvscount > [$x]"
-      	# format date for math
+        # format date for math
         rvsdate=$( echo "$x" | tr -d ".")
         ##echo "rvsdate_$rvscount > [$rvsdate]"
       # calculate due date of 6 months after visit
@@ -79,23 +84,18 @@ echo "$name_first,$datedash,$rvscount,$rvsoverduecount"  >> ./RVS_report.csv
 echo "> $name_first's RVS's reported on [$datedash]"
 }
 
-# repeat function below for all attendings
+
+# ---> Run Emailer Method for all Attendings in RVS.db
+# reporter method syntax:
 # name_first = first name
 # name_dir = attendings directory
 
 # reporter <name_first> <name_dir>
-reporter "Art" "Vandalay,Art"
-reporter "Julius" "Hibbert,Julius"
-reporter "Nick" "Riviera,Nick"
-reporter "Bob" "Vance,Bob"
-reporter "Peter" "Fonseca,Peter"
-reporter "Cosmo" "Kramer,Cosmo"
-reporter "Jerry" "Seinfeld,Jerry"
-reporter "George" "Costanza,George"
-reporter "Elaine" "Benes,Elaine"
-reporter "Lex" "Luthor,Lex"
-reporter "Clark" "Kent,Clark"
-reporter "Elizabeth" "Lemon,Elizabeth"
+
+# att id is the same as the index for each var
+for ID in ${attending_ids[@]}; do
+  reporter ${attending_fnames[$ID]} ${attending_dirnames[$ID]}
+done
 
 # visualize the RVS_report.csv
 ./RVS_vis.py
