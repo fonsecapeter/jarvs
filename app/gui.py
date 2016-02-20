@@ -253,8 +253,8 @@ class Jarvs(Frame):
 
 	def practice_setup(self):
 		root_dir = os.getcwd()
-		os.chdir("..")
-		subprocess.Popen(["./app/rvs/RVS_test_setup.sh"], shell=True)
+		os.chdir("./rvs")
+		subprocess.Popen(["./RVS_test_setup.sh"], shell=True)
 		os.chdir(root_dir)
 
 # run gui
