@@ -25,6 +25,7 @@ attds[11]="Lemon,Elizabeth"
 # and add links
 # use $PWD instead of . to avoid
 # creating too many levels of symbolic links
+
 mkdir "./app/rvs/Outstanding"
 
 mkdir "./app/rvs/Outstanding/DONE"
@@ -37,9 +38,10 @@ mkdir "./app/rvs/Uploaded"
 
 # loop through attendings
 for i in "${attds[@]}"; do
+	# delete dir if already exists (reset if using after first time)
+	rm -rf "./app/rvs/Outstanding/${i}"
 	# create dir for each attd
 	mkdir "./app/rvs/Outstanding/${i}"
-
 	# insert link to DONE
 	ln -s "${PWD}/app/rvs/DONE" "${PWD}/app/rvs/Outstanding/${i}/DONE"
 

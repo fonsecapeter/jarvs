@@ -31,12 +31,19 @@ class Jarvs(Frame):
 		jarvs_menu.add_command(label="Preferences", command=self.set_preferences)
 		jarvs_menu.add_command(label="Quick visual", command=self.vis)
 		jarvs_menu.add_command(label="Full report", command=self.report)
+		jarvs_menu.add_command(label="Test email", command=self.test_email)
+		jarvs_menu.add_command(label="Full email", command=self.email)
 		jarvs_menu.add_separator()
 		jarvs_menu.add_command(label="Exit", command=self.end_jarvs)
 
-		edit_menu = Menu(main_menu, bd=0, activeborderwidth=0)
-		main_menu.add_cascade(label="edit", menu=edit_menu)
-		edit_menu.add_command(label="Redo", command=self.do_nothing)
+		practice_menu = Menu(main_menu, bd=0, activeborderwidth=0)
+		main_menu.add_cascade(label="practice", menu=practice_menu)
+		practice_menu.add_command(label="Quick visual", command=self.practice_vis)
+		practice_menu.add_command(label="Full report", command=self.practice_report)
+		practice_menu.add_command(label="Test email", command=self.practice_test_email)
+		practice_menu.add_command(label="Full email", command=self.practice_email)
+		practice_menu.add_separator()
+		practice_menu.add_command(label="Practice set up", command=self.practice_setup)
 
 		# dialogue
 		dialogue = Frame(self.parent)
@@ -131,7 +138,7 @@ class Jarvs(Frame):
 		self.user_email_entry.insert(END, user_email)
 		self.user_email_entry.grid(row=1, column=1, padx=2, pady=2)
 		self.user_email_entry.bind('<Return>', self.save_user_email)
-		
+
 		# color
 		self.user_color_label = Label(prefs_window, text="User Color: ")
 		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
@@ -196,20 +203,59 @@ class Jarvs(Frame):
 		self.update()
 
 	# <--- rvs functionality --->
+	# only at work with scripts one dir back from jarvs
 	def vis(self):
-		# only at work
 		root_dir = os.getcwd()
 		os.chdir("../..")
 		subprocess.Popen(["python", "./RVS_vis.py"])
 		os.chdir(root_dir)
 
 	def report(self):
-		# only at work
 		root_dir = os.getcwd()
 		os.chdir("../..")
 		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
 		os.chdir(root_dir)
 
+	def email(self):
+		root_dir = os.getcwd()
+		os.chdir("../..")
+		subprocess.Popen(["./RVS_emailer.sh"], shell=True)
+
+	def test_email(self):
+		root_dir = os.getcwd()
+		os.chdir("../..")
+		subprocess.Popen(["./RVS_test_emailer.sh"], shell=True)
+
+	# practice in app
+	def practice_vis(self):
+		root_dir = os.getcwd()
+		os.chdir("./rvs")
+		subprocess.Popen(["python", "./RVS_vis.py"])
+		os.chdir(root_dir)
+
+	def practice_report(self):
+		root_dir = os.getcwd()
+		os.chdir("./rvs")
+		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
+		os.chdir(root_dir)
+
+	def practice_email(self):
+		root_dir = os.getcwd()
+		os.chdir("./rvs")
+		subprocess.Popen(["./RVS_emailer.sh"], shell=True)
+		os.chdir(root_dir)
+
+	def practice_test_email(self):
+		root_dir = os.getcwd()
+		os.chdir("./rvs")
+		subprocess.Popen(["./RVS_test_emailer.sh"], shell=True)
+		os.chdir(root_dir)
+
+	def practice_setup(self):
+		root_dir = os.getcwd()
+		os.chdir("..")
+		subprocess.Popen(["./app/rvs/RVS_test_setup.sh"], shell=True)
+		os.chdir(root_dir)
 
 # run gui
 
