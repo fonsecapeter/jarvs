@@ -5,6 +5,7 @@ import tkMessageBox
 import os
 import subprocess
 import time
+import dataset
 # import jarvs-specific methods
 import jarvisms
 
@@ -174,23 +175,34 @@ class Jarvs(Frame):
 		self.user_name_shell = "echo " + self.user_name_entry.get().rstrip() + " > ./preferences/user_name.txt"
 		os.system(self.user_name_shell)
 
+		Preferences_Table.update(dict(ID=0, USERNAME=self.user_name_entry.get().rstrip()), ['ID'])
+
 	def save_user_email(self, event):
 		self.user_email_shell = "echo " + self.user_email_entry.get().rstrip() + " > ./preferences/user_email.txt"
 		os.system(self.user_email_shell)
+
+		Preferences_Table.update(dict(ID=0, USEREMAIL=self.user_email_entry.get().rstrip()), ['ID'])
 
 	def save_user_color(self, event):
 		self.user_color_shell = "echo " + self.user_color_entry.get().rstrip() + " > ./preferences/user_color.txt"
 		os.system(self.user_color_shell)
 
+		Preferences_Table.update(dict(ID=0, USERCOLOR=self.user_color_entry.get().rstrip()), ['ID'])
+
 	def save_jarvs_color(self, event):
 		self.jarvs_color_shell = "echo " + self.jarvs_color_entry.get().rstrip() + " > ./preferences/jarvs_color.txt"
 		os.system(self.jarvs_color_shell)
+
+		Preferences_Table.update(dict(ID=0, JARVSCOLOR=self.jarvs_color_entry.get().rstrip()), ['ID'])
 
 	def save_background_color(self, event):
 		self.background_color_shell = "echo " + self.background_color_entry.get().rstrip() + " > ./preferences/background_color.txt"
 		os.system(self.background_color_shell)
 
+		Preferences_Table.update(dict(ID=0, BACKGROUNDCOLOR=self.background_color_entry.get().rstrip()), ['ID'])
+
 	# save all
+
 	def save_all_preferences(self, event):
 		self.save_user_name(event)
 		self.save_user_email(event)
@@ -260,25 +272,44 @@ class Jarvs(Frame):
 # run gui
 
 def init_vars():
-	with open('./preferences/user_name.txt') as user_name_file:
-		global user_name
-		user_name = user_name_file.read().rstrip()
+	global db 
+	db = dataset.connect('sqlite:///rvs/RVS.db')
+	global Preferences_Table 
+	Preferences_Table = db['Preferences']
+	global Attendings_Table 
+	Attendings_Table = db['Attendings']
 
-	with open('./preferences/user_email.txt') as user_email_file:
-		global user_email
-		user_email = user_email_file.read().rstrip()
+	Preferences_Data = Preferences_Table.find_one(ID=0)
+	global user_name
+	user_name = Preferences_Data.get('USERNAME')
+	global user_email
+	user_email = Preferences_Data.get("USEREMAIL")
+	global user_color
+	user_color = Preferences_Data.get("USERCOLOR")
+	global jarvs_color
+	jarvs_color = Preferences_Data.get("JARVSCOLOR")
+	global background_color
+	background_color = Preferences_Data.get("BACKGROUNDCOLOR")
 
-	with open('./preferences/user_color.txt') as user_color_file:
-		global user_color
-		user_color = user_color_file.read().rstrip()
+	#with open('./preferences/user_name.txt') as user_name_file:
+	#	global user_name
+	#	user_name = user_name_file.read().rstrip()
 
-	with open('./preferences/jarvs_color.txt') as jarvs_color_file:
-		global jarvs_color
-		jarvs_color = jarvs_color_file.read().rstrip()
+	#with open('./preferences/user_email.txt') as user_email_file:
+	#	global user_email
+	#	user_email = user_email_file.read().rstrip()
 
-	with open('./preferences/background_color.txt') as background_color_file:
-		global background_color
-		background_color = background_color_file.read().rstrip()
+	#with open('./preferences/user_color.txt') as user_color_file:
+	#	global user_color
+	#	user_color = user_color_file.read().rstrip()
+
+	#with open('./preferences/jarvs_color.txt') as jarvs_color_file:
+	#	global jarvs_color
+	#	jarvs_color = jarvs_color_file.read().rstrip()
+
+	#with open('./preferences/background_color.txt') as background_color_file:
+	#	global background_color
+	#	background_color = background_color_file.read().rstrip()
 
 
 def main():
