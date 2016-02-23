@@ -50,7 +50,7 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue, bd=0, bg=background_color, fg=jarvs_color, height=12, state=NORMAL)
+		self.text_content = Text(dialogue, bd=0, highlightthickness=0, bg=background_color, fg=jarvs_color, height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, jarvisms.greeting_1() + '\n')
@@ -59,16 +59,16 @@ class Jarvs(Frame):
 
 		self.text_content.tag_configure('user', foreground=user_color)
 
-		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview)
+		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview, bg=background_color, troughcolor=background_color, highlightthickness=0, activebackground=jarvs_color)
 		self.content_scroll.pack(side=RIGHT, fill=Y)
 		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
 		# form
-		form = Frame(self.parent, bg="white")
+		form = Frame(self.parent, bg=background_color, bd=0)
 		form.pack(fill=BOTH, expand=True)
 
 		self.input_content = StringVar()
-		self.entry_main = Entry(form, bd=0)
+		self.entry_main = Entry(form, fg=user_color, bg=background_color, insertbackground=user_color, highlightthickness=0, bd=0)
 		self.entry_main.bind('<Return>', self.callback)
 		self.entry_main.pack(fill=X, padx=2, pady=2)
 
@@ -162,7 +162,7 @@ class Jarvs(Frame):
 		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
 		self.background_color_entry.bind('<Return>', self.save_background_color)
 
-		self.color_label = Label(prefs_window, text="( enter color as name or as hex in double quotes )")
+		self.color_label = Label(prefs_window, text="( enter color as name or hex )")
 		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
 
 		# save all button
@@ -290,27 +290,6 @@ def init_vars():
 	jarvs_color = Preferences_Data.get("JARVSCOLOR")
 	global background_color
 	background_color = Preferences_Data.get("BACKGROUNDCOLOR")
-
-	#with open('./preferences/user_name.txt') as user_name_file:
-	#	global user_name
-	#	user_name = user_name_file.read().rstrip()
-
-	#with open('./preferences/user_email.txt') as user_email_file:
-	#	global user_email
-	#	user_email = user_email_file.read().rstrip()
-
-	#with open('./preferences/user_color.txt') as user_color_file:
-	#	global user_color
-	#	user_color = user_color_file.read().rstrip()
-
-	#with open('./preferences/jarvs_color.txt') as jarvs_color_file:
-	#	global jarvs_color
-	#	jarvs_color = jarvs_color_file.read().rstrip()
-
-	#with open('./preferences/background_color.txt') as background_color_file:
-	#	global background_color
-	#	background_color = background_color_file.read().rstrip()
-
 
 def main():
 	root = Tk()
