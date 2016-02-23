@@ -222,35 +222,36 @@ class Jarvs(Frame):
 		init_vars()
 		attends = Toplevel(self.parent)
 		attends.wm_title("Jarvs Attendings")
-		attends_window = Frame(attends)
+		attends_window = Frame(attends, bg=background_color)
 		attends_window.pack(fill=BOTH, expand=True)
 
-		self.attends_list_id = Listbox(attends_window, width=2, height=12, selectmode=SINGLE)
+		# column labelling
+		attends_label_id = Label(attends_window, text="ID", bg=background_color, fg=user_color)
+		attends_label_id.grid(column=0, row=0, padx=0, pady=2, sticky=W)
+
+		attends_label_fname = Label(attends_window, text="FNAME", bg=background_color, fg=user_color)
+		attends_label_fname.grid(column=1, row=0, padx=0, pady=2, sticky=W)
+
+		attends_label_lname = Label(attends_window, text="LNAME", bg=background_color, fg=user_color)
+		attends_label_lname.grid(column=2, row=0, padx=0, pady=2, sticky=W)
+
+		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=background_color, fg=user_color)
+		attends_label_dirname.grid(column=3, row=0, padx=0, pady=2, sticky=W)
+
+		attends_label_email = Label(attends_window, text="EMAIL", bg=background_color, fg=user_color)
+		attends_label_email.grid(column=4, row=0, padx=0, pady=2, sticky=W)
+		
+		# data formatting
+		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
 		self.attends_list_id.grid(column=0, row=1, padx=0, pady=2)
 
-		# column labelling
-		attends_label_id = Label(attends_window, text="ID")
-		attends_label_id.grid(column=0, row=0, padx=0, pady=2)
-
-		attends_label_fname = Label(attends_window, text="FNAME")
-		attends_label_fname.grid(column=1, row=0, padx=0, pady=2)
-
-		attends_label_lname = Label(attends_window, text="LNAME")
-		attends_label_lname.grid(column=2, row=0, padx=0, pady=2)
-
-		attends_label_dirname = Label(attends_window, text="DIRNAME")
-		attends_label_dirname.grid(column=3, row=0, padx=0, pady=2)
-
-		attends_label_email = Label(attends_window, text="EMAIL")
-		attends_label_email.grid(column=4, row=0, padx=0, pady=2)
-		# data formatting
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
 			jdata = json.loads(jdump)
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_id.insert(Attending, jdata['ID'])
 
-		self.attends_list_fname = Listbox(attends_window, width=16, height=12, selectmode=SINGLE)
+		self.attends_list_fname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_fname.grid(column=1, row=1, padx=0, pady=2)
 
 		for Attending in attending_ids:
@@ -259,7 +260,7 @@ class Jarvs(Frame):
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_fname.insert(Attending, jdata['FNAME'])
 
-		self.attends_list_lname = Listbox(attends_window, width=16, height=12, selectmode=SINGLE)
+		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_lname.grid(column=2, row=1, padx=0, pady=2)
 
 		for Attending in attending_ids:
@@ -268,7 +269,7 @@ class Jarvs(Frame):
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_lname.insert(Attending, jdata['LNAME'])		
 
-		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, selectmode=SINGLE)
+		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_dirname.grid(column=3, row=1, padx=0, pady=2)
 
 		for Attending in attending_ids:
@@ -277,7 +278,7 @@ class Jarvs(Frame):
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
 
-		self.attends_list_email = Listbox(attends_window, width=32, height=12, selectmode=SINGLE)
+		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_email.grid(column=4, row=1, padx=0, pady=2)
 
 		for Attending in attending_ids:
@@ -285,6 +286,15 @@ class Jarvs(Frame):
 			jdata = json.loads(jdump)
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_email.insert(Attending, jdata['EMAIL'])
+
+		# colorize alternating rows
+		for Row in range(0, len(db['Attendings']), 2):
+			self.attends_list_id.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_fname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_lname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_dirname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_email.itemconfigure(Row, background='#e6e6e6')
+
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
