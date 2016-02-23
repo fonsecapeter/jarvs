@@ -19,7 +19,7 @@ class Jarvs(Frame):
 
 	def init_ui(self):
 
-		self.parent.title("Jarvs Gui")
+		self.parent.title("Jarvs")
 		self.pack(fill=BOTH, expand=True)
 
 		# main menu with dropdowns
@@ -39,6 +39,8 @@ class Jarvs(Frame):
 
 		practice_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="practice", menu=practice_menu)
+		practice_menu.add_command(label="Attendings", command=self.set_attendings)
+		practice_menu.add_separator()
 		practice_menu.add_command(label="Quick visual", command=self.practice_vis)
 		practice_menu.add_command(label="Full report", command=self.practice_report)
 		practice_menu.add_command(label="Test email", command=self.practice_test_email)
@@ -213,6 +215,17 @@ class Jarvs(Frame):
 		self.text_content.configure(fg=jarvs_color, bg=background_color)
 		self.text_content.tag_configure('user', foreground=user_color)
 		self.update()
+
+	# <--- set attendings --->
+	def set_attendings(self):
+		init_vars()
+		attends = Toplevel(self.parent)
+		attends.wm_title("Jarvs Attendings")
+		attends_window = Frame(attends)
+		attends_window.pack(fill=BOTH, expand=True)
+
+		self.attends_label = Label(attends_window, text="Attendings:")
+		self.attends_label.pack(side=LEFT, padx=2, pady=2)
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
