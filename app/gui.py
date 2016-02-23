@@ -6,6 +6,7 @@ import os
 import subprocess
 import time
 import dataset
+import json
 # import jarvs-specific methods
 import jarvisms
 
@@ -224,8 +225,13 @@ class Jarvs(Frame):
 		attends_window = Frame(attends)
 		attends_window.pack(fill=BOTH, expand=True)
 
-		self.attends_label = Label(attends_window, text="Attendings:")
-		self.attends_label.pack(side=LEFT, padx=2, pady=2)
+		self.attends_list = Listbox(attends_window, width=116, height=12, selectmode=SINGLE)
+		self.attends_list.pack(padx=2, pady=2)
+
+		for Attending in attending_ids:
+			self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), indent=2))
+
+
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
@@ -303,6 +309,12 @@ def init_vars():
 	jarvs_color = Preferences_Data.get("JARVSCOLOR")
 	global background_color
 	background_color = Preferences_Data.get("BACKGROUNDCOLOR")
+
+	global attending_ids
+	attending_ids = []
+	Attending_IDs_raw = db.query('SELECT ID FROM Attendings')
+	for Row in Attending_IDs_raw:
+		attending_ids.append(Row['ID'])
 
 def main():
 	root = Tk()
