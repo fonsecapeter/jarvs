@@ -227,23 +227,23 @@ class Jarvs(Frame):
 
 		# column labelling
 		attends_label_id = Label(attends_window, text="ID", bg=background_color, fg=user_color)
-		attends_label_id.grid(column=0, row=0, padx=0, pady=2, sticky=W)
+		attends_label_id.grid(column=0, row=0, padx=0, pady=0, sticky=W)
 
 		attends_label_fname = Label(attends_window, text="FNAME", bg=background_color, fg=user_color)
-		attends_label_fname.grid(column=1, row=0, padx=0, pady=2, sticky=W)
+		attends_label_fname.grid(column=1, row=0, padx=0, pady=0, sticky=W)
 
 		attends_label_lname = Label(attends_window, text="LNAME", bg=background_color, fg=user_color)
-		attends_label_lname.grid(column=2, row=0, padx=0, pady=2, sticky=W)
+		attends_label_lname.grid(column=2, row=0, padx=0, pady=0, sticky=W)
 
 		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=background_color, fg=user_color)
-		attends_label_dirname.grid(column=3, row=0, padx=0, pady=2, sticky=W)
+		attends_label_dirname.grid(column=3, row=0, padx=0, pady=0, sticky=W)
 
 		attends_label_email = Label(attends_window, text="EMAIL", bg=background_color, fg=user_color)
-		attends_label_email.grid(column=4, row=0, padx=0, pady=2, sticky=W)
-		
+		attends_label_email.grid(column=4, row=0, padx=0, pady=0, sticky=W)
+
 		# data formatting
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
-		self.attends_list_id.grid(column=0, row=1, padx=0, pady=2)
+		self.attends_list_id.grid(column=0, row=1, padx=0, pady=0)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -267,7 +267,7 @@ class Jarvs(Frame):
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
 			jdata = json.loads(jdump)
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_lname.insert(Attending, jdata['LNAME'])		
+			self.attends_list_lname.insert(Attending, jdata['LNAME'])
 
 		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_dirname.grid(column=3, row=1, padx=0, pady=2)
@@ -354,11 +354,11 @@ class Jarvs(Frame):
 # run gui
 
 def init_vars():
-	global db 
+	global db
 	db = dataset.connect('sqlite:///rvs/RVS.db')
-	global Preferences_Table 
+	global Preferences_Table
 	Preferences_Table = db['Preferences']
-	global Attendings_Table 
+	global Attendings_Table
 	Attendings_Table = db['Attendings']
 
 	Preferences_Data = Preferences_Table.find_one(ID=0)
