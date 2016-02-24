@@ -218,32 +218,46 @@ class Jarvs(Frame):
 		self.update()
 
 	# <--- edit and display attendings data --->
-	def get_attends_list(self, event):
-	
-		self.attends_list_id_index = self.attends_list_id.curselection()[0]
-		self.attends_list_id_content = self.attends_list_id.get(self.attends_list_id_index)
+	def display_attends_entry(self, index):
+		self.attends_list_id_content = self.attends_list_id.get(index)
 		self.attends_id_entry.delete(0, END)
 		self.attends_id_entry.insert(END, self.attends_list_id_content)
 
-		self.attends_list_fname_index = self.attends_list_id.curselection()[0]
-		self.attends_list_fname_content = self.attends_list_fname.get(self.attends_list_fname_index)
+		self.attends_list_fname_content = self.attends_list_fname.get(index)
 		self.attends_fname_entry.delete(0, END)
 		self.attends_fname_entry.insert(END, self.attends_list_fname_content)
 
-		self.attends_list_lname_index = self.attends_list_id.curselection()[0]
-		self.attends_list_lname_content = self.attends_list_lname.get(self.attends_list_lname_index)
+		self.attends_list_lname_content = self.attends_list_lname.get(index)
 		self.attends_lname_entry.delete(0, END)
 		self.attends_lname_entry.insert(END, self.attends_list_lname_content)
 
-		self.attends_list_dirname_index = self.attends_list_id.curselection()[0]
-		self.attends_list_dirname_content = self.attends_list_dirname.get(self.attends_list_dirname_index)
+		self.attends_list_dirname_content = self.attends_list_dirname.get(index)
 		self.attends_dirname_entry.delete(0, END)
 		self.attends_dirname_entry.insert(END, self.attends_list_dirname_content)
 
-		self.attends_list_email_index = self.attends_list_id.curselection()[0]
-		self.attends_list_email_content = self.attends_list_email.get(self.attends_list_email_index)
+		self.attends_list_email_content = self.attends_list_email.get(index)
 		self.attends_email_entry.delete(0, END)
 		self.attends_email_entry.insert(END, self.attends_list_email_content)
+
+	def get_attends_list_id(self, event):
+		attends_list_index = self.attends_list_id.curselection()[0]
+		self.display_attends_entry(attends_list_index)
+
+	def get_attends_list_fname(self, event):
+		attends_list_index = self.attends_list_fname.curselection()[0]
+		self.display_attends_entry(attends_list_index)
+
+	def get_attends_list_lname(self, event):
+		attends_list_index = self.attends_list_lname.curselection()[0]
+		self.display_attends_entry(attends_list_index)
+
+	def get_attends_list_dirname(self, event):
+		attends_list_index = self.attends_list_dirname.curselection()[0]
+		self.display_attends_entry(attends_list_index)
+
+	def get_attends_list_email(self, event):
+		attends_list_index = self.attends_list_email.curselection()[0]
+		self.display_attends_entry(attends_list_index)
 
 	def set_attendings(self):
 		init_vars()
@@ -290,7 +304,7 @@ class Jarvs(Frame):
 		# data formatting
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
 		self.attends_list_id.grid(columnspan=1, column=1, row=2, padx=0, pady=0)
-		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list)
+		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
 
 
 		for Attending in attending_ids:
@@ -301,7 +315,7 @@ class Jarvs(Frame):
 
 		self.attends_list_fname = Listbox(attends_window, width=20, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_fname.grid(column=2, row=2, padx=0, pady=2)
-		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list)
+		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -311,7 +325,7 @@ class Jarvs(Frame):
 
 		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_lname.grid(column=3, row=2, padx=0, pady=2)
-		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list)
+		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -321,7 +335,7 @@ class Jarvs(Frame):
 
 		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_dirname.grid(column=4, row=2, padx=0, pady=2)
-		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list)
+		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -331,7 +345,7 @@ class Jarvs(Frame):
 
 		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_email.grid(column=5, row=2, padx=0, pady=2)
-		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list)
+		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
