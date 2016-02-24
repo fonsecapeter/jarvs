@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# **** gui frame that does nothing ****
+# import 3rd party libraries
 from Tkinter import *
 import tkMessageBox
 import os
@@ -217,7 +217,34 @@ class Jarvs(Frame):
 		self.text_content.tag_configure('user', foreground=user_color)
 		self.update()
 
-	# <--- set attendings --->
+	# <--- edit and display attendings data --->
+	def get_attends_list(self, event):
+	
+		self.attends_list_id_index = self.attends_list_id.curselection()[0]
+		self.attends_list_id_content = self.attends_list_id.get(self.attends_list_id_index)
+		self.attends_id_entry.delete(0, END)
+		self.attends_id_entry.insert(END, self.attends_list_id_content)
+
+		self.attends_list_fname_index = self.attends_list_id.curselection()[0]
+		self.attends_list_fname_content = self.attends_list_fname.get(self.attends_list_fname_index)
+		self.attends_fname_entry.delete(0, END)
+		self.attends_fname_entry.insert(END, self.attends_list_fname_content)
+
+		self.attends_list_lname_index = self.attends_list_id.curselection()[0]
+		self.attends_list_lname_content = self.attends_list_lname.get(self.attends_list_lname_index)
+		self.attends_lname_entry.delete(0, END)
+		self.attends_lname_entry.insert(END, self.attends_list_lname_content)
+
+		self.attends_list_dirname_index = self.attends_list_id.curselection()[0]
+		self.attends_list_dirname_content = self.attends_list_dirname.get(self.attends_list_dirname_index)
+		self.attends_dirname_entry.delete(0, END)
+		self.attends_dirname_entry.insert(END, self.attends_list_dirname_content)
+
+		self.attends_list_email_index = self.attends_list_id.curselection()[0]
+		self.attends_list_email_content = self.attends_list_email.get(self.attends_list_email_index)
+		self.attends_email_entry.delete(0, END)
+		self.attends_email_entry.insert(END, self.attends_list_email_content)
+
 	def set_attendings(self):
 		init_vars()
 		attends = Toplevel(self.parent)
@@ -225,25 +252,46 @@ class Jarvs(Frame):
 		attends_window = Frame(attends, bg=background_color)
 		attends_window.pack(fill=BOTH, expand=True)
 
+		# entry field
+		self.attends_entry_label = Label(attends_window, text="Edit Data: ", bg=background_color, fg=user_color)
+		self.attends_entry_label.grid(column=0, row=0, padx=0, pady=2, sticky=E)
+
+		self.attends_id_entry = Entry(attends_window, width=5, bd=0, highlightthickness=0)
+		self.attends_id_entry.grid(column=1, row=0, padx=0, pady=2)
+
+		self.attends_fname_entry = Entry(attends_window, width=19, bd=0, highlightthickness=0)
+		self.attends_fname_entry.grid(column=2, row=0, padx=0, pady=2)
+
+		self.attends_lname_entry = Entry(attends_window, width=15, bd=0, highlightthickness=0)
+		self.attends_lname_entry.grid(column=3, row=0, padx=0, pady=2)
+
+		self.attends_dirname_entry = Entry(attends_window, width=31, bd=0, highlightthickness=0)
+		self.attends_dirname_entry.grid(column=4, row=0, padx=0, pady=2)
+
+		self.attends_email_entry = Entry(attends_window, width=31, bd=0, highlightthickness=0)
+		self.attends_email_entry.grid(column=5, row=0, padx=0, pady=2)
+
 		# column labelling
 		attends_label_id = Label(attends_window, text="ID", bg=background_color, fg=user_color)
-		attends_label_id.grid(column=0, row=0, padx=0, pady=0, sticky=W)
+		attends_label_id.grid(columnspan=1, column=1, row=1, padx=0, pady=0, sticky=W)
 
 		attends_label_fname = Label(attends_window, text="FNAME", bg=background_color, fg=user_color)
-		attends_label_fname.grid(column=1, row=0, padx=0, pady=0, sticky=W)
+		attends_label_fname.grid(column=2, row=1, padx=0, pady=0, sticky=W)
 
 		attends_label_lname = Label(attends_window, text="LNAME", bg=background_color, fg=user_color)
-		attends_label_lname.grid(column=2, row=0, padx=0, pady=0, sticky=W)
+		attends_label_lname.grid(column=3, row=1, padx=0, pady=0, sticky=W)
 
 		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=background_color, fg=user_color)
-		attends_label_dirname.grid(column=3, row=0, padx=0, pady=0, sticky=W)
+		attends_label_dirname.grid(column=4, row=1, padx=0, pady=0, sticky=W)
 
 		attends_label_email = Label(attends_window, text="EMAIL", bg=background_color, fg=user_color)
-		attends_label_email.grid(column=4, row=0, padx=0, pady=0, sticky=W)
+		attends_label_email.grid(column=5, row=1, padx=0, pady=0, sticky=W)
 
 		# data formatting
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
-		self.attends_list_id.grid(column=0, row=1, padx=0, pady=0)
+		self.attends_list_id.grid(columnspan=1, column=1, row=2, padx=0, pady=0)
+		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list)
+
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -251,8 +299,9 @@ class Jarvs(Frame):
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_id.insert(Attending, jdata['ID'])
 
-		self.attends_list_fname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_fname.grid(column=1, row=1, padx=0, pady=2)
+		self.attends_list_fname = Listbox(attends_window, width=20, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
+		self.attends_list_fname.grid(column=2, row=2, padx=0, pady=2)
+		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -261,7 +310,8 @@ class Jarvs(Frame):
 			self.attends_list_fname.insert(Attending, jdata['FNAME'])
 
 		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_lname.grid(column=2, row=1, padx=0, pady=2)
+		self.attends_list_lname.grid(column=3, row=2, padx=0, pady=2)
+		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -270,7 +320,8 @@ class Jarvs(Frame):
 			self.attends_list_lname.insert(Attending, jdata['LNAME'])
 
 		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_dirname.grid(column=3, row=1, padx=0, pady=2)
+		self.attends_list_dirname.grid(column=4, row=2, padx=0, pady=2)
+		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -279,7 +330,8 @@ class Jarvs(Frame):
 			self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
 
 		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_email.grid(column=4, row=1, padx=0, pady=2)
+		self.attends_list_email.grid(column=5, row=2, padx=0, pady=2)
+		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list)
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -294,7 +346,6 @@ class Jarvs(Frame):
 			self.attends_list_lname.itemconfigure(Row, background='#e6e6e6')
 			self.attends_list_dirname.itemconfigure(Row, background='#e6e6e6')
 			self.attends_list_email.itemconfigure(Row, background='#e6e6e6')
-
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
