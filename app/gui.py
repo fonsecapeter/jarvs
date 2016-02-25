@@ -125,11 +125,11 @@ class Jarvs(Frame):
 		init_vars()
 		prefs = Toplevel(self.parent)
 		prefs.wm_title("Jarvs Preferences")
-		prefs_window = Frame(prefs)
+		prefs_window = Frame(prefs, bg=gray_color)
 		prefs_window.pack(fill=BOTH, expand=True)
 
 		# user_name
-		self.user_name_label = Label(prefs_window, text="User Name: ")
+		self.user_name_label = Label(prefs_window, text="User Name: ", bg=gray_color)
 		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
 		self.user_name_entry = Entry(prefs_window, bd=0)
 		self.user_name_entry.insert(END, user_name)
@@ -137,7 +137,7 @@ class Jarvs(Frame):
 		self.user_name_entry.bind('<Return>', self.save_user_name)
 
 		# email
-		self.user_email_label = Label(prefs_window, text="User Email: ")
+		self.user_email_label = Label(prefs_window, text="User Email: ", bg=gray_color)
 		self.user_email_label.grid(row=1, column=0, sticky=E, padx=2, pady=2)
 		self.user_email_entry = Entry(prefs_window, bd=0)
 		self.user_email_entry.insert(END, user_email)
@@ -145,32 +145,32 @@ class Jarvs(Frame):
 		self.user_email_entry.bind('<Return>', self.save_user_email)
 
 		# color
-		self.user_color_label = Label(prefs_window, text="User Color: ")
+		self.user_color_label = Label(prefs_window, text="User Color: ", bg=gray_color)
 		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
 		self.user_color_entry = Entry(prefs_window, bd=0)
 		self.user_color_entry.insert(END, user_color)
 		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
 		self.user_color_entry.bind('<Return>', self.save_user_color)
 
-		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ")
+		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ", bg=gray_color)
 		self.jarvs_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
 		self.jarvs_color_entry = Entry(prefs_window, bd=0)
 		self.jarvs_color_entry.insert(END, jarvs_color)
 		self.jarvs_color_entry.grid(row=3, column=1, padx=2, pady=2)
 		self.jarvs_color_entry.bind('<Return>', self.save_jarvs_color)
 
-		self.background_color_label = Label(prefs_window, text="Background Color: ")
+		self.background_color_label = Label(prefs_window, text="Background Color: ", bg=gray_color)
 		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
 		self.background_color_entry = Entry(prefs_window, bd=0)
 		self.background_color_entry.insert(END, background_color)
 		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
 		self.background_color_entry.bind('<Return>', self.save_background_color)
 
-		self.color_label = Label(prefs_window, text="( enter color as name or hex )")
+		self.color_label = Label(prefs_window, text="( enter color as name or hex )", bg=gray_color)
 		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
 
 		# save all button
-		self.save_prefs_button = Button(prefs_window, text="Save", bd=0)
+		self.save_prefs_button = Button(prefs_window, text="Save", bg="white", bd=0)
 		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
 		self.save_prefs_button.grid(row=6, column=0, columnspan=2, padx=2, pady=2)
 
@@ -251,12 +251,12 @@ class Jarvs(Frame):
 			self.attends_list_email.insert(Attending, jdata['EMAIL'])
 
 		# colorize alternating rows
-		for Row in range(0, len(db['Attendings']), 2):
-			self.attends_list_id.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_fname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_lname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_dirname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_email.itemconfigure(Row, background='#e6e6e6')
+		for Row in range(1, len(db['Attendings']), 2):
+			self.attends_list_id.itemconfigure(Row, background=dark_gray_color)
+			self.attends_list_fname.itemconfigure(Row, background=dark_gray_color)
+			self.attends_list_lname.itemconfigure(Row, background=dark_gray_color)
+			self.attends_list_dirname.itemconfigure(Row, background=dark_gray_color)
+			self.attends_list_email.itemconfigure(Row, background=dark_gray_color)
 
 	def display_attends_entry(self, index):
 		self.attends_list_id_content = self.attends_list_id.get(index)
@@ -350,24 +350,24 @@ class Jarvs(Frame):
 		init_vars()
 		attends = Toplevel(self.parent)
 		attends.wm_title("Jarvs Attendings")
-		attends_window = Frame(attends, bg=background_color)
+		attends_window = Frame(attends, bg=gray_color)
 		attends_window.pack(fill=BOTH, expand=True)
 
 
 		# column labels
-		attends_label_id = Label(attends_window, text="ID", bg=background_color, fg=user_color)
+		attends_label_id = Label(attends_window, text="ID", bg=gray_color)
 		attends_label_id.grid(column=0, row=0, padx=0, pady=0, sticky=W)
 
-		attends_label_fname = Label(attends_window, text="FNAME", bg=background_color, fg=user_color)
+		attends_label_fname = Label(attends_window, text="FNAME", bg=gray_color)
 		attends_label_fname.grid(column=1, row=0, padx=0, pady=0, sticky=W)
 
-		attends_label_lname = Label(attends_window, text="LNAME", bg=background_color, fg=user_color)
+		attends_label_lname = Label(attends_window, text="LNAME", bg=gray_color)
 		attends_label_lname.grid(column=2, row=0, padx=0, pady=0, sticky=W)
 
-		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=background_color, fg=user_color)
+		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=gray_color)
 		attends_label_dirname.grid(column=3, row=0, padx=0, pady=0, sticky=W)
 
-		attends_label_email = Label(attends_window, text="EMAIL", bg=background_color, fg=user_color)
+		attends_label_email = Label(attends_window, text="EMAIL", bg=gray_color)
 		attends_label_email.grid(column=4, row=0, padx=0, pady=0, sticky=W)
 
 		# data listboxes
@@ -396,41 +396,41 @@ class Jarvs(Frame):
 
 		# entry field
 
-		self.attends_id_entry = Entry(attends_window, width=5, bd=0, highlightthickness=0)
+		self.attends_id_entry = Entry(attends_window, width=5, bd=0)
 		self.attends_id_entry.grid(column=0, row=2, padx=0, pady=2)
 
-		self.attends_fname_entry = Entry(attends_window, width=19, bd=0, highlightthickness=0)
+		self.attends_fname_entry = Entry(attends_window, width=19, bd=0)
 		self.attends_fname_entry.grid(column=1, row=2, padx=0, pady=2)
 
-		self.attends_lname_entry = Entry(attends_window, width=15, bd=0, highlightthickness=0)
+		self.attends_lname_entry = Entry(attends_window, width=15, bd=0)
 		self.attends_lname_entry.grid(column=2, row=2, padx=0, pady=2)
 
-		self.attends_dirname_entry = Entry(attends_window, width=31, bd=0, highlightthickness=0)
+		self.attends_dirname_entry = Entry(attends_window, width=31, bd=0)
 		self.attends_dirname_entry.grid(column=3, row=2, padx=0, pady=2)
 
-		self.attends_email_entry = Entry(attends_window, width=31, bd=0, highlightthickness=0)
+		self.attends_email_entry = Entry(attends_window, width=31, bd=0)
 		self.attends_email_entry.grid(column=4, row=2, padx=0, pady=2)
 
 		# entry save buttons
 		save_id = lambda: self.save_attends_id(attends)
-		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
-		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2)
+		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, bg="white", bd=0)
+		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2, sticky=W)
 
 		save_fname = lambda: self.save_attends_fname(attends)
-		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
-		self.attends_save_fname.grid(column=1, row=3, padx=0, pady=2)
+		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, bg="white", bd=0)
+		self.attends_save_fname.grid(column=1, row=3, padx=0, pady=2, sticky=W)
 
 		save_lname = lambda: self.save_attends_lname(attends)
-		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
-		self.attends_save_lname.grid(column=2, row=3, padx=0, pady=2)
+		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, bg="white", bd=0)
+		self.attends_save_lname.grid(column=2, row=3, padx=0, pady=2, sticky=W)
 
 		save_dirname = lambda: self.save_attends_dirname(attends)
-		self.attends_save_dirname = Button(attends_window, text="Save", command=save_dirname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
-		self.attends_save_dirname.grid(column=3, row=3, padx=0, pady=2)
+		self.attends_save_dirname = Button(attends_window, text="Save", command=save_dirname, width=2, bg="white", bd=0)
+		self.attends_save_dirname.grid(column=3, row=3, padx=0, pady=2, sticky=W)
 
 		save_email = lambda: self.save_attends_email(attends)
-		self.attends_save_email = Button(attends_window, text="Save", command=save_email, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
-		self.attends_save_email.grid(column=4, row=3, padx=0, pady=2)
+		self.attends_save_email = Button(attends_window, text="Save", command=save_email, width=2, bg="white", bd=0)
+		self.attends_save_email.grid(column=4, row=3, padx=0, pady=2, sticky=W)
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
@@ -508,6 +508,11 @@ def init_vars():
 	jarvs_color = Preferences_Data.get("JARVSCOLOR")
 	global background_color
 	background_color = Preferences_Data.get("BACKGROUNDCOLOR")
+
+	global gray_color
+	gray_color = '#eeeeee'
+	global dark_gray_color
+	dark_gray_color = '#e6e6e6'
 
 	global attending_ids
 	attending_ids = []
