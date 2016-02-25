@@ -7,6 +7,7 @@ import subprocess
 import time
 import dataset
 import json
+import sqlite3 as sql
 # import jarvs-specific methods
 import jarvisms
 
@@ -281,27 +282,33 @@ class Jarvs(Frame):
 	def get_attends_list_id(self, event):
 		attends_list_index = self.attends_list_id.curselection()[0]
 		self.display_attends_entry(attends_list_index)
+		attend_id_current = attends_list_index
 
 	def get_attends_list_fname(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
+		attend_id_current = attends_list_index
 
 	def get_attends_list_lname(self, event):
 		attends_list_index = self.attends_list_lname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
+		attend_id_current = attends_list_index
 
 	def get_attends_list_dirname(self, event):
 		attends_list_index = self.attends_list_dirname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
+		attend_id_current = attends_list_index
 
 	def get_attends_list_email(self, event):
 		attends_list_index = self.attends_list_email.curselection()[0]
 		self.display_attends_entry(attends_list_index)
+		attend_id_current = attends_list_index
 
 	# unit saves
 	def save_attends_id(self, window):
 		attends_list_index = self.attends_id_entry.get()
-		db.execute('UPDATE Attendings SET ID=self.attends_id_entry.get() WHERE ID=attends_list_index')
+		db_sql.execute('UPDATE Attendings SET ID=attend_id_current WHERE ID=attends_list_index')
+		db_sql.commit()
 		init_vars
 		window.destroy
 
@@ -397,13 +404,13 @@ class Jarvs(Frame):
 
 		# entry save buttons
 		save_id = lambda: self.save_attends_id(attends)
-		self.attends_save_id = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
+		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, highlightthickness=0, bd=0)
 		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2)
 
 		save_fname = lambda: self.save_attends_fname(attends)
 		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_fname.grid(column=1, row=3, padx=0, pady=2)
-		
+
 		save_lname = lambda: self.save_attends_lname(attends)
 		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_lname.grid(column=2, row=3, padx=0, pady=2)
@@ -498,6 +505,11 @@ def init_vars():
 	Attending_IDs_raw = db.query('SELECT ID FROM Attendings')
 	for Row in Attending_IDs_raw:
 		attending_ids.append(Row['ID'])
+
+	global db_sql
+	db_sql = sql.connect('rvs/RVS.db')
+
+	global attend_id_current
 
 def main():
 	root = Tk()
