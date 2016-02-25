@@ -283,63 +283,67 @@ class Jarvs(Frame):
 		attends_list_index = self.attends_list_id.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 		global attending_id_current 
-		attending_id_current = attends_list_index
+		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	def get_attends_list_fname(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 		global attending_id_current 
-		attending_id_current = attends_list_index
+		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	def get_attends_list_lname(self, event):
 		attends_list_index = self.attends_list_lname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 		global attending_id_current 
-		attending_id_current = attends_list_index
+		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	def get_attends_list_dirname(self, event):
 		attends_list_index = self.attends_list_dirname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 		global attending_id_current 
-		attending_id_current = attends_list_index
+		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	def get_attends_list_email(self, event):
 		attends_list_index = self.attends_list_email.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 		global attending_id_current 
-		attending_id_current = attends_list_index
+		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	# unit saves
 	def save_attends_id(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		db_sql.execute('UPDATE Attendings SET ID=? WHERE ID=?', (attends_list_index, attending_id_current))
 		db_sql.commit()
-		init_vars
 		window.destroy()
+		self.set_attendings()
 
 	def save_attends_fname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, FNAME=self.attends_fname_entry.get().rstrip()), ['ID'])
 		init_vars
 		window.destroy()
+		self.set_attendings()
 
 	def save_attends_lname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, LNAME=self.attends_lname_entry.get().rstrip()), ['ID'])
 		init_vars
 		window.destroy()
+		self.set_attendings()
 
 	def save_attends_dirname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, DIRNAME=self.attends_dirname_entry.get().rstrip()), ['ID'])
 		init_vars
 		window.destroy()
+		self.set_attendings()
 
 	def save_attends_email(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, EMAIL=self.attends_email_entry.get().rstrip()), ['ID'])
 		init_vars
 		window.destroy()
+		self.set_attendings()
 
 	def set_attendings(self):
 
@@ -409,7 +413,7 @@ class Jarvs(Frame):
 
 		# entry save buttons
 		save_id = lambda: self.save_attends_id(attends)
-		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, highlightthickness=0, bd=0)
+		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2)
 
 		save_fname = lambda: self.save_attends_fname(attends)
