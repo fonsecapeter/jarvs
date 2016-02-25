@@ -218,6 +218,45 @@ class Jarvs(Frame):
 		self.update()
 
 	# <--- edit and display attendings data --->
+	def populate_attends_list(self):
+		for Attending in attending_ids:
+			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+			jdata = json.loads(jdump)
+			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+			self.attends_list_id.insert(Attending, jdata['ID'])
+
+		for Attending in attending_ids:
+			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+			jdata = json.loads(jdump)
+			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+			self.attends_list_fname.insert(Attending, jdata['FNAME'])
+
+		for Attending in attending_ids:
+			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+			jdata = json.loads(jdump)
+			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+			self.attends_list_lname.insert(Attending, jdata['LNAME'])
+
+		for Attending in attending_ids:
+			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+			jdata = json.loads(jdump)
+			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+			self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
+
+		for Attending in attending_ids:
+			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+			jdata = json.loads(jdump)
+			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+			self.attends_list_email.insert(Attending, jdata['EMAIL'])
+
+		# colorize alternating rows
+		for Row in range(0, len(db['Attendings']), 2):
+			self.attends_list_id.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_fname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_lname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_dirname.itemconfigure(Row, background='#e6e6e6')
+			self.attends_list_email.itemconfigure(Row, background='#e6e6e6')
+
 	def display_attends_entry(self, index):
 		self.attends_list_id_content = self.attends_list_id.get(index)
 		self.attends_id_entry.delete(0, END)
@@ -259,14 +298,47 @@ class Jarvs(Frame):
 		attends_list_index = self.attends_list_email.curselection()[0]
 		self.display_attends_entry(attends_list_index)
 
+	# unit saves
+	def save_attends_id(self, window):
+		attends_list_index = self.attends_id_entry.get()
+		db.execute('UPDATE Attendings SET ID=self.attends_id_entry.get() WHERE ID=attends_list_index')
+		init_vars
+		window.destroy
+
+	def save_attends_fname(self, window):
+		attends_list_index = self.attends_id_entry.get()
+		Attendings_Table.update(dict(ID=attends_list_index, FNAME=self.attends_fname_entry.get().rstrip()), ['ID'])
+		init_vars
+		window.destroy
+
+	def save_attends_lname(self, window):
+		attends_list_index = self.attends_id_entry.get()
+		Attendings_Table.update(dict(ID=attends_list_index, LNAME=self.attends_lname_entry.get().rstrip()), ['ID'])
+		init_vars
+		window.destroy
+
+	def save_attends_dirname(self, window):
+		attends_list_index = self.attends_id_entry.get()
+		Attendings_Table.update(dict(ID=attends_list_index, DIRNAME=self.attends_dirname_entry.get().rstrip()), ['ID'])
+		init_vars
+		window.destroy
+
+	def save_attends_email(self, window):
+		attends_list_index = self.attends_id_entry.get()
+		Attendings_Table.update(dict(ID=attends_list_index, EMAIL=self.attends_email_entry.get().rstrip()), ['ID'])
+		init_vars
+		window.destroy
+
 	def set_attendings(self):
+
 		init_vars()
 		attends = Toplevel(self.parent)
 		attends.wm_title("Jarvs Attendings")
 		attends_window = Frame(attends, bg=background_color)
 		attends_window.pack(fill=BOTH, expand=True)
 
-		# column labelling
+
+		# column labels
 		attends_label_id = Label(attends_window, text="ID", bg=background_color, fg=user_color)
 		attends_label_id.grid(column=0, row=0, padx=0, pady=0, sticky=W)
 
@@ -282,65 +354,29 @@ class Jarvs(Frame):
 		attends_label_email = Label(attends_window, text="EMAIL", bg=background_color, fg=user_color)
 		attends_label_email.grid(column=4, row=0, padx=0, pady=0, sticky=W)
 
-		# data formatting
+		# data listboxes
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
 		self.attends_list_id.grid(column=0, row=1, padx=0, pady=0)
 		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
-
-
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_id.insert(Attending, jdata['ID'])
 
 		self.attends_list_fname = Listbox(attends_window, width=20, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_fname.grid(column=1, row=1, padx=0, pady=2)
 		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_fname.insert(Attending, jdata['FNAME'])
-
 		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_lname.grid(column=2, row=1, padx=0, pady=2)
 		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
-
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_lname.insert(Attending, jdata['LNAME'])
 
 		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_dirname.grid(column=3, row=1, padx=0, pady=2)
 		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
 
 		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
 		self.attends_list_email.grid(column=4, row=1, padx=0, pady=2)
 		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_email.insert(Attending, jdata['EMAIL'])
-
-		# colorize alternating rows
-		for Row in range(0, len(db['Attendings']), 2):
-			self.attends_list_id.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_fname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_lname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_dirname.itemconfigure(Row, background='#e6e6e6')
-			self.attends_list_email.itemconfigure(Row, background='#e6e6e6')
+		self.populate_attends_list()
 
 		# entry field
 
@@ -360,19 +396,24 @@ class Jarvs(Frame):
 		self.attends_email_entry.grid(column=4, row=2, padx=0, pady=2)
 
 		# entry save buttons
+		save_id = lambda: self.save_attends_id(attends)
 		self.attends_save_id = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2)
 
-		self.attends_save_fname = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
+		save_fname = lambda: self.save_attends_fname(attends)
+		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_fname.grid(column=1, row=3, padx=0, pady=2)
-
-		self.attends_save_lname = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
+		
+		save_lname = lambda: self.save_attends_lname(attends)
+		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_lname.grid(column=2, row=3, padx=0, pady=2)
 
-		self.attends_save_dirname = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
+		save_dirname = lambda: self.save_attends_dirname(attends)
+		self.attends_save_dirname = Button(attends_window, text="Save", command=save_dirname, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_dirname.grid(column=3, row=3, padx=0, pady=2)
 
-		self.attends_save_email = Button(attends_window, text="Save", width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
+		save_email = lambda: self.save_attends_email(attends)
+		self.attends_save_email = Button(attends_window, text="Save", command=save_email, width=2, highlightthickness=0, bg=background_color, fg=user_color, bd=0)
 		self.attends_save_email.grid(column=4, row=3, padx=0, pady=2)
 
 	# <--- rvs functionality --->
