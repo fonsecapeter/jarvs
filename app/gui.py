@@ -282,59 +282,64 @@ class Jarvs(Frame):
 	def get_attends_list_id(self, event):
 		attends_list_index = self.attends_list_id.curselection()[0]
 		self.display_attends_entry(attends_list_index)
-		attend_id_current = attends_list_index
+		global attending_id_current 
+		attending_id_current = attends_list_index
 
 	def get_attends_list_fname(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
-		attend_id_current = attends_list_index
+		global attending_id_current 
+		attending_id_current = attends_list_index
 
 	def get_attends_list_lname(self, event):
 		attends_list_index = self.attends_list_lname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
-		attend_id_current = attends_list_index
+		global attending_id_current 
+		attending_id_current = attends_list_index
 
 	def get_attends_list_dirname(self, event):
 		attends_list_index = self.attends_list_dirname.curselection()[0]
 		self.display_attends_entry(attends_list_index)
-		attend_id_current = attends_list_index
+		global attending_id_current 
+		attending_id_current = attends_list_index
 
 	def get_attends_list_email(self, event):
 		attends_list_index = self.attends_list_email.curselection()[0]
 		self.display_attends_entry(attends_list_index)
-		attend_id_current = attends_list_index
+		global attending_id_current 
+		attending_id_current = attends_list_index
 
 	# unit saves
 	def save_attends_id(self, window):
 		attends_list_index = self.attends_id_entry.get()
-		db_sql.execute('UPDATE Attendings SET ID=attend_id_current WHERE ID=attends_list_index')
+		db_sql.execute('UPDATE Attendings SET ID=? WHERE ID=?', (attends_list_index, attending_id_current))
 		db_sql.commit()
 		init_vars
-		window.destroy
+		window.destroy()
 
 	def save_attends_fname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, FNAME=self.attends_fname_entry.get().rstrip()), ['ID'])
 		init_vars
-		window.destroy
+		window.destroy()
 
 	def save_attends_lname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, LNAME=self.attends_lname_entry.get().rstrip()), ['ID'])
 		init_vars
-		window.destroy
+		window.destroy()
 
 	def save_attends_dirname(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, DIRNAME=self.attends_dirname_entry.get().rstrip()), ['ID'])
 		init_vars
-		window.destroy
+		window.destroy()
 
 	def save_attends_email(self, window):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, EMAIL=self.attends_email_entry.get().rstrip()), ['ID'])
 		init_vars
-		window.destroy
+		window.destroy()
 
 	def set_attendings(self):
 
@@ -509,7 +514,7 @@ def init_vars():
 	global db_sql
 	db_sql = sql.connect('rvs/RVS.db')
 
-	global attend_id_current
+	global attending_id_current
 
 def main():
 	root = Tk()
