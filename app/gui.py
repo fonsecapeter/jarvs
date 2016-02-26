@@ -350,25 +350,37 @@ class Jarvs(Frame):
 		init_vars()
 		attends = Toplevel(self.parent)
 		attends.wm_title("Jarvs Attendings")
+		attends_topbar = Frame(attends, bg=background_color)
+		attends_topbar.pack(fill=X, expand=True)
 		attends_window = Frame(attends, bg=gray_color)
 		attends_window.pack(fill=BOTH, expand=True)
 
 
 		# column labels
-		attends_label_id = Label(attends_window, text="ID", bg=gray_color)
-		attends_label_id.grid(column=0, row=0, padx=0, pady=0, sticky=W)
+		attends_label_id_blank = Label(attends_topbar, width=6, bd=0, bg=background_color, fg=user_color)
+		attends_label_id_blank.grid(column=0, row=0, padx=0, pady=0, sticky=W)
+		attends_label_id = Label(attends_topbar, text="ID", bd=0, bg=background_color, fg=user_color)
+		attends_label_id.grid(column=0, row=1, padx=0, pady=0, sticky=W)
 
-		attends_label_fname = Label(attends_window, text="FNAME", bg=gray_color)
-		attends_label_fname.grid(column=1, row=0, padx=0, pady=0, sticky=W)
+		attends_label_fname_blank = Label(attends_topbar, width=20, bd=0, bg=background_color, fg=user_color)
+		attends_label_fname_blank.grid(column=1, row=0, padx=0, pady=0, sticky=W)
+		attends_label_fname = Label(attends_topbar, text="FNAME", bd=0, bg=background_color, fg=user_color)
+		attends_label_fname.grid(column=1, row=1, padx=0, pady=0, sticky=W)
 
-		attends_label_lname = Label(attends_window, text="LNAME", bg=gray_color)
-		attends_label_lname.grid(column=2, row=0, padx=0, pady=0, sticky=W)
+		attends_label_lname_blank = Label(attends_topbar, width=16, bd=0, bg=background_color, fg=user_color)
+		attends_label_lname_blank.grid(column=2, row=0, padx=0, pady=0, sticky=W)
+		attends_label_lname = Label(attends_topbar, text="LNAME", bd=0, bg=background_color, fg=user_color)
+		attends_label_lname.grid(column=2, row=1, padx=0, pady=0, sticky=W)
 
-		attends_label_dirname = Label(attends_window, text="DIRNAME", bg=gray_color)
-		attends_label_dirname.grid(column=3, row=0, padx=0, pady=0, sticky=W)
+		attends_label_dirname_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
+		attends_label_dirname_blank.grid(column=3, row=0, padx=0, pady=0, sticky=W)
+		attends_label_dirname = Label(attends_topbar, text="DIRNAME", bd=0, bg=background_color, fg=user_color)
+		attends_label_dirname.grid(column=3, row=1, padx=0, pady=0, sticky=W)
 
-		attends_label_email = Label(attends_window, text="EMAIL", bg=gray_color)
-		attends_label_email.grid(column=4, row=0, padx=0, pady=0, sticky=W)
+		attends_label_email_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
+		attends_label_email_blank.grid(column=4, row=0, padx=0, pady=0, sticky=W)
+		attends_label_email = Label(attends_topbar, text="EMAIL", bd=0, bg=background_color, fg=user_color)
+		attends_label_email.grid(column=4, row=1, padx=0, pady=0, sticky=W)
 
 		# data listboxes
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
