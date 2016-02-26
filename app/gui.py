@@ -348,12 +348,14 @@ class Jarvs(Frame):
 	def set_attendings(self):
 
 		init_vars()
-		attends = Toplevel(self.parent)
+		attends = Toplevel(self.parent, bg=gray_color)
 		attends.wm_title("Jarvs Attendings")
-		attends_topbar = Frame(attends, bg=background_color)
-		attends_topbar.pack(fill=X, expand=True)
-		attends_window = Frame(attends, bg=gray_color)
-		attends_window.pack(fill=BOTH, expand=True)
+		attends_topbar = Frame(attends, bg=background_color, bd=0)
+		attends_topbar.grid(row=0, column=0)
+		attends_window = Frame(attends, bg=gray_color, bd=0)
+		attends_window.grid(row=1, column=0)
+		attends_right = Frame(attends, bg=gray_color, width=100, bd=0)
+		attends_right.grid(row=1, column=1)
 
 
 		# column labels
@@ -384,24 +386,24 @@ class Jarvs(Frame):
 
 		# data listboxes
 		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
-		self.attends_list_id.grid(column=0, row=1, padx=0, pady=0)
+		self.attends_list_id.grid(column=0, row=0, padx=0, pady=0)
 		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
 
 		self.attends_list_fname = Listbox(attends_window, width=20, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_fname.grid(column=1, row=1, padx=0, pady=2)
+		self.attends_list_fname.grid(column=1, row=0, padx=0, pady=2)
 		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
 
 		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_lname.grid(column=2, row=1, padx=0, pady=2)
+		self.attends_list_lname.grid(column=2, row=0, padx=0, pady=2)
 		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
 
 		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_dirname.grid(column=3, row=1, padx=0, pady=2)
+		self.attends_list_dirname.grid(column=3, row=0, padx=0, pady=2)
 		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
 
 
 		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_email.grid(column=4, row=1, padx=0, pady=2)
+		self.attends_list_email.grid(column=4, row=0, padx=0, pady=2)
 		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
 
 		self.populate_attends_list()
@@ -409,40 +411,40 @@ class Jarvs(Frame):
 		# entry field
 
 		self.attends_id_entry = Entry(attends_window, width=5, bd=0)
-		self.attends_id_entry.grid(column=0, row=2, padx=0, pady=2)
+		self.attends_id_entry.grid(column=0, row=1, padx=0, pady=2)
 
 		self.attends_fname_entry = Entry(attends_window, width=19, bd=0)
-		self.attends_fname_entry.grid(column=1, row=2, padx=0, pady=2)
+		self.attends_fname_entry.grid(column=1, row=1, padx=0, pady=2)
 
 		self.attends_lname_entry = Entry(attends_window, width=15, bd=0)
-		self.attends_lname_entry.grid(column=2, row=2, padx=0, pady=2)
+		self.attends_lname_entry.grid(column=2, row=1, padx=0, pady=2)
 
 		self.attends_dirname_entry = Entry(attends_window, width=31, bd=0)
-		self.attends_dirname_entry.grid(column=3, row=2, padx=0, pady=2)
+		self.attends_dirname_entry.grid(column=3, row=1, padx=0, pady=2)
 
 		self.attends_email_entry = Entry(attends_window, width=31, bd=0)
-		self.attends_email_entry.grid(column=4, row=2, padx=0, pady=2)
+		self.attends_email_entry.grid(column=4, row=1, padx=0, pady=2)
 
 		# entry save buttons
 		save_id = lambda: self.save_attends_id(attends)
 		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, bg="white", bd=0)
-		self.attends_save_id.grid(column=0, row=3, padx=0, pady=2, sticky=W)
+		self.attends_save_id.grid(column=0, row=2, padx=0, pady=2, sticky=W)
 
 		save_fname = lambda: self.save_attends_fname(attends)
 		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, bg="white", bd=0)
-		self.attends_save_fname.grid(column=1, row=3, padx=0, pady=2, sticky=W)
+		self.attends_save_fname.grid(column=1, row=2, padx=0, pady=2, sticky=W)
 
 		save_lname = lambda: self.save_attends_lname(attends)
 		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, bg="white", bd=0)
-		self.attends_save_lname.grid(column=2, row=3, padx=0, pady=2, sticky=W)
+		self.attends_save_lname.grid(column=2, row=2, padx=0, pady=2, sticky=W)
 
 		save_dirname = lambda: self.save_attends_dirname(attends)
 		self.attends_save_dirname = Button(attends_window, text="Save", command=save_dirname, width=2, bg="white", bd=0)
-		self.attends_save_dirname.grid(column=3, row=3, padx=0, pady=2, sticky=W)
+		self.attends_save_dirname.grid(column=3, row=2, padx=0, pady=2, sticky=W)
 
 		save_email = lambda: self.save_attends_email(attends)
 		self.attends_save_email = Button(attends_window, text="Save", command=save_email, width=2, bg="white", bd=0)
-		self.attends_save_email.grid(column=4, row=3, padx=0, pady=2, sticky=W)
+		self.attends_save_email.grid(column=4, row=2, padx=0, pady=2, sticky=W)
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
