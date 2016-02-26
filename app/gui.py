@@ -8,6 +8,7 @@ import time
 import dataset
 import json
 import sqlite3 as sql
+from PIL import Image, ImageTk
 # import jarvs-specific methods
 import jarvisms
 
@@ -310,38 +311,48 @@ class Jarvs(Frame):
 		attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	# unit saves
-	def save_attends_id(self, window):
+	def save_attends_id(self):
 		attends_list_index = self.attends_id_entry.get()
 		db_sql.execute('UPDATE Attendings SET ID=? WHERE ID=?', (attends_list_index, attending_id_current))
 		db_sql.commit()
-		window.destroy()
-		self.set_attendings()
+		##window.destroy()
+		##self.set_attendings()
 
-	def save_attends_fname(self, window):
+	def save_attends_fname(self):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, FNAME=self.attends_fname_entry.get().rstrip()), ['ID'])
-		init_vars
-		window.destroy()
-		self.set_attendings()
+		##init_vars
+		##window.destroy()
+		##self.set_attendings()
 
-	def save_attends_lname(self, window):
+	def save_attends_lname(self):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, LNAME=self.attends_lname_entry.get().rstrip()), ['ID'])
-		init_vars
-		window.destroy()
-		self.set_attendings()
+		##init_vars
+		##window.destroy()
+		##self.set_attendings()
 
-	def save_attends_dirname(self, window):
+	def save_attends_dirname(self):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, DIRNAME=self.attends_dirname_entry.get().rstrip()), ['ID'])
-		init_vars
-		window.destroy()
-		self.set_attendings()
+		##init_vars
+		##window.destroy()
+		##self.set_attendings()
 
-	def save_attends_email(self, window):
+	def save_attends_email(self):
 		attends_list_index = self.attends_id_entry.get()
 		Attendings_Table.update(dict(ID=attends_list_index, EMAIL=self.attends_email_entry.get().rstrip()), ['ID'])
-		init_vars
+		##init_vars
+		##window.destroy()
+		##self.set_attendings()
+
+	def save_attends(self, window):
+		self.save_attends_id()
+		self.save_attends_fname()
+		self.save_attends_lname()
+		self.save_attends_dirname()
+		self.save_attends_email()
+		init_vars()
 		window.destroy()
 		self.set_attendings()
 
@@ -351,100 +362,120 @@ class Jarvs(Frame):
 		attends = Toplevel(self.parent, bg=gray_color)
 		attends.wm_title("Jarvs Attendings")
 		attends_topbar = Frame(attends, bg=background_color, bd=0)
-		attends_topbar.grid(row=0, column=0)
+		#attends_topbar.grid(row=0, column=0, columnspan=3, sticky=N+E+W)
 		attends_window = Frame(attends, bg=gray_color, bd=0)
-		attends_window.grid(row=1, column=0)
-		attends_right = Frame(attends, bg=gray_color, width=100, bd=0)
-		attends_right.grid(row=1, column=1)
+		attends_window.grid(row=1, column=2, sticky=N)
+		attends_right = Frame(attends, bg=gray_color, bd=0)
+		attends_right.grid(row=1, column=0, rowspan=2)
+		attends_separator = Frame(attends, bd=1, width=2)
+		attends_separator.grid(row=1, column=1, sticky=N+S)
 
 
 		# column labels
 		attends_label_id_blank = Label(attends_topbar, width=6, bd=0, bg=background_color, fg=user_color)
-		attends_label_id_blank.grid(column=0, row=0, padx=0, pady=0, sticky=W)
+		##attends_label_id_blank.grid(column=0, row=0, padx=0, pady=0, sticky=W+N)
 		attends_label_id = Label(attends_topbar, text="ID", bd=0, bg=background_color, fg=user_color)
-		attends_label_id.grid(column=0, row=1, padx=0, pady=0, sticky=W)
+		##attends_label_id.grid(column=0, row=1, padx=0, pady=0, sticky=W+N)
 
 		attends_label_fname_blank = Label(attends_topbar, width=20, bd=0, bg=background_color, fg=user_color)
-		attends_label_fname_blank.grid(column=1, row=0, padx=0, pady=0, sticky=W)
-		attends_label_fname = Label(attends_topbar, text="FNAME", bd=0, bg=background_color, fg=user_color)
-		attends_label_fname.grid(column=1, row=1, padx=0, pady=0, sticky=W)
+		attends_label_fname_blank.grid(column=1, row=0, padx=0, pady=0, sticky=W+N)
+		attends_label_fname = Label(attends_topbar, bd=0, bg=background_color, fg=user_color)
+		attends_label_fname.grid(column=1, row=1, padx=0, pady=0, sticky=W+N)
 
-		attends_label_lname_blank = Label(attends_topbar, width=16, bd=0, bg=background_color, fg=user_color)
-		attends_label_lname_blank.grid(column=2, row=0, padx=0, pady=0, sticky=W)
-		attends_label_lname = Label(attends_topbar, text="LNAME", bd=0, bg=background_color, fg=user_color)
-		attends_label_lname.grid(column=2, row=1, padx=0, pady=0, sticky=W)
+		attends_label_lname_blank = Label(attends_topbar, width=15, bd=0, bg=background_color, fg=user_color)
+		attends_label_lname_blank.grid(column=2, row=0, padx=0, pady=0, sticky=W+N)
+		attends_label_lname = Label(attends_topbar, bd=0, bg=background_color, fg=user_color)
+		attends_label_lname.grid(column=2, row=1, padx=0, pady=0, sticky=W+N)
 
 		attends_label_dirname_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
-		attends_label_dirname_blank.grid(column=3, row=0, padx=0, pady=0, sticky=W)
+		##attends_label_dirname_blank.grid(column=3, row=0, padx=0, pady=0, sticky=W+N)
 		attends_label_dirname = Label(attends_topbar, text="DIRNAME", bd=0, bg=background_color, fg=user_color)
-		attends_label_dirname.grid(column=3, row=1, padx=0, pady=0, sticky=W)
+		##attends_label_dirname.grid(column=3, row=1, padx=0, pady=0, sticky=W+N)
 
 		attends_label_email_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
-		attends_label_email_blank.grid(column=4, row=0, padx=0, pady=0, sticky=W)
+		##attends_label_email_blank.grid(column=4, row=0, padx=0, pady=0, sticky=W+N)
 		attends_label_email = Label(attends_topbar, text="EMAIL", bd=0, bg=background_color, fg=user_color)
-		attends_label_email.grid(column=4, row=1, padx=0, pady=0, sticky=W)
+		##attends_label_email.grid(column=4, row=1, padx=0, pady=0, sticky=W+N)
 
 		# data listboxes
-		self.attends_list_id = Listbox(attends_window, width=6, height=12, highlightthickness=0, bd=0, selectmode=SINGLE)
-		self.attends_list_id.grid(column=0, row=0, padx=0, pady=0)
+		self.attends_list_id = Listbox(attends_window, width=6, highlightthickness=0, bd=0, selectmode=SINGLE)
+		##self.attends_list_id.grid(column=0, row=0, padx=0, pady=0, sticky=W+N)
 		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
 
-		self.attends_list_fname = Listbox(attends_window, width=20, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_fname.grid(column=1, row=0, padx=0, pady=2)
-		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
 
-		self.attends_list_lname = Listbox(attends_window, width=16, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_lname.grid(column=2, row=0, padx=0, pady=2)
+		self.attends_list_fname_scroll = Scrollbar(attends_window, bd=0, troughcolor=user_color, highlightthickness=0)
+		self.attends_list_fname_scroll.grid(column=2, row=0, padx=0, pady=0, sticky=W+N+S)
+		self.attends_list_fname = Listbox(attends_window, width=20, height=20, bd=0, highlightthickness=0, yscrollcommand=self.attends_list_fname_scroll.set, selectmode=SINGLE)
+		self.attends_list_fname.grid(column=1, row=0, padx=0, pady=2, sticky=W+N)
+		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
+		self.attends_list_fname_scroll.config(command=self.attends_list_fname.yview)
+
+		self.attends_list_lname = Listbox(attends_window, width=16, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_lname.grid(column=2, row=0, padx=0, pady=2, sticky=W+N)
 		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
 
-		self.attends_list_dirname = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_dirname.grid(column=3, row=0, padx=0, pady=2)
+		self.attends_list_dirname = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_dirname.grid(column=3, row=0, padx=0, pady=2, sticky=W+N)
 		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
 
 
-		self.attends_list_email = Listbox(attends_window, width=32, height=12, bd=0, highlightthickness=0, selectmode=SINGLE)
-		self.attends_list_email.grid(column=4, row=0, padx=0, pady=2)
+		self.attends_list_email = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_email.grid(column=4, row=0, padx=0, pady=2, sticky=W+N)
 		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
 
 		self.populate_attends_list()
 
 		# entry field
 
-		self.attends_id_entry = Entry(attends_window, width=5, bd=0)
+		self.attends_photo = ImageTk.PhotoImage(attending_image)
+		self.attends_icon = Label(attends_right, image=self.attends_photo, bg=gray_color)
+		self.attends_icon.image = self.attends_photo
+		self.attends_icon.grid(column=0, row=0, padx=2, pady=12)
+
+		self.attends_id_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
 		self.attends_id_entry.grid(column=0, row=1, padx=0, pady=2)
+		self.attends_id_entry.insert(0, "-- ID --")
 
-		self.attends_fname_entry = Entry(attends_window, width=19, bd=0)
-		self.attends_fname_entry.grid(column=1, row=1, padx=0, pady=2)
+		self.attends_fname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_fname_entry.grid(column=0, row=2, padx=0, pady=2)
+		self.attends_fname_entry.insert(0, "-- First Name --")
 
-		self.attends_lname_entry = Entry(attends_window, width=15, bd=0)
-		self.attends_lname_entry.grid(column=2, row=1, padx=0, pady=2)
+		self.attends_lname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_lname_entry.grid(column=0, row=3, padx=0, pady=2)
+		self.attends_lname_entry.insert(0, "-- Last Name --")
 
-		self.attends_dirname_entry = Entry(attends_window, width=31, bd=0)
-		self.attends_dirname_entry.grid(column=3, row=1, padx=0, pady=2)
+		self.attends_dirname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_dirname_entry.grid(column=0, row=4, padx=0, pady=2)
+		self.attends_dirname_entry.insert(0, "-- Directory Name --")
 
-		self.attends_email_entry = Entry(attends_window, width=31, bd=0)
-		self.attends_email_entry.grid(column=4, row=1, padx=0, pady=2)
+		self.attends_email_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_email_entry.grid(column=0, row=5, padx=0, pady=2)
+		self.attends_email_entry.insert(0, "-- Email --")
 
 		# entry save buttons
-		save_id = lambda: self.save_attends_id(attends)
-		self.attends_save_id = Button(attends_window, text="Save", command=save_id, width=2, bg="white", bd=0)
-		self.attends_save_id.grid(column=0, row=2, padx=0, pady=2, sticky=W)
+		##save_id = lambda: self.save_attends_id(attends)
+		##self.attends_save_id = Button(attends_right, text="Save", command=save_id, bg="white", bd=0)
+		##self.attends_save_id.grid(column=1, row=1, padx=0, pady=2)
 
-		save_fname = lambda: self.save_attends_fname(attends)
-		self.attends_save_fname = Button(attends_window, text="Save", command=save_fname, width=2, bg="white", bd=0)
-		self.attends_save_fname.grid(column=1, row=2, padx=0, pady=2, sticky=W)
+		##save_fname = lambda: self.save_attends_fname(attends)
+		##self.attends_save_fname = Button(attends_right, text="Save", command=save_fname, bg="white", bd=0)
+		##self.attends_save_fname.grid(column=1, row=2, padx=0, pady=2)
 
-		save_lname = lambda: self.save_attends_lname(attends)
-		self.attends_save_lname = Button(attends_window, text="Save", command=save_lname, width=2, bg="white", bd=0)
-		self.attends_save_lname.grid(column=2, row=2, padx=0, pady=2, sticky=W)
+		##save_lname = lambda: self.save_attends_lname(attends)
+		##self.attends_save_lname = Button(attends_right, text="Save", command=save_lname, bg="white", bd=0)
+		##self.attends_save_lname.grid(column=1, row=3, padx=0, pady=2)
 
-		save_dirname = lambda: self.save_attends_dirname(attends)
-		self.attends_save_dirname = Button(attends_window, text="Save", command=save_dirname, width=2, bg="white", bd=0)
-		self.attends_save_dirname.grid(column=3, row=2, padx=0, pady=2, sticky=W)
+		##save_dirname = lambda: self.save_attends_dirname(attends)
+		##self.attends_save_dirname = Button(attends_right, text="Save", command=save_dirname, bg="white", bd=0)
+		##self.attends_save_dirname.grid(column=1, row=4, padx=0, pady=2)
 
-		save_email = lambda: self.save_attends_email(attends)
-		self.attends_save_email = Button(attends_window, text="Save", command=save_email, width=2, bg="white", bd=0)
-		self.attends_save_email.grid(column=4, row=2, padx=0, pady=2, sticky=W)
+		##save_email = lambda: self.save_attends_email(attends)
+		##self.attends_save_email = Button(attends_right, text="Save", command=save_email, bg="white", bd=0)
+		##self.attends_save_email.grid(column=1, row=5, padx=0, pady=2)
+
+		save_attends = lambda: self.save_attends(attends)
+		self.attends_save_all = Button(attends_right,text="Save", command=save_attends, bg="white", bd=0)
+		self.attends_save_all.grid(column=0, row=6, padx=0, pady=12)
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
@@ -538,6 +569,10 @@ def init_vars():
 	db_sql = sql.connect('rvs/RVS.db')
 
 	global attending_id_current
+
+	global attending_image
+	attending_image = Image.open("design/attending_icon.png")
+	attending_image = attending_image.resize((98, 98), Image.ANTIALIAS)
 
 def main():
 	root = Tk()
