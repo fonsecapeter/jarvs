@@ -10,6 +10,7 @@ import json
 import sqlite3 as sql
 from PIL import Image, ImageTk
 # import jarvs-specific methods
+import rvsdata
 import jarvisms
 
 class Jarvs(Frame):
@@ -65,7 +66,7 @@ class Jarvs(Frame):
 		self.text_content.tag_configure('user', foreground=user_color)
 
 		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview, bg=background_color, troughcolor=background_color, highlightthickness=0, activebackground=jarvs_color)
-		self.content_scroll.pack(side=RIGHT, fill=Y)
+		##self.content_scroll.pack(side=RIGHT, fill=Y)
 		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
 		# form
@@ -221,11 +222,11 @@ class Jarvs(Frame):
 
 	# <--- edit and display attendings data --->
 	def populate_attends_list(self):
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_id.insert(Attending, jdata['ID'])
+		##for Attending in attending_ids:
+		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+		##	jdata = json.loads(jdump)
+		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+		##	self.attends_list_id.insert(Attending, jdata['ID'])
 
 		for Attending in attending_ids:
 			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
@@ -233,125 +234,128 @@ class Jarvs(Frame):
 			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
 			self.attends_list_fname.insert(Attending, jdata['FNAME'])
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_lname.insert(Attending, jdata['LNAME'])
+		##for Attending in attending_ids:
+		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+		##	jdata = json.loads(jdump)
+		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+		##	self.attends_list_lname.insert(Attending, jdata['LNAME'])
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
+		##for Attending in attending_ids:
+		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+		##	jdata = json.loads(jdump)
+		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+		##	self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
 
-		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_email.insert(Attending, jdata['EMAIL'])
+		##for Attending in attending_ids:
+		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
+		##	jdata = json.loads(jdump)
+		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
+		##	self.attends_list_email.insert(Attending, jdata['EMAIL'])
 
 		# colorize alternating rows
 		for Row in range(1, len(db['Attendings']), 2):
-			self.attends_list_id.itemconfigure(Row, background=dark_gray_color)
+			##self.attends_list_id.itemconfigure(Row, background=dark_gray_color)
 			self.attends_list_fname.itemconfigure(Row, background=dark_gray_color)
-			self.attends_list_lname.itemconfigure(Row, background=dark_gray_color)
-			self.attends_list_dirname.itemconfigure(Row, background=dark_gray_color)
-			self.attends_list_email.itemconfigure(Row, background=dark_gray_color)
+			##self.attends_list_lname.itemconfigure(Row, background=dark_gray_color)
+			##self.attends_list_dirname.itemconfigure(Row, background=dark_gray_color)
+			##self.attends_list_email.itemconfigure(Row, background=dark_gray_color)
 
-	def display_attends_entry(self, index):
-		self.attends_list_id_content = self.attends_list_id.get(index)
-		self.attends_id_entry.delete(0, END)
-		self.attends_id_entry.insert(END, self.attends_list_id_content)
+	##def display_attends_entry(self, index):
+	##	self.attends_list_id_content = self.attends_list_id.get(index)
+	##	self.attends_id_entry.delete(0, END)
+	##	self.attends_id_entry.insert(END, self.attends_list_id_content)
 
-		self.attends_list_fname_content = self.attends_list_fname.get(index)
-		self.attends_fname_entry.delete(0, END)
-		self.attends_fname_entry.insert(END, self.attends_list_fname_content)
+	##	self.attends_list_fname_content = self.attends_list_fname.get(index)
+	##	self.attends_fname_entry.delete(0, END)
+	##	self.attends_fname_entry.insert(END, self.attends_list_fname_content)
 
-		self.attends_list_lname_content = self.attends_list_lname.get(index)
-		self.attends_lname_entry.delete(0, END)
-		self.attends_lname_entry.insert(END, self.attends_list_lname_content)
+	##	self.attends_list_lname_content = self.attends_list_lname.get(index)
+	##	self.attends_lname_entry.delete(0, END)
+	##	self.attends_lname_entry.insert(END, self.attends_list_lname_content)
 
-		self.attends_list_dirname_content = self.attends_list_dirname.get(index)
-		self.attends_dirname_entry.delete(0, END)
-		self.attends_dirname_entry.insert(END, self.attends_list_dirname_content)
+	##	self.attends_list_dirname_content = self.attends_list_dirname.get(index)
+	##	self.attends_dirname_entry.delete(0, END)
+	##	self.attends_dirname_entry.insert(END, self.attends_list_dirname_content)
 
-		self.attends_list_email_content = self.attends_list_email.get(index)
-		self.attends_email_entry.delete(0, END)
-		self.attends_email_entry.insert(END, self.attends_list_email_content)
+	##	self.attends_list_email_content = self.attends_list_email.get(index)
+	##	self.attends_email_entry.delete(0, END)
+	##	self.attends_email_entry.insert(END, self.attends_list_email_content)
 
-	def get_attends_list_id(self, event):
-		attends_list_index = self.attends_list_id.curselection()[0]
-		self.display_attends_entry(attends_list_index)
-		global attending_id_current 
-		attending_id_current = self.attends_list_id.get(attends_list_index)
+	##def get_attends_list_id(self, event):
+	##	attends_list_index = self.attends_list_id.curselection()[0]
+	##	self.display_attends_entry(attends_list_index)
+	##	global attending_id_current 
+	##	attending_id_current = self.attends_list_id.get(attends_list_index)
 
-	def get_attends_list_fname(self, event):
+	##def get_attends_list_fname(self, event):
+	##	attends_list_index = self.attends_list_fname.curselection()[0]
+	##	self.display_attends_entry(attends_list_index)
+	##	global attending_id_current 
+	##	attending_id_current = self.attends_list_id.get(attends_list_ind
+
+	##def get_attends_list_lname(self, event):
+	##	attends_list_index = self.attends_list_lname.curselection()[0]
+	##	self.display_attends_entry(attends_list_index)
+	##	global attending_id_current 
+	##	attending_id_current = self.attends_list_id.get(attends_list_index)
+
+	##def get_attends_list_dirname(self, event):
+	##	attends_list_index = self.attends_list_dirname.curselection()[0]
+	##	self.display_attends_entry(attends_list_index)
+	##	global attending_id_current 
+	##	attending_id_current = self.attends_list_id.get(attends_list_index)
+
+	##def get_attends_list_email(self, event):
+	##	attends_list_index = self.attends_list_email.curselection()[0]
+	##	self.display_attends_entry(attends_list_index)
+	##	global attending_id_current 
+	##	attending_id_current = self.attends_list_id.get(attends_list_index)
+
+	# populate attending entry from fname listbox
+	def populate_attends_entry(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
-		self.display_attends_entry(attends_list_index)
-		global attending_id_current 
-		attending_id_current = self.attends_list_id.get(attends_list_index)
 
-	def get_attends_list_lname(self, event):
-		attends_list_index = self.attends_list_lname.curselection()[0]
-		self.display_attends_entry(attends_list_index)
-		global attending_id_current 
-		attending_id_current = self.attends_list_id.get(attends_list_index)
+		self.attends_id_entry.config(state=NORMAL)
+		self.attends_id_entry.delete(0, END)
+		self.attends_id_entry.insert(END, rvsdata.attending_ids[attends_list_index])
+		self.attends_id_entry.config(state=DISABLED)
+	
+		self.attends_fname_entry.delete(0, END)
+		self.attends_fname_entry.insert(END, rvsdata.attending_fnames[attends_list_index])
 
-	def get_attends_list_dirname(self, event):
-		attends_list_index = self.attends_list_dirname.curselection()[0]
-		self.display_attends_entry(attends_list_index)
-		global attending_id_current 
-		attending_id_current = self.attends_list_id.get(attends_list_index)
+		self.attends_lname_entry.delete(0, END)
+		self.attends_lname_entry.insert(END, rvsdata.attending_lnames[attends_list_index])
 
-	def get_attends_list_email(self, event):
-		attends_list_index = self.attends_list_email.curselection()[0]
-		self.display_attends_entry(attends_list_index)
-		global attending_id_current 
-		attending_id_current = self.attends_list_id.get(attends_list_index)
+		self.attends_dirname_entry.delete(0, END)
+		self.attends_dirname_entry.insert(END, rvsdata.attending_dirnames[attends_list_index])
+
+		self.attends_email_entry.delete(0, END)
+		self.attends_email_entry.insert(END, rvsdata.attending_emails[attends_list_index])
+
 
 	# unit saves
-	def save_attends_id(self):
-		attends_list_index = self.attends_id_entry.get()
-		db_sql.execute('UPDATE Attendings SET ID=? WHERE ID=?', (attends_list_index, attending_id_current))
-		db_sql.commit()
-		##window.destroy()
-		##self.set_attendings()
+	def save_attends_fname(self, current_attending_id):
+		new_attending_fname = self.attends_fname_entry.get()
+		rvsdata.update_attending_fname(new_attending_fname, current_attending_id)
 
-	def save_attends_fname(self):
-		attends_list_index = self.attends_id_entry.get()
-		Attendings_Table.update(dict(ID=attends_list_index, FNAME=self.attends_fname_entry.get().rstrip()), ['ID'])
-		##init_vars
-		##window.destroy()
-		##self.set_attendings()
+	def save_attends_lname(self, current_attending_id):
+		new_attending_lname = self.attends_lname_entry.get()
+		rvsdata.update_attending_lname(new_attending_lname, current_attending_id)
 
-	def save_attends_lname(self):
-		attends_list_index = self.attends_id_entry.get()
-		Attendings_Table.update(dict(ID=attends_list_index, LNAME=self.attends_lname_entry.get().rstrip()), ['ID'])
-		##init_vars
-		##window.destroy()
-		##self.set_attendings()
+	def save_attends_dirname(self, current_attending_id):
+		new_attending_dirname = self.attends_dirname_entry.get()
+		rvsdata.update_attending_dirname(new_attending_dirname, current_attending_id)
 
-	def save_attends_dirname(self):
-		attends_list_index = self.attends_id_entry.get()
-		Attendings_Table.update(dict(ID=attends_list_index, DIRNAME=self.attends_dirname_entry.get().rstrip()), ['ID'])
-		##init_vars
-		##window.destroy()
-		##self.set_attendings()
-
-	def save_attends_email(self):
-		attends_list_index = self.attends_id_entry.get()
-		Attendings_Table.update(dict(ID=attends_list_index, EMAIL=self.attends_email_entry.get().rstrip()), ['ID'])
-		##init_vars
-		##window.destroy()
-		##self.set_attendings()
+	def save_attends_email(self, current_attending_id):
+		new_attending_email = self.attends_email_entry.get()
+		rvsdata.update_attending_email(new_attending_email, current_attending_id)
 
 	def save_attends(self, window):
-		self.save_attends_id()
-		self.save_attends_fname()
-		self.save_attends_lname()
-		self.save_attends_dirname()
-		self.save_attends_email()
+		current_attending_id = self.attends_id_entry.get()
+		self.save_attends_fname(current_attending_id)
+		self.save_attends_lname(current_attending_id)
+		self.save_attends_dirname(current_attending_id)
+		self.save_attends_email(current_attending_id)
 		init_vars()
 		window.destroy()
 		self.set_attendings()
@@ -398,30 +402,30 @@ class Jarvs(Frame):
 		##attends_label_email.grid(column=4, row=1, padx=0, pady=0, sticky=W+N)
 
 		# data listboxes
-		self.attends_list_id = Listbox(attends_window, width=6, highlightthickness=0, bd=0, selectmode=SINGLE)
+		##self.attends_list_id = Listbox(attends_window, width=6, highlightthickness=0, bd=0, selectmode=SINGLE)
 		##self.attends_list_id.grid(column=0, row=0, padx=0, pady=0, sticky=W+N)
-		self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
+		##self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
 
 
 		self.attends_list_fname_scroll = Scrollbar(attends_window, bd=0, troughcolor=user_color, highlightthickness=0)
-		self.attends_list_fname_scroll.grid(column=2, row=0, padx=0, pady=0, sticky=W+N+S)
+		##self.attends_list_fname_scroll.grid(column=2, row=0, padx=0, pady=0, sticky=W+N+S)
 		self.attends_list_fname = Listbox(attends_window, width=20, height=20, bd=0, highlightthickness=0, yscrollcommand=self.attends_list_fname_scroll.set, selectmode=SINGLE)
 		self.attends_list_fname.grid(column=1, row=0, padx=0, pady=2, sticky=W+N)
-		self.attends_list_fname.bind('<ButtonRelease-1>', self.get_attends_list_fname)
+		self.attends_list_fname.bind('<ButtonRelease-1>', self.populate_attends_entry)
 		self.attends_list_fname_scroll.config(command=self.attends_list_fname.yview)
 
-		self.attends_list_lname = Listbox(attends_window, width=16, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_lname = Listbox(attends_window, width=16, bd=0, highlightthickness=0, selectmode=SINGLE)
 		##self.attends_list_lname.grid(column=2, row=0, padx=0, pady=2, sticky=W+N)
-		self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
+		##self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
 
-		self.attends_list_dirname = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_dirname = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
 		##self.attends_list_dirname.grid(column=3, row=0, padx=0, pady=2, sticky=W+N)
-		self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
+		##self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
 
 
-		self.attends_list_email = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
+		##self.attends_list_email = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
 		##self.attends_list_email.grid(column=4, row=0, padx=0, pady=2, sticky=W+N)
-		self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
+		##self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
 
 		self.populate_attends_list()
 
@@ -432,7 +436,7 @@ class Jarvs(Frame):
 		self.attends_icon.image = self.attends_photo
 		self.attends_icon.grid(column=0, row=0, padx=2, pady=12)
 
-		self.attends_id_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_id_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER, state=DISABLED)
 		self.attends_id_entry.grid(column=0, row=1, padx=0, pady=2)
 		self.attends_id_entry.insert(0, "-- ID --")
 
@@ -535,6 +539,8 @@ class Jarvs(Frame):
 # run gui
 
 def init_vars():
+	reload(rvsdata)
+
 	global db
 	db = dataset.connect('sqlite:///rvs/RVS.db')
 	global Preferences_Table
