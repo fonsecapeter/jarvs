@@ -56,7 +56,7 @@ class Jarvs(Frame):
 		dialogue = Frame(self.parent)
 		dialogue.pack(fill=BOTH, expand=True)
 
-		self.text_content = Text(dialogue, bd=0, highlightthickness=0, bg=background_color, fg=jarvs_color, height=12, state=NORMAL)
+		self.text_content = Text(dialogue, bd=0, highlightthickness=0, bg=rvsdata.background_color, fg=jarvs_color, height=12, state=NORMAL)
 		self.text_content.pack(side=LEFT, fill=BOTH, expand=True)
 
 		self.text_content.insert(END, jarvisms.greeting_1() + '\n')
@@ -65,16 +65,16 @@ class Jarvs(Frame):
 
 		self.text_content.tag_configure('user', foreground=user_color)
 
-		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview, bg=background_color, troughcolor=background_color, highlightthickness=0, activebackground=jarvs_color)
+		self.content_scroll = Scrollbar(dialogue, bd=0, command=self.text_content.yview, bg=rvsdata.background_color, troughcolor=rvsdata.background_color, highlightthickness=0, activebackground=jarvs_color)
 		##self.content_scroll.pack(side=RIGHT, fill=Y)
 		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
 		# form
-		form = Frame(self.parent, bg=background_color, bd=0)
+		form = Frame(self.parent, bg=rvsdata.background_color, bd=0)
 		form.pack(fill=BOTH, expand=True)
 
 		self.input_content = StringVar()
-		self.entry_main = Entry(form, fg=user_color, bg=background_color, insertbackground=user_color, highlightthickness=0, bd=0)
+		self.entry_main = Entry(form, fg=user_color, bg=rvsdata.background_color, insertbackground=user_color, highlightthickness=0, bd=0)
 		self.entry_main.bind('<Return>', self.callback)
 		self.entry_main.pack(fill=X, padx=2, pady=2)
 
@@ -164,7 +164,7 @@ class Jarvs(Frame):
 		self.background_color_label = Label(prefs_window, text="Background Color: ", bg=gray_color)
 		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
 		self.background_color_entry = Entry(prefs_window, bd=0)
-		self.background_color_entry.insert(END, background_color)
+		self.background_color_entry.insert(END, rvsdata.background_color)
 		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
 		self.background_color_entry.bind('<Return>', self.save_background_color)
 
@@ -196,16 +196,10 @@ class Jarvs(Frame):
 		Preferences_Table.update(dict(ID=0, USERCOLOR=self.user_color_entry.get().rstrip()), ['ID'])
 
 	def save_jarvs_color(self, event):
-		self.jarvs_color_shell = "echo " + self.jarvs_color_entry.get().rstrip() + " > ./preferences/jarvs_color.txt"
-		os.system(self.jarvs_color_shell)
-
-		Preferences_Table.update(dict(ID=0, JARVSCOLOR=self.jarvs_color_entry.get().rstrip()), ['ID'])
+		rvsdata.update_jarvs_color(self.jarvs_color_entry.get().rstrip(), 0)
 
 	def save_background_color(self, event):
-		self.background_color_shell = "echo " + self.background_color_entry.get().rstrip() + " > ./preferences/background_color.txt"
-		os.system(self.background_color_shell)
-
-		Preferences_Table.update(dict(ID=0, BACKGROUNDCOLOR=self.background_color_entry.get().rstrip()), ['ID'])
+		rvsdata.update_background_color(self.background_color_entry.get().rstrip(), 0)
 
 	# save all
 
@@ -216,100 +210,19 @@ class Jarvs(Frame):
 		self.save_jarvs_color(event)
 		self.save_background_color(event)
 		init_vars()
-		self.text_content.configure(fg=jarvs_color, bg=background_color)
+		self.text_content.configure(fg=jarvs_color, bg=rvsdata.background_color)
 		self.text_content.tag_configure('user', foreground=user_color)
 		self.update()
 
 	# <--- edit and display attendings data --->
 	def populate_attends_list(self):
-		##for Attending in attending_ids:
-		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-		##	jdata = json.loads(jdump)
-		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-		##	self.attends_list_id.insert(Attending, jdata['ID'])
-
 		for Attending in attending_ids:
-			jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-			jdata = json.loads(jdump)
-			#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-			self.attends_list_fname.insert(Attending, jdata['FNAME'])
+			self.attends_list_fname.insert(Attending, rvsdata.attending_fnames[Attending])
 
-		##for Attending in attending_ids:
-		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-		##	jdata = json.loads(jdump)
-		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-		##	self.attends_list_lname.insert(Attending, jdata['LNAME'])
-
-		##for Attending in attending_ids:
-		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-		##	jdata = json.loads(jdump)
-		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-		##	self.attends_list_dirname.insert(Attending, jdata['DIRNAME'])
-
-		##for Attending in attending_ids:
-		##	jdump = json.dumps(Attendings_Table.find_one(ID=Attending))
-		##	jdata = json.loads(jdump)
-		##	#self.attends_list.insert(Attending, json.dumps(Attendings_Table.find_one(ID=Attending), separators=('  ', ': ')))
-		##	self.attends_list_email.insert(Attending, jdata['EMAIL'])
 
 		# colorize alternating rows
 		for Row in range(1, len(db['Attendings']), 2):
-			##self.attends_list_id.itemconfigure(Row, background=dark_gray_color)
 			self.attends_list_fname.itemconfigure(Row, background=dark_gray_color)
-			##self.attends_list_lname.itemconfigure(Row, background=dark_gray_color)
-			##self.attends_list_dirname.itemconfigure(Row, background=dark_gray_color)
-			##self.attends_list_email.itemconfigure(Row, background=dark_gray_color)
-
-	##def display_attends_entry(self, index):
-	##	self.attends_list_id_content = self.attends_list_id.get(index)
-	##	self.attends_id_entry.delete(0, END)
-	##	self.attends_id_entry.insert(END, self.attends_list_id_content)
-
-	##	self.attends_list_fname_content = self.attends_list_fname.get(index)
-	##	self.attends_fname_entry.delete(0, END)
-	##	self.attends_fname_entry.insert(END, self.attends_list_fname_content)
-
-	##	self.attends_list_lname_content = self.attends_list_lname.get(index)
-	##	self.attends_lname_entry.delete(0, END)
-	##	self.attends_lname_entry.insert(END, self.attends_list_lname_content)
-
-	##	self.attends_list_dirname_content = self.attends_list_dirname.get(index)
-	##	self.attends_dirname_entry.delete(0, END)
-	##	self.attends_dirname_entry.insert(END, self.attends_list_dirname_content)
-
-	##	self.attends_list_email_content = self.attends_list_email.get(index)
-	##	self.attends_email_entry.delete(0, END)
-	##	self.attends_email_entry.insert(END, self.attends_list_email_content)
-
-	##def get_attends_list_id(self, event):
-	##	attends_list_index = self.attends_list_id.curselection()[0]
-	##	self.display_attends_entry(attends_list_index)
-	##	global attending_id_current 
-	##	attending_id_current = self.attends_list_id.get(attends_list_index)
-
-	##def get_attends_list_fname(self, event):
-	##	attends_list_index = self.attends_list_fname.curselection()[0]
-	##	self.display_attends_entry(attends_list_index)
-	##	global attending_id_current 
-	##	attending_id_current = self.attends_list_id.get(attends_list_ind
-
-	##def get_attends_list_lname(self, event):
-	##	attends_list_index = self.attends_list_lname.curselection()[0]
-	##	self.display_attends_entry(attends_list_index)
-	##	global attending_id_current 
-	##	attending_id_current = self.attends_list_id.get(attends_list_index)
-
-	##def get_attends_list_dirname(self, event):
-	##	attends_list_index = self.attends_list_dirname.curselection()[0]
-	##	self.display_attends_entry(attends_list_index)
-	##	global attending_id_current 
-	##	attending_id_current = self.attends_list_id.get(attends_list_index)
-
-	##def get_attends_list_email(self, event):
-	##	attends_list_index = self.attends_list_email.curselection()[0]
-	##	self.display_attends_entry(attends_list_index)
-	##	global attending_id_current 
-	##	attending_id_current = self.attends_list_id.get(attends_list_index)
 
 	# populate attending entry from fname listbox
 	def populate_attends_entry(self, event):
@@ -365,48 +278,14 @@ class Jarvs(Frame):
 		init_vars()
 		attends = Toplevel(self.parent, bg=gray_color)
 		attends.wm_title("Jarvs Attendings")
-		attends_topbar = Frame(attends, bg=background_color, bd=0)
-		#attends_topbar.grid(row=0, column=0, columnspan=3, sticky=N+E+W)
 		attends_window = Frame(attends, bg=gray_color, bd=0)
-		attends_window.grid(row=1, column=2, sticky=N)
+		attends_window.grid(row=0, column=2, sticky=N)
 		attends_right = Frame(attends, bg=gray_color, bd=0)
-		attends_right.grid(row=1, column=0, rowspan=2)
+		attends_right.grid(row=0, column=0, rowspan=2)
 		attends_separator = Frame(attends, bd=1, width=2)
-		attends_separator.grid(row=1, column=1, sticky=N+S)
+		attends_separator.grid(row=0, column=1, sticky=N+S)
 
-
-		# column labels
-		attends_label_id_blank = Label(attends_topbar, width=6, bd=0, bg=background_color, fg=user_color)
-		##attends_label_id_blank.grid(column=0, row=0, padx=0, pady=0, sticky=W+N)
-		attends_label_id = Label(attends_topbar, text="ID", bd=0, bg=background_color, fg=user_color)
-		##attends_label_id.grid(column=0, row=1, padx=0, pady=0, sticky=W+N)
-
-		attends_label_fname_blank = Label(attends_topbar, width=20, bd=0, bg=background_color, fg=user_color)
-		attends_label_fname_blank.grid(column=1, row=0, padx=0, pady=0, sticky=W+N)
-		attends_label_fname = Label(attends_topbar, bd=0, bg=background_color, fg=user_color)
-		attends_label_fname.grid(column=1, row=1, padx=0, pady=0, sticky=W+N)
-
-		attends_label_lname_blank = Label(attends_topbar, width=15, bd=0, bg=background_color, fg=user_color)
-		attends_label_lname_blank.grid(column=2, row=0, padx=0, pady=0, sticky=W+N)
-		attends_label_lname = Label(attends_topbar, bd=0, bg=background_color, fg=user_color)
-		attends_label_lname.grid(column=2, row=1, padx=0, pady=0, sticky=W+N)
-
-		attends_label_dirname_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
-		##attends_label_dirname_blank.grid(column=3, row=0, padx=0, pady=0, sticky=W+N)
-		attends_label_dirname = Label(attends_topbar, text="DIRNAME", bd=0, bg=background_color, fg=user_color)
-		##attends_label_dirname.grid(column=3, row=1, padx=0, pady=0, sticky=W+N)
-
-		attends_label_email_blank = Label(attends_topbar, width=32, bd=0, bg=background_color, fg=user_color)
-		##attends_label_email_blank.grid(column=4, row=0, padx=0, pady=0, sticky=W+N)
-		attends_label_email = Label(attends_topbar, text="EMAIL", bd=0, bg=background_color, fg=user_color)
-		##attends_label_email.grid(column=4, row=1, padx=0, pady=0, sticky=W+N)
-
-		# data listboxes
-		##self.attends_list_id = Listbox(attends_window, width=6, highlightthickness=0, bd=0, selectmode=SINGLE)
-		##self.attends_list_id.grid(column=0, row=0, padx=0, pady=0, sticky=W+N)
-		##self.attends_list_id.bind('<ButtonRelease-1>', self.get_attends_list_id)
-
-
+		# data listbox
 		self.attends_list_fname_scroll = Scrollbar(attends_window, bd=0, troughcolor=user_color, highlightthickness=0)
 		##self.attends_list_fname_scroll.grid(column=2, row=0, padx=0, pady=0, sticky=W+N+S)
 		self.attends_list_fname = Listbox(attends_window, width=20, height=20, bd=0, highlightthickness=0, yscrollcommand=self.attends_list_fname_scroll.set, selectmode=SINGLE)
@@ -414,23 +293,9 @@ class Jarvs(Frame):
 		self.attends_list_fname.bind('<ButtonRelease-1>', self.populate_attends_entry)
 		self.attends_list_fname_scroll.config(command=self.attends_list_fname.yview)
 
-		##self.attends_list_lname = Listbox(attends_window, width=16, bd=0, highlightthickness=0, selectmode=SINGLE)
-		##self.attends_list_lname.grid(column=2, row=0, padx=0, pady=2, sticky=W+N)
-		##self.attends_list_lname.bind('<ButtonRelease-1>', self.get_attends_list_lname)
-
-		##self.attends_list_dirname = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
-		##self.attends_list_dirname.grid(column=3, row=0, padx=0, pady=2, sticky=W+N)
-		##self.attends_list_dirname.bind('<ButtonRelease-1>', self.get_attends_list_dirname)
-
-
-		##self.attends_list_email = Listbox(attends_window, width=32, bd=0, highlightthickness=0, selectmode=SINGLE)
-		##self.attends_list_email.grid(column=4, row=0, padx=0, pady=2, sticky=W+N)
-		##self.attends_list_email.bind('<ButtonRelease-1>', self.get_attends_list_email)
-
 		self.populate_attends_list()
 
-		# entry field
-
+		# entry fields
 		self.attends_photo = ImageTk.PhotoImage(attending_image)
 		self.attends_icon = Label(attends_right, image=self.attends_photo, bg=gray_color)
 		self.attends_icon.image = self.attends_photo
@@ -456,27 +321,7 @@ class Jarvs(Frame):
 		self.attends_email_entry.grid(column=0, row=5, padx=0, pady=2)
 		self.attends_email_entry.insert(0, "-- Email --")
 
-		# entry save buttons
-		##save_id = lambda: self.save_attends_id(attends)
-		##self.attends_save_id = Button(attends_right, text="Save", command=save_id, bg="white", bd=0)
-		##self.attends_save_id.grid(column=1, row=1, padx=0, pady=2)
-
-		##save_fname = lambda: self.save_attends_fname(attends)
-		##self.attends_save_fname = Button(attends_right, text="Save", command=save_fname, bg="white", bd=0)
-		##self.attends_save_fname.grid(column=1, row=2, padx=0, pady=2)
-
-		##save_lname = lambda: self.save_attends_lname(attends)
-		##self.attends_save_lname = Button(attends_right, text="Save", command=save_lname, bg="white", bd=0)
-		##self.attends_save_lname.grid(column=1, row=3, padx=0, pady=2)
-
-		##save_dirname = lambda: self.save_attends_dirname(attends)
-		##self.attends_save_dirname = Button(attends_right, text="Save", command=save_dirname, bg="white", bd=0)
-		##self.attends_save_dirname.grid(column=1, row=4, padx=0, pady=2)
-
-		##save_email = lambda: self.save_attends_email(attends)
-		##self.attends_save_email = Button(attends_right, text="Save", command=save_email, bg="white", bd=0)
-		##self.attends_save_email.grid(column=1, row=5, padx=0, pady=2)
-
+		# entry save button
 		save_attends = lambda: self.save_attends(attends)
 		self.attends_save_all = Button(attends_right,text="Save", command=save_attends, bg="white", bd=0)
 		self.attends_save_all.grid(column=0, row=6, padx=0, pady=12)
@@ -541,40 +386,40 @@ class Jarvs(Frame):
 def init_vars():
 	reload(rvsdata)
 
-	global db
-	db = dataset.connect('sqlite:///rvs/RVS.db')
-	global Preferences_Table
-	Preferences_Table = db['Preferences']
-	global Attendings_Table
-	Attendings_Table = db['Attendings']
+	##global db
+	##db = dataset.connect('sqlite:///rvs/RVS.db')
+	##global Preferences_Table
+	##Preferences_Table = db['Preferences']
+	##global Attendings_Table
+	##Attendings_Table = db['Attendings']
 
-	Preferences_Data = Preferences_Table.find_one(ID=0)
-	global user_name
-	user_name = Preferences_Data.get('USERNAME')
-	global user_email
-	user_email = Preferences_Data.get("USEREMAIL")
-	global user_color
-	user_color = Preferences_Data.get("USERCOLOR")
-	global jarvs_color
-	jarvs_color = Preferences_Data.get("JARVSCOLOR")
-	global background_color
-	background_color = Preferences_Data.get("BACKGROUNDCOLOR")
+	##Preferences_Data = Preferences_Table.find_one(ID=0)
+	##global user_name
+	##user_name = Preferences_Data.get('USERNAME')
+	##global user_email
+	##user_email = Preferences_Data.get("USEREMAIL")
+	##global user_color
+	##user_color = Preferences_Data.get("USERCOLOR")
+	##global jarvs_color
+	##jarvs_color = Preferences_Data.get("JARVSCOLOR")
+	##global rvsdata.background_color
+	##rvsdata.background_color = Preferences_Data.get("BACKGROUNDCOLOR")
 
 	global gray_color
 	gray_color = '#eeeeee'
 	global dark_gray_color
 	dark_gray_color = '#e6e6e6'
 
-	global attending_ids
-	attending_ids = []
-	Attending_IDs_raw = db.query('SELECT ID FROM Attendings')
-	for Row in Attending_IDs_raw:
-		attending_ids.append(Row['ID'])
+	##global attending_ids
+	##attending_ids = []
+	##Attending_IDs_raw = db.query('SELECT ID FROM Attendings')
+	##for Row in Attending_IDs_raw:
+	##	attending_ids.append(Row['ID'])
 
-	global db_sql
-	db_sql = sql.connect('rvs/RVS.db')
+	##global db_sql
+	##db_sql = sql.connect('rvs/RVS.db')
 
-	global attending_id_current
+	##global attending_id_current
 
 	global attending_image
 	attending_image = Image.open("design/attending_icon.png")
