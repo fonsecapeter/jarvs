@@ -29,7 +29,7 @@ attending_emails = []
 for Row in c.execute('SELECT EMAIL FROM Attendings'):
 	attending_emails += Row
 
-# Preferences  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+# Preferences  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 user_ids = []
 for Row in c.execute('SELECT ID FROM Preferences'):
@@ -86,7 +86,7 @@ def update_attending_email(new_email, attending_id):
 	connection.execute('UPDATE Attendings SET EMAIL=? WHERE ID=?', (new_email, attending_id))
 	connection.commit()
 
-# Preferences   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+# Preferences   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 def update_user_id(new_id, old_id):
 	connection.execute('UPDATE Preferencess SET ID=? WHERE ID=?', (new_id, old_id))
@@ -117,8 +117,9 @@ def update_background_color(new_background_color, user_id):
 # ATTENDINGS  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 def insert_new_attending(new_fname, new_lname, new_dirname, new_email):
-	new_id = len(user_ids)
-	connection.exectute('INSERT INTO Attendings VALUES (?, ?, ?, ?, ?)', new_id, new_fname, new_lname, new_dirname, new_email)
+	new_id = attending_ids[-1] + 1
+	print new_id
+	connection.execute('INSERT INTO Attendings VALUES (?, ?, ?, ?, ?)', (new_id, new_fname, new_lname, new_dirname, new_email))
 	connection.commit()
 
 #-----------------------------------------------------------------------------------------------

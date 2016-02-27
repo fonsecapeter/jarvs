@@ -219,12 +219,12 @@ class Jarvs(Frame):
 	def populate_attends_entry(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 
-		if attends_list_index != len(rvsdata.attending_ids):
+		if attends_list_index < rvsdata.attending_ids[-1] + 1:
 			self.attends_id_entry.config(state=NORMAL)
 			self.attends_id_entry.delete(0, END)
 			self.attends_id_entry.insert(END, rvsdata.attending_ids[attends_list_index])
 			self.attends_id_entry.config(state=DISABLED)
-		
+
 			self.attends_fname_entry.delete(0, END)
 			self.attends_fname_entry.insert(END, rvsdata.attending_fnames[attends_list_index])
 
@@ -239,9 +239,9 @@ class Jarvs(Frame):
 		else:
 			self.attends_id_entry.config(state=NORMAL)
 			self.attends_id_entry.delete(0, END)
-			self.attends_id_entry.insert(END, len(rvsdata.attending_ids))
+			self.attends_id_entry.insert(END, rvsdata.attending_ids[-1] + 1)
 			self.attends_id_entry.config(state=DISABLED)
-		
+
 			self.attends_fname_entry.delete(0, END)
 			self.attends_fname_entry.insert(END, "New First Name")
 
@@ -278,7 +278,7 @@ class Jarvs(Frame):
 		new_attending_lname = self.attends_lname_entry.get()
 		new_attending_dirname = self.attends_dirname_entry.get()
 		new_attending_email = self.attends_email_entry.get()
-		if current_attending_id != len(rvsdata.attending_ids):
+		if current_attending_id < rvsdata.attending_ids[-1] + 1:
 			self.save_attends_fname(current_attending_id)
 			self.save_attends_lname(current_attending_id)
 			self.save_attends_dirname(current_attending_id)
@@ -312,10 +312,10 @@ class Jarvs(Frame):
 		self.populate_attends_list()
 
 		# entry fields
-		self.attends_photo = ImageTk.PhotoImage(attending_image)
-		self.attends_icon = Label(attends_right, image=self.attends_photo, bg=gray_color)
-		self.attends_icon.image = self.attends_photo
-		self.attends_icon.grid(column=0, row=0, padx=2, pady=12)
+		#self.attends_photo = ImageTk.PhotoImage(attending_image)
+		#self.attends_icon = Label(attends_right, image=self.attends_photo, bg=gray_color)
+		#self.attends_icon.image = self.attends_photo
+		#self.attends_icon.grid(column=0, row=0, padx=2, pady=12)
 
 		self.attends_id_entry = Entry(attends_right, bd=0, bg=gray_color, disabledbackground=gray_color, width=32, highlightthickness=0, justify=CENTER, state=NORMAL)
 		self.attends_id_entry.grid(column=0, row=1, padx=0, pady=2)
@@ -408,9 +408,9 @@ def init_vars():
 	global dark_gray_color
 	dark_gray_color = '#e6e6e6'
 
-	global attending_image
-	attending_image = Image.open("design/attending_icon.png")
-	attending_image = attending_image.resize((98, 98), Image.ANTIALIAS)
+	#global attending_image
+	#attending_image = Image.open("design/attending_icon.png")
+	#attending_image = attending_image.resize((98, 98), Image.ANTIALIAS)
 
 def main():
 	root = Tk()
