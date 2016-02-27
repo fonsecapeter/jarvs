@@ -289,6 +289,13 @@ class Jarvs(Frame):
 		window.destroy()
 		self.set_attendings()
 
+	def delete_attends(self, window):
+		current_attending_id = self.attends_id_entry.get()
+		rvsdata.delete_attending(current_attending_id)
+		init_vars()
+		window.destroy()
+		self.set_attendings()
+
 	def set_attendings(self):
 
 		init_vars()
@@ -342,6 +349,11 @@ class Jarvs(Frame):
 		save_attends = lambda: self.save_attends(attends)
 		self.attends_save_all = Button(attends_right,text="Save", command=save_attends, bg="white", bd=0)
 		self.attends_save_all.grid(column=0, row=6, padx=0, pady=12)
+
+		# entry delete button
+		delete_attends = lambda: self.delete_attends(attends)
+		self.attends_delete_button = Button(attends_right, text="Delete", command=delete_attends, bg="white", bd=0)
+		self.attends_delete_button.grid(column=0, row=7, padx=0, pady=2)
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs

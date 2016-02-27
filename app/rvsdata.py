@@ -127,5 +127,5 @@ def insert_new_attending(new_fname, new_lname, new_dirname, new_email):
 # ATTENDINGS  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 def delete_attending(attending_id):
-	connection.execute('DELETE FROM Attendings WHERE ID=?', attending_id)
+	connection.execute('DELETE FROM Attendings WHERE ID=?', (attending_id,))
 	connection.commit()
