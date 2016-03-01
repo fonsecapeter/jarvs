@@ -85,7 +85,30 @@ class Jarvs(Frame):
 		self.entry_main.delete(0, END)
 		self.text_content.config(state=DISABLED)
 
-		if 'vis' in self.input_content:
+		if 'preferences' in self.input_content:
+			self.set_preferences()
+		elif 'practice' in self.input_content:
+			if 'attending' in self.input_content:
+				self.set_attendings()
+			elif 'vis' in self.input_content:
+				self.text_content.config(state=NORMAL)
+				self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
+				self.text_content.insert(END, "I'll show you all the practice rvs's waiting for" + '\n')
+				self.text_content.insert(END, "approval since the last full report." + '\n')
+				self.text_content.insert(END, "I won't log the data on this one." + '\n')
+				self.text_content.see(END)
+				self.text_content.config(state=DISABLED)
+				self.after(500, self.practice_vis)
+			elif 'report' in self.input_content:
+				self.text_content.config(state=NORMAL)
+				self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
+				self.text_content.insert(END, "I'll show you all the practice rvs's currently" + '\n')
+				self.text_content.insert(END, "waiting for approval." + '\n')
+				self.text_content.insert(END, "I will log the data on this one." + '\n')
+				self.text_content.see(END)
+				self.text_content.config(state=DISABLED)
+				self.after(500, self.practice_report)
+		elif 'vis' in self.input_content:
 			self.text_content.config(state=NORMAL)
 			self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
 			self.text_content.insert(END, "I'll show you all the rvs's waiting for approval" + '\n')
@@ -103,8 +126,6 @@ class Jarvs(Frame):
 			self.text_content.see(END)
 			self.text_content.config(state=DISABLED)
 			self.after(500, self.report)
-		elif 'preferences' in self.input_content:
-			self.set_preferences()
 		elif 'bye' in self.input_content:
 			self.end_jarvs()
 
