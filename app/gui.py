@@ -225,8 +225,21 @@ class Jarvs(Frame):
 
 	# <--- edit and display attendings data --->
 	def populate_attends_list(self):
-		for Attending in rvsdata.attending_ids:
-			self.attends_list_fname.insert(Attending, rvsdata.attending_fnames[Attending])
+		for Attending_ID in range(rvsdata.attending_ids[-1] + 1):
+			try:
+				self.attends_list_fname.insert(rvsdata.attending_ids[Attending_ID], rvsdata.attending_fnames[Attending_ID])
+			except:
+				pass
+				##encounter_skip = True
+				##Attending_skip = Attending_ID
+				##while encounter_skip and Attending_skip < rvsdata.attending_ids[-1] + 1:
+					##try:
+					##	self.attends_list_fname.insert(rvsdata.attending_ids[Attending_skip], rvsdata.attending_fnames[Attending_ID])
+					##except:
+					##	self.attends_list_fname.insert(Attending_skip - 1, " ---- ")
+					##	Attending_skip += 1
+					##else:
+					##	encounter_skip = False
 
 		self.attends_list_fname.insert(END, "+")
 
@@ -240,10 +253,11 @@ class Jarvs(Frame):
 	def populate_attends_entry(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 
-		if attends_list_index < rvsdata.attending_ids[-1] + 1:
+		if attends_list_index < len(rvsdata.attending_ids):
 			self.attends_id_entry.config(state=NORMAL)
 			self.attends_id_entry.delete(0, END)
 			self.attends_id_entry.insert(END, rvsdata.attending_ids[attends_list_index])
+			##self.attends_id_entry.insert(END, attends_list_index)
 			self.attends_id_entry.config(state=DISABLED)
 
 			self.attends_fname_entry.delete(0, END)
