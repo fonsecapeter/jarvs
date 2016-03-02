@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# import 3rd party libraries
+# import standard & 3rd party libraries
 from Tkinter import *
 import tkMessageBox
 import os
@@ -10,6 +10,7 @@ from PIL import Image, ImageTk
 # import jarvs-specific methods
 import rvsdata
 import jarvisms
+import attendingsgui
 
 class Jarvs(Frame):
 
@@ -41,7 +42,8 @@ class Jarvs(Frame):
 
 		practice_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="practice", menu=practice_menu)
-		practice_menu.add_command(label="Attendings", command=self.set_attendings)
+		##practice_menu.add_command(label="Attendings", command=self.set_attendings)
+		practice_menu.add_command(label="Attendings", command=attendingsgui.main)
 		practice_menu.add_separator()
 		practice_menu.add_command(label="Quick visual", command=self.practice_vis)
 		practice_menu.add_command(label="Full report", command=self.practice_report)
