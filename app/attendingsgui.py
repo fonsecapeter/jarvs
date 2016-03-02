@@ -4,11 +4,16 @@ from Tkinter import *
 import tkMessageBox
 # import jarvs-specific methods
 import rvsdata
+##import practice_rvsdata {IN __init__}
 
 class Attendings(Frame):
 
-	def __init__(self, parent):
+	def __init__(self, parent, database):
 			Frame.__init__(self, parent)
+
+			if database == "real":
+				print "attempting to import real data"
+				import realrvsdata
 
 			self.parent = parent
 			self.init_ui()
@@ -161,7 +166,7 @@ def init_vars():
 def main():
 	init_vars()
 	root = Tk()
-	app = Attendings(root)
+	app = Attendings(root, "practice")
 	root.mainloop()
 
 # conditionally execute script or as module if imported elsewhere

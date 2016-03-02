@@ -118,7 +118,6 @@ def update_background_color(new_background_color, user_id):
 
 def insert_new_attending(new_fname, new_lname, new_dirname, new_email):
 	new_id = attending_ids[-1] + 1
-	print new_id
 	connection.execute('INSERT INTO Attendings VALUES (?, ?, ?, ?, ?)', (new_id, new_fname, new_lname, new_dirname, new_email))
 	connection.commit()
 
