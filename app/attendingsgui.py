@@ -19,15 +19,15 @@ class Attendings(Frame):
 			self.init_ui()
 
 	def init_ui(self):
-		attends = Frame(self.parent, bg=gray_color)
+		self.attends = Frame(self.parent, bg=gray_color)
 		self.parent.title("Attendings")
-		attends.pack(fill=BOTH, expand=True)
+		self.attends.pack(fill=BOTH, expand=True)
 		##attends.wm_title("Jarvs Attendings")
-		attends_window = Frame(attends, bg=gray_color, bd=0)
+		attends_window = Frame(self.attends, bg=gray_color, bd=0)
 		attends_window.grid(row=0, column=2, sticky=N)
-		attends_right = Frame(attends, bg=gray_color, bd=0)
+		attends_right = Frame(self.attends, bg=gray_color, bd=0)
 		attends_right.grid(row=0, column=0, rowspan=2)
-		attends_separator = Frame(attends, bd=1, width=2)
+		attends_separator = Frame(self.attends, bd=1, width=2)
 		attends_separator.grid(row=0, column=1, sticky=N+S)
 
 		# data listbox
@@ -64,12 +64,12 @@ class Attendings(Frame):
 		self.attends_email_entry.insert(0, "-- Email --")
 
 		# entry save button
-		save_attends = lambda: self.save_attends(attends)
+		save_attends = lambda: self.save_attends(self.attends)
 		self.attends_save_all = Button(attends_right,text="Save", command=save_attends, bg="white", bd=0)
 		self.attends_save_all.grid(column=0, row=6, padx=0, pady=12)
 
 		# entry delete button
-		delete_attends = lambda: self.delete_attends(attends)
+		delete_attends = lambda: self.delete_attends(self.attends)
 		self.attends_delete_button = Button(attends_right, text="Delete", command=delete_attends, bg="white", bd=0)
 		self.attends_delete_button.grid(column=0, row=7, padx=0, pady=2)
 
@@ -145,14 +145,15 @@ class Attendings(Frame):
 		else:
 			rvsdata.insert_new_attending(new_attending_fname, new_attending_lname, new_attending_dirname, new_attending_email)
 		init_vars()
-		window.destroy()
+		self.update()
+		self.attends.pack_forget()
 		self.init_ui()
 
 	def delete_attends(self, window):
 		current_attending_id = self.attends_id_entry.get()
 		rvsdata.delete_attending(current_attending_id)
 		init_vars()
-		window.destroy()
+		self.attends.pack_forget()
 		self.init_ui()
 
 def init_vars():
