@@ -55,12 +55,18 @@ background_colors = []
 for Row in c.execute('SELECT BACKGROUNDCOLOR FROM Preferences'):
 	background_colors = Row
 
+root_dirs = []
+for Row in c.execute('SELECT ROOTDIR From Preferences'):
+	root_dirs = Row
+
+# only one row, still need to pip data from db > array > int/string
 user_id = user_ids[0]
 user_name = user_names[0]
 user_email = user_emails[0]
 user_color = user_colors[0]
 jarvs_color = jarvs_colors[0]
 background_color = background_colors[0]
+root_dir = root_dirs[0]
 
 #-----------------------------------------------------------------------------------------------
 ## UPDATE DATA IN DATABASE
@@ -89,27 +95,31 @@ def update_attending_email(new_email, attending_id):
 # Preferences   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 def update_user_id(new_id, old_id):
-	connection.execute('UPDATE Preferencess SET ID=? WHERE ID=?', (new_id, old_id))
+	connection.execute('UPDATE Preferences SET ID=? WHERE ID=?', (new_id, old_id))
 	connection.commit()
 
-def update_user_name(new_user_name, user_id):
-	connection.execute('UPDATE Preferencess SET USERNAME=? WHERE ID=?', (new_user_name, user_id))
+def update_user_name(new_user_name):
+	connection.execute('UPDATE Preferences SET USERNAME=? WHERE ID=0', (new_user_name,))
 	connection.commit()
 
-def update_user_email(new_user_email, user_id):
-	connection.execute('UPDATE Preferencess SET USEREMAIL=? WHERE ID=?', (new_user_email, user_id))
+def update_user_email(new_user_email):
+	connection.execute('UPDATE Preferences SET USEREMAIL=? WHERE ID=0', (new_user_email,))
 	connection.commit()
 
-def update_user_color(new_user_color, user_id):
-	connection.execute('UPDATE Preferencess SET USERCOLOR=? WHERE ID=?', (new_user_color, user_id))
+def update_user_color(new_user_color):
+	connection.execute('UPDATE Preferences SET USERCOLOR=? WHERE ID=0', (new_user_color,))
 	connection.commit()
 
-def update_jarvs_color(new_jarvs_color, user_id):
-	connection.execute('UPDATE Preferencess SET JARVSCOLOR=? WHERE ID=?', (new_jarvs_color, user_id))
+def update_jarvs_color(new_jarvs_color):
+	connection.execute('UPDATE Preferences SET JARVSCOLOR=? WHERE ID=0', (new_jarvs_color,))
 	connection.commit()
 
-def update_background_color(new_background_color, user_id):
-	connection.execute('UPDATE Preferencess SET BACKGROUNDCOLOR=? WHERE ID=?', (new_background_color, user_id))
+def update_background_color(new_background_color):
+	connection.execute('UPDATE Preferences SET BACKGROUNDCOLOR=? WHERE ID=0', (new_background_color,))
+	connection.commit()
+
+def update_root_dir(new_root_dir):
+	connection.execute('UPDATE Preferences SET ROOTDIR=? WHERE ID=0', (new_root_dir,))
 	connection.commit()
 
 #-----------------------------------------------------------------------------------------------

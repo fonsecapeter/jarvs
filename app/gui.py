@@ -91,7 +91,7 @@ class Jarvs(Frame):
 			self.set_preferences()
 		elif 'practice' in self.input_content:
 			if 'attending' in self.input_content:
-				self.set_attendings()
+				attendingsgui.main()
 			elif 'vis' in self.input_content:
 				self.text_content.config(state=NORMAL)
 				self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
@@ -154,7 +154,7 @@ class Jarvs(Frame):
 		# user_name
 		self.user_name_label = Label(prefs_window, text="User Name: ", bg=gray_color)
 		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
-		self.user_name_entry = Entry(prefs_window, bd=0)
+		self.user_name_entry = Entry(prefs_window, bd=0, width=32)
 		self.user_name_entry.insert(END, rvsdata.user_name)
 		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
 		self.user_name_entry.bind('<Return>', self.save_user_name)
@@ -162,7 +162,7 @@ class Jarvs(Frame):
 		# email
 		self.user_email_label = Label(prefs_window, text="User Email: ", bg=gray_color)
 		self.user_email_label.grid(row=1, column=0, sticky=E, padx=2, pady=2)
-		self.user_email_entry = Entry(prefs_window, bd=0)
+		self.user_email_entry = Entry(prefs_window, bd=0, width=32)
 		self.user_email_entry.insert(END, rvsdata.user_email)
 		self.user_email_entry.grid(row=1, column=1, padx=2, pady=2)
 		self.user_email_entry.bind('<Return>', self.save_user_email)
@@ -170,21 +170,21 @@ class Jarvs(Frame):
 		# color
 		self.user_color_label = Label(prefs_window, text="User Color: ", bg=gray_color)
 		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
-		self.user_color_entry = Entry(prefs_window, bd=0)
+		self.user_color_entry = Entry(prefs_window, bd=0, width=32)
 		self.user_color_entry.insert(END, rvsdata.user_color)
 		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
 		self.user_color_entry.bind('<Return>', self.save_user_color)
 
 		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ", bg=gray_color)
 		self.jarvs_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
-		self.jarvs_color_entry = Entry(prefs_window, bd=0)
+		self.jarvs_color_entry = Entry(prefs_window, bd=0, width=32)
 		self.jarvs_color_entry.insert(END, rvsdata.jarvs_color)
 		self.jarvs_color_entry.grid(row=3, column=1, padx=2, pady=2)
 		self.jarvs_color_entry.bind('<Return>', self.save_jarvs_color)
 
 		self.background_color_label = Label(prefs_window, text="Background Color: ", bg=gray_color)
 		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
-		self.background_color_entry = Entry(prefs_window, bd=0)
+		self.background_color_entry = Entry(prefs_window, bd=0, width=32)
 		self.background_color_entry.insert(END, rvsdata.background_color)
 		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
 		self.background_color_entry.bind('<Return>', self.save_background_color)
@@ -192,26 +192,36 @@ class Jarvs(Frame):
 		self.color_label = Label(prefs_window, text="( enter color as name or hex )", bg=gray_color)
 		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
 
+		self.root_dir_label = Label(prefs_window, text="RVS Root Directory: ", bg=gray_color)
+		self.root_dir_label.grid(row=6, column=0, sticky=E, padx=2, pady=2)
+		self.root_dir_entry = Entry(prefs_window, bd=0, width=32)
+		self.root_dir_entry.insert(END, rvsdata.root_dir)
+		self.root_dir_entry.grid(row=6, column=1, padx=2, pady=2)
+		self.root_dir_entry.bind('<Return>', self.save_root_dir)
+
 		# save all button
 		self.save_prefs_button = Button(prefs_window, text="Save", bg="white", bd=0)
 		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
-		self.save_prefs_button.grid(row=6, column=0, columnspan=2, padx=2, pady=2)
+		self.save_prefs_button.grid(row=7, column=0, columnspan=2, padx=2, pady=2)
 
 	# unit saves
 	def save_user_name(self, event):
-		rvsdata.update_user_name(self.user_name_entry.get().rstrip(), 0)
+		rvsdata.update_user_name(self.user_name_entry.get().rstrip())
 
 	def save_user_email(self, event):
-		rvsdata.update_user_color(self.user_email_entry.get().rstrip(), 0)
+		rvsdata.update_user_color(self.user_email_entry.get().rstrip())
 
 	def save_user_color(self, event):
-		rvsdata.update_user_color(self.user_color_entry.get().rstrip(), 0)
+		rvsdata.update_user_color(self.user_color_entry.get().rstrip())
 
 	def save_jarvs_color(self, event):
-		rvsdata.update_jarvs_color(self.jarvs_color_entry.get().rstrip(), 0)
+		rvsdata.update_jarvs_color(self.jarvs_color_entry.get().rstrip())
 
 	def save_background_color(self, event):
-		rvsdata.update_background_color(self.background_color_entry.get().rstrip(), 0)
+		rvsdata.update_background_color(self.background_color_entry.get().rstrip())
+
+	def save_root_dir(self, event):
+		rvsdata.update_root_dir(self.root_dir_entry.get().rstrip())
 
 	# save all
 	def save_all_preferences(self, event):
@@ -220,6 +230,7 @@ class Jarvs(Frame):
 		self.save_user_color(event)
 		self.save_jarvs_color(event)
 		self.save_background_color(event)
+		self.save_root_dir(event)
 		init_vars()
 		self.text_content.configure(fg=rvsdata.jarvs_color, bg=rvsdata.background_color)
 		self.text_content.tag_configure('user', foreground=rvsdata.user_color)
