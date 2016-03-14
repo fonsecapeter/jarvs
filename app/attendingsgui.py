@@ -3,20 +3,24 @@
 from Tkinter import *
 import tkMessageBox
 # import jarvs-specific methods
-import rvsdata
+##import rvsdata
 ##import practice_rvsdata {IN __init__}
 
 class Attendings(Frame):
 
 	def __init__(self, parent, database):
-			Frame.__init__(self, parent)
+		Frame.__init__(self, parent)
 
-			if database == "real":
-				print "attempting to import real data"
-				import realrvsdata
+		self.database = database
 
-			self.parent = parent
-			self.init_ui()
+		global rvsdata
+		if self.database == "practice":
+			import rvspracticedata as rvsdata  
+		else:
+			import rvsdata
+
+		self.parent = parent
+		self.init_ui()
 
 	def init_ui(self):
 		self.attends = Frame(self.parent, bg=gray_color)
@@ -157,17 +161,22 @@ class Attendings(Frame):
 		self.init_ui()
 
 def init_vars():
-	reload(rvsdata)
+	##reload(rvsdata)
 
 	global gray_color
 	gray_color = '#eeeeee'
 	global dark_gray_color
 	dark_gray_color = '#e6e6e6'
 
-def main():
+def main(data = "real"):
+	# slick hack: import over database translating script
+	# to read from practice database vs real database
 	init_vars()
 	root = Tk()
-	app = Attendings(root, "practice")
+	if data == "practice":
+		app = Attendings(root, "practice")
+	else:
+		app = Attendings(root, "real")
 	root.mainloop()
 
 # conditionally execute script or as module if imported elsewhere

@@ -2,7 +2,7 @@
 import sqlite3 as sql
 
 
-connection = sql.connect('../../RVS.db')
+connection = sql.connect('./rvs/RVS.db')
 c = connection.cursor()
 
 #-----------------------------------------------------------------------------------------------

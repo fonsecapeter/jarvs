@@ -33,6 +33,7 @@ class Jarvs(Frame):
 		jarvs_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="jarvs", menu=jarvs_menu)
 		jarvs_menu.add_command(label="Preferences", command=self.set_preferences)
+		jarvs_menu.add_command(label="Attendings", command=attendingsgui.main)
 		jarvs_menu.add_command(label="Quick visual", command=self.vis)
 		jarvs_menu.add_command(label="Full report", command=self.report)
 		jarvs_menu.add_command(label="Test email", command=self.test_email)
@@ -43,7 +44,7 @@ class Jarvs(Frame):
 		practice_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="practice", menu=practice_menu)
 		##practice_menu.add_command(label="Attendings", command=self.set_attendings)
-		practice_menu.add_command(label="Attendings", command=attendingsgui.main)
+		practice_menu.add_command(label="Attendings", command=lambda: attendingsgui.main("practice"))
 		practice_menu.add_separator()
 		practice_menu.add_command(label="Quick visual", command=self.practice_vis)
 		practice_menu.add_command(label="Full report", command=self.practice_report)
@@ -89,9 +90,11 @@ class Jarvs(Frame):
 
 		if 'preferences' in self.input_content:
 			self.set_preferences()
+		elif 'attending' in self.input_content:
+			attendingsgui.main()
 		elif 'practice' in self.input_content:
 			if 'attending' in self.input_content:
-				attendingsgui.main()
+				attendingsgui.main(practice)
 			elif 'vis' in self.input_content:
 				self.text_content.config(state=NORMAL)
 				self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
@@ -254,11 +257,13 @@ class Jarvs(Frame):
 		root_dir = os.getcwd()
 		os.chdir("../..")
 		subprocess.Popen(["./RVS_emailer.sh"], shell=True)
+		os.chdir(root_dir)
 
 	def test_email(self):
 		root_dir = os.getcwd()
 		os.chdir("../..")
 		subprocess.Popen(["./RVS_test_emailer.sh"], shell=True)
+		os.chdir(root_dir)
 
 	# practice in app
 	def practice_vis(self):
