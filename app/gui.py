@@ -35,6 +35,7 @@ class Jarvs(Frame):
 		main_menu.add_cascade(label="jarvs", menu=jarvs_menu)
 		jarvs_menu.add_command(label="Preferences", command=self.set_preferences)
 		jarvs_menu.add_command(label="Attendings", command=attendingsgui.main)
+		jarvs_menu.add_separator()
 		jarvs_menu.add_command(label="Quick visual", command=self.vis)
 		jarvs_menu.add_command(label="Full report", command=self.report)
 		jarvs_menu.add_command(label="Test email", command=self.test_email)
