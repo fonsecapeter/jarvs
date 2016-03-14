@@ -8,7 +8,7 @@ import time
 import sqlite3 as sql
 from PIL import Image, ImageTk
 # import jarvs-specific methods
-import rvsdata
+import rvspracticedata as rvsdata
 import jarvisms
 import attendingsgui
 

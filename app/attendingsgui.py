@@ -148,6 +148,7 @@ class Attendings(Frame):
 			rvsdata.update_attending_email(new_attending_email, current_attending_id)
 		else:
 			rvsdata.insert_new_attending(new_attending_fname, new_attending_lname, new_attending_dirname, new_attending_email)
+		reload(rvsdata)
 		init_vars()
 		self.update()
 		self.attends.pack_forget()
@@ -155,7 +156,15 @@ class Attendings(Frame):
 
 	def delete_attends(self, window):
 		current_attending_id = self.attends_id_entry.get()
-		rvsdata.delete_attending(current_attending_id)
+
+		# warning messages
+		if tkMessageBox.askyesno("Verify", "Permanently delete my memory of attending #"+current_attending_id+"?"):
+			tkMessageBox.showwarning("Yes", "Deleted atteninding #"+current_attending_id)
+			rvsdata.delete_attending(current_attending_id)
+		else:
+			tkMessageBox.showinfo('No', "Deletion has been cancelled")
+
+		reload(rvsdata)
 		init_vars()
 		self.attends.pack_forget()
 		self.init_ui()
