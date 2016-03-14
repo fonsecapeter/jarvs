@@ -2,6 +2,7 @@
 # import standard & 3rd party libraries
 from Tkinter import *
 import tkMessageBox
+import tkColorChooser
 import os
 import subprocess
 import time
@@ -177,6 +178,8 @@ class Jarvs(Frame):
 		self.user_color_entry.insert(END, rvsdata.user_color)
 		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
 		self.user_color_entry.bind('<Return>', self.save_user_color)
+		self.user_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("user_color"))
+		self.user_color_selector.grid(row=2, column=2, padx=2, pady=2)
 
 		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ", bg=gray_color)
 		self.jarvs_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
@@ -184,6 +187,8 @@ class Jarvs(Frame):
 		self.jarvs_color_entry.insert(END, rvsdata.jarvs_color)
 		self.jarvs_color_entry.grid(row=3, column=1, padx=2, pady=2)
 		self.jarvs_color_entry.bind('<Return>', self.save_jarvs_color)
+		self.jarvs_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("jarvs_color"))
+		self.jarvs_color_selector.grid(row=3, column=2, padx=2, pady=2)
 
 		self.background_color_label = Label(prefs_window, text="Background Color: ", bg=gray_color)
 		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
@@ -191,6 +196,8 @@ class Jarvs(Frame):
 		self.background_color_entry.insert(END, rvsdata.background_color)
 		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
 		self.background_color_entry.bind('<Return>', self.save_background_color)
+		self.background_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("background_color"))
+		self.background_color_selector.grid(row=4, column=2, padx=2, pady=2)
 
 		self.color_label = Label(prefs_window, text="( enter color as name or hex )", bg=gray_color)
 		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
@@ -238,6 +245,26 @@ class Jarvs(Frame):
 		self.text_content.configure(fg=rvsdata.jarvs_color, bg=rvsdata.background_color)
 		self.text_content.tag_configure('user', foreground=rvsdata.user_color)
 		self.update()
+
+	# color selector popout
+	def select_color(self, color_type):
+		# tkColorChooser outputs tuple, where second is hex, ie new_color[1]
+		# outputs (None, None) if cancelled or closed - if all(new_color) checks for None in the tuple
+		if color_type == "user_color":
+			new_color = tkColorChooser.askcolor(initialcolor=self.user_color_entry.get().rstrip())
+			if all(new_color):
+				self.user_color_entry.delete(0, 'end')
+				self.user_color_entry.insert(0, new_color[1])
+		elif color_type == "jarvs_color":
+			new_color = tkColorChooser.askcolor(initialcolor=self.jarvs_color_entry.get().rstrip())
+			if all(new_color):
+				self.jarvs_color_entry.delete(0, 'end')
+				self.jarvs_color_entry.insert(0, new_color[1])
+		elif color_type == "background_color":
+			new_color = tkColorChooser.askcolor(initialcolor=self.background_color_entry.get().rstrip())
+			if all(new_color):
+				self.background_color_entry.delete(0, 'end')
+				self.background_color_entry.insert(0, new_color[1])
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
