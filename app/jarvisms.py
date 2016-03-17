@@ -29,71 +29,77 @@ with open('./preferences/user_name.txt') as user_name_file:
 # <--- Unit Methods --->
 # return first line of a generic greeting
 def generate_generic_greeting_1():
-	generic = []
-	generic.append("Hello, " + user_name + ",")
-	generic.append("Hello,")
-	generic.append("Hi, there, " + user_name + ",")
-	generic.append("Hi, there,")
-	generic.append("Sup,")
+	generic = [
+		"Hello, " + user_name + ",",
+		"Hello,",
+		"Hi there, " + user_name + ",",
+		"Hi there,",
+		"Sup,"
+	]
 
 	return random.choice(generic) 
 # return the first line of a morning greeting
 def generate_morning_greeting_1():
-	morning = []
-	morning.append("Good morning, " + user_name + ",")
-	morning.append("Good morning,")
-	morning.append("Top of the morning to ya,")
+	morning = [
+		"Good morning, " + user_name + ",",
+		"Good morning,",
+		"Top of the morning to ya,"
+	]
 
 	return random.choice(morning)
 # return the first line of an afternoon greeting
 def generate_afternoon_greeting_1():
-	afternoon = []
-	afternoon.append("Good afternoon, " + user_name + ",")
-	afternoon.append("Good afternoon,")
+	afternoon = [
+		"Good afternoon, " + user_name + ",",
+		"Good afternoon,"
+	]
 
 	return random.choice(afternoon) 
 # return the first line of an evening greeting
 def generate_evening_greeting_1():
-	evening = []
-	evening.append("Good evening, " + user_name + ",")
-	evening.append("Good evening,")
+	evening = [
+		"Good evening, " + user_name + ",",
+		"Good evening,"
+	]
 
 	return random.choice(evening)
 # return the first line of a night greeting
 def generate_night_greeting_1():
-	night = []
-	night.append("Still at it, " + user_name + "?")
-	night.append("Still at it?")
+	night = [
+		"Still at it, " + user_name + "?",
+		"Still at it?"
+	]
 
 	return random.choice(night)
 # return the second line of a generic greeting
 def generate_generic_greeting_2():
-    generic = []
-    generic.append("How are you doing?")
-    generic.append("What can I do for you?")
-    generic.append("How can I help?")
-    generic.append("Let me know if there is anything you need.")
-    generic.append("What do you need?")
-    generic.append("How may I assist you?")
-    generic.append("What do you want?")
-    generic.append("Are you about done then?")
-    generic.append("What brings you my way?")
-    generic.append("What can I do ya for?")
-    generic.append("You rang?")
+    generic = [
+    "How are you doing?",
+    "What can I do for you?",
+    "How can I help?",
+    "What can I help you with?",
+    "Let me know if there is anything you need.",
+    "What do you need?",
+    "How may I assist you?",
+    "What brings you my way?",
+    "What can I do ya for?",
+    "You rang?"
+    ]
 
     return random.choice(generic)
 # return a single-line signoff
 def generate_generic_signoff():
-    generic = []
-    generic.append("Goodbye, let me know if you need anything else.")
-    generic.append("Bon Voyage")
-    generic.append("Until next time.")
-    generic.append("Goodbye.")
-    generic.append("Later.")
-    generic.append("Have a good one.")
-    generic.append("Chow.")
-    generic.append("Farewell for now.")
-    generic.append("Thank you and goodbye.")
+    generic = [
+    "Goodbye, let me know if you need anything else.",
+    "Bon Voyage",
+    "Until next time.",
+    "Goodbye.",
+    "Later.",
+    "Have a good one.",
+    "Chow.",
+    "Farewell for now.",
+    "Thank you and goodbye."
+    ]
 
     return random.choice(generic)
 
