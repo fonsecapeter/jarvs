@@ -1,0 +1,8 @@
+<glade-catalog name="jarvs_window" domain="glade-3" 
+               depends="gtk+" version="1.0">
+  <glade-widget-classes>
+    <glade-widget-class title="Jarvs Window" name="JarvsWindow" 
+                        generic-name="JarvsWindow" parent="GtkWindow"
+                        icon-name="widget-gtk-window"/>
+  </glade-widget-classes>
+</glade-catalog>

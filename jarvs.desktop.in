@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Jarvs
+_Comment=Jarvs application
+Categories=GNOME;Utility;
+Exec=jarvs
+Icon=jarvs
+Terminal=false
+Type=Application
