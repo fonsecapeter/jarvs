@@ -4,13 +4,17 @@ from Tkinter import *
 import tkMessageBox
 # import jarvs-specific methods
 ##import rvsdata
-##import practice_rvsdata {IN __init__}
+##import practice_rvsdata { happens in Attendings.__init__ }
 
-class Attendings(Frame):
+##class Attendings(Frame):
+class Attendings(Toplevel):
+	# class variables
+	gray_color = '#eeeeee'
+	dark_gray_color = '#e6e6e6'
 
 	def __init__(self, parent, database):
-		Frame.__init__(self, parent)
-
+		##Frame.__init__(self, parent)
+		self.parent = parent
 		self.database = database
 
 		global rvsdata
@@ -19,17 +23,18 @@ class Attendings(Frame):
 		else:
 			import rvsdata
 
-		self.parent = parent
 		self.init_ui()
 
 	def init_ui(self):
-		self.attends = Frame(self.parent, bg=gray_color)
-		self.parent.title("Attendings")
-		self.attends.pack(fill=BOTH, expand=True)
-		##attends.wm_title("Jarvs Attendings")
-		attends_window = Frame(self.attends, bg=gray_color, bd=0)
+		##self.attends = Frame(self.parent, bg=gray_color)
+		##self.parent.title("Attendings")
+		##self.attends.pack(fill=BOTH, expand=True)
+		self.attends = Toplevel(self.parent)
+		self.attends.title("Attendings")
+		self.attends.config(bg=Attendings.gray_color)
+		attends_window = Frame(self.attends, bg=Attendings.gray_color, bd=0)
 		attends_window.grid(row=0, column=2, sticky=N)
-		attends_right = Frame(self.attends, bg=gray_color, bd=0)
+		attends_right = Frame(self.attends, bg=Attendings.gray_color, bd=0)
 		attends_right.grid(row=0, column=0, rowspan=2)
 		attends_separator = Frame(self.attends, bd=1, width=2)
 		attends_separator.grid(row=0, column=1, sticky=N+S)
@@ -46,24 +51,24 @@ class Attendings(Frame):
 
 		# entry fields
 
-		self.attends_id_entry = Entry(attends_right, bd=0, bg=gray_color, disabledbackground=gray_color, width=32, highlightthickness=0, justify=CENTER, state=NORMAL)
+		self.attends_id_entry = Entry(attends_right, bd=0, bg=Attendings.gray_color, disabledbackground=Attendings.gray_color, width=32, highlightthickness=0, justify=CENTER, state=NORMAL)
 		self.attends_id_entry.grid(column=0, row=1, padx=0, pady=2)
 		self.attends_id_entry.insert(0, "-- ID --")
 		self.attends_id_entry.config(state=DISABLED)
 
-		self.attends_fname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_fname_entry = Entry(attends_right, bd=0, bg=Attendings.gray_color, width=32, highlightthickness=0, justify=CENTER)
 		self.attends_fname_entry.grid(column=0, row=2, padx=0, pady=2)
 		self.attends_fname_entry.insert(0, "-- First Name --")
 
-		self.attends_lname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_lname_entry = Entry(attends_right, bd=0, bg=Attendings.gray_color, width=32, highlightthickness=0, justify=CENTER)
 		self.attends_lname_entry.grid(column=0, row=3, padx=0, pady=2)
 		self.attends_lname_entry.insert(0, "-- Last Name --")
 
-		self.attends_dirname_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_dirname_entry = Entry(attends_right, bd=0, bg=Attendings.gray_color, width=32, highlightthickness=0, justify=CENTER)
 		self.attends_dirname_entry.grid(column=0, row=4, padx=0, pady=2)
 		self.attends_dirname_entry.insert(0, "-- Directory Name --")
 
-		self.attends_email_entry = Entry(attends_right, bd=0, bg=gray_color, width=32, highlightthickness=0, justify=CENTER)
+		self.attends_email_entry = Entry(attends_right, bd=0, bg=Attendings.gray_color, width=32, highlightthickness=0, justify=CENTER)
 		self.attends_email_entry.grid(column=0, row=5, padx=0, pady=2)
 		self.attends_email_entry.insert(0, "-- Email --")
 
@@ -91,9 +96,9 @@ class Attendings(Frame):
 
 		# colorize alternating rows
 		for Row in range(1, len(rvsdata.attending_ids), 2):
-			self.attends_list_fname.itemconfigure(Row, background=dark_gray_color)
+			self.attends_list_fname.itemconfigure(Row, background=Attendings.dark_gray_color)
 
-	# populate attending entry from fname listbox
+	# <--- populate attending entry from fname listbox --->
 	def populate_attends_entry(self, event):
 		attends_list_index = self.attends_list_fname.curselection()[0]
 
@@ -149,9 +154,9 @@ class Attendings(Frame):
 		else:
 			rvsdata.insert_new_attending(new_attending_fname, new_attending_lname, new_attending_dirname, new_attending_email)
 		reload(rvsdata)
-		init_vars()
-		self.update()
-		self.attends.pack_forget()
+		self.parent.update()
+		##self.parent.update_idletasks()
+		self.attends.destroy()
 		self.init_ui()
 
 	def delete_attends(self, window):
@@ -165,30 +170,31 @@ class Attendings(Frame):
 			tkMessageBox.showinfo('No', "Deletion has been cancelled")
 
 		reload(rvsdata)
-		init_vars()
-		self.attends.pack_forget()
+		self.parent.update()
+		##self.parent.update_idletasks()
+		self.attends.destroy()
 		self.init_ui()
 
-def init_vars():
+##def init_vars():
 	##reload(rvsdata)
 
-	global gray_color
-	gray_color = '#eeeeee'
-	global dark_gray_color
-	dark_gray_color = '#e6e6e6'
+##	global gray_color
+##	gray_color = '#eeeeee'
+##	global dark_gray_color
+##	dark_gray_color = '#e6e6e6'
 
-def main(data = "real"):
+def main(parent, data = "real"):
+	attends_app = Attendings(parent, data)
 	# slick hack: import over database translating script
 	# to read from practice database vs real database
-	init_vars()
-	root = Tk()
-	if data == "practice":
-		app = Attendings(root, "practice")
-	else:
-		app = Attendings(root, "real")
-	root.mainloop()
+##	init_vars()
+##	root = Tk()
+	##if data == "practice":
+	##	app = Attendings(parent, "practice")
+	##else:
+	##	app = Attendings(parent, "real")
+##	root.mainloop()
 
 # conditionally execute script or as module if imported elsewhere
 if __name__ == '__main__':
-	init_vars()
 	main()

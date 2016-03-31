@@ -16,9 +16,16 @@
 # get user email the old way
 ##user_email=`cat ./jarvs/app/preferences/user_email.txt`
 
-# import RVS.db
+### data_source = first parameter given, defaults to "real"
+##data_source=${0:-"real"}
+##
+## import correct RVS.db
+##if [ $data_source == "real" ]; then
+##  source rvspracticedata.cfg
+##else
+##  source RVS_db_data_fetch.cfg
+##fi
 source RVS_db_data_fetch.cfg
-
 # define function to be repeated for every attending
 emailer () {
   name_first="$1"
@@ -27,70 +34,70 @@ emailer () {
   name_email="$4"
   name_ccemail="$5"
 
-filecount="0"  # initialize variables
-parsecount="0"
-rvscount="0"
-rvsoverduecount="0"
-echo "Dr. $name_first $name_last," | cat > email.txt  # initialize txt for email
-echo "" | cat > premail.txt
-if [ $OS == "Linux" ] 2> /dev/null; then
-  DATE=$(date +%Y%m%d)
-else
-  DATE=$(gdate +%Y%m%d)
-fi
-##echo "today is [$DATE]"
-
-files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
-arr=$(echo "$files" | tr ";" "\n")  # parse into each short file name
-for x in $arr
-do
-  let filecount++
-  ##echo "file $filecount"
-  arrloop=$(echo "$x" | tr "_" "\n")  # parse each filename to extract pidn and date
-  for x in $arrloop
-  do
-    let parsecount++
-     ##echo "parse $parsecount"
-    if [ $parsecount -eq 2 ] && [ $x -eq $x ] 2>/dev/null; then
-      let rvscount++  # count outstanding rvs's
-      ##echo "pidn_$rvscount > [$x]"
-      rvspidn=$x  # get pidn
-    fi
-    if [ $parsecount -eq 3 ]; then
-      ##echo "date_$rvscount > [$x]"
-        rvsdate=$( echo "$x" | tr -d ".")  # get date for calculation
-        rvsdatedash=$( echo "$x" | tr "." "-")  # get date for email
-        ##echo "rvsdate $rvsdate"
-      if [ $OS == "Linux" ] 2> /dev/null; then
-        DUEDATE=$(date -d "$rvsdate 3 weeks" +%Y%m%d)  # calculate due date of 3 weeks after visit for each RVS
-        DUEDATEDASH=$(date -d "$DUEDATE" +%Y-%m-%d)
-      else
-        DUEDATE=$(gdate -d "$rvsdate 3 weeks" +%Y%m%d)  # calculate due date of 3 weeks after visit for each RVS
-        DUEDATEDASH=$(gdate -d "$DUEDATE" +%Y-%m-%d)
-      fi
-      # calculate due date formatted for email
-      if [ "$DATE" -ge "$DUEDATE" ]; then
-        let rvsoverduecount++  # count overdue rvs's
-        echo "  $rvspidn from ${rvsdatedash} is OVERDUE" | cat >> premail.txt
-      else
-        echo "  $rvspidn from ${rvsdatedash} is due ${DUEDATEDASH}" | cat >> premail.txt
-      fi
-    fi
-  done
+  filecount="0"  # initialize variables
   parsecount="0"
-done
+  rvscount="0"
+  rvsoverduecount="0"
+  echo "Dr. $name_first $name_last," | cat > email.txt  # initialize txt for email
+  echo "" | cat > premail.txt
+  if [ $OS == "Linux" ] 2> /dev/null; then
+    DATE=$(date +%Y%m%d)
+  else
+    DATE=$(gdate +%Y%m%d)
+  fi
+  ##echo "today is [$DATE]"
 
-echo "You have [${rvscount}] RVS's outstanding. [${rvsoverduecount}] of these are overdue, please approve." | cat >> email.txt    # compose email
-cat premail.txt >> email.txt
-echo "" | cat >> email.txt
-echo 'Files are in rvs/Outstanding/'${name_first}','${name_last} | cat >> email.txt
-echo "" | cat >> email.txt
-echo "Do not reply to this email, please contact ${name_ccemail} if you have any questions." | cat >> email.txt
+  files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
+  arr=$(echo "$files" | tr ";" "\n")  # parse into each short file name
+  for x in $arr
+  do
+    let filecount++
+    ##echo "file $filecount"
+    arrloop=$(echo "$x" | tr "_" "\n")  # parse each filename to extract pidn and date
+    for x in $arrloop
+    do
+      let parsecount++
+       ##echo "parse $parsecount"
+      if [ $parsecount -eq 2 ] && [ $x -eq $x ] 2>/dev/null; then
+        let rvscount++  # count outstanding rvs's
+        ##echo "pidn_$rvscount > [$x]"
+        rvspidn=$x  # get pidn
+      fi
+      if [ $parsecount -eq 3 ]; then
+        ##echo "date_$rvscount > [$x]"
+          rvsdate=$( echo "$x" | tr -d ".")  # get date for calculation
+          rvsdatedash=$( echo "$x" | tr "." "-")  # get date for email
+          ##echo "rvsdate $rvsdate"
+        if [ $OS == "Linux" ] 2> /dev/null; then
+          DUEDATE=$(date -d "$rvsdate 3 weeks" +%Y%m%d)  # calculate due date of 3 weeks after visit for each RVS
+          DUEDATEDASH=$(date -d "$DUEDATE" +%Y-%m-%d)
+        else
+          DUEDATE=$(gdate -d "$rvsdate 3 weeks" +%Y%m%d)  # calculate due date of 3 weeks after visit for each RVS
+          DUEDATEDASH=$(gdate -d "$DUEDATE" +%Y-%m-%d)
+        fi
+        # calculate due date formatted for email
+        if [ "$DATE" -ge "$DUEDATE" ]; then
+          let rvsoverduecount++  # count overdue rvs's
+          echo "  $rvspidn from ${rvsdatedash} is OVERDUE" | cat >> premail.txt
+        else
+          echo "  $rvspidn from ${rvsdatedash} is due ${DUEDATEDASH}" | cat >> premail.txt
+        fi
+      fi
+    done
+    parsecount="0"
+  done
 
-if [ "$rvscount" -gt "0" ]; then
-  mail -s "Overdue RVS's" -c "$name_ccemail" "$name_email" < email.txt # send attd email if they have any outstanding RVS's
-  echo "> email sent to [${name_email}]"
-fi
+  echo "You have [${rvscount}] RVS's outstanding. [${rvsoverduecount}] of these are overdue, please approve." | cat >> email.txt    # compose email
+  cat premail.txt >> email.txt
+  echo "" | cat >> email.txt
+  echo 'Files are in rvs/Outstanding/'${name_first}','${name_last} | cat >> email.txt
+  echo "" | cat >> email.txt
+  echo "Do not reply to this email, please contact ${name_ccemail} if you have any questions." | cat >> email.txt
+
+  if [ "$rvscount" -gt "0" ]; then
+    mail -s "Overdue RVS's" -c "$name_ccemail" "$name_email" < email.txt # send attd email if they have any outstanding RVS's
+    echo "> email sent to [${name_email}]"
+  fi
 }
 
 # ---> Run Emailer Method for all Attendings in RVS.db

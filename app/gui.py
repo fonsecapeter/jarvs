@@ -12,6 +12,7 @@ from PIL import Image, ImageTk
 import rvspracticedata as rvsdata
 import jarvisms
 import attendingsgui
+import preferencesgui
 
 class Jarvs(Frame):
 
@@ -34,7 +35,7 @@ class Jarvs(Frame):
 		jarvs_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="jarvs", menu=jarvs_menu)
 		jarvs_menu.add_command(label="Preferences", command=self.set_preferences)
-		jarvs_menu.add_command(label="Attendings", command=attendingsgui.main)
+		jarvs_menu.add_command(label="Attendings", command=lambda: self.set_attendings("real"))
 		jarvs_menu.add_separator()
 		jarvs_menu.add_command(label="Quick visual", command=self.vis)
 		jarvs_menu.add_command(label="Full report", command=self.report)
@@ -45,8 +46,7 @@ class Jarvs(Frame):
 
 		practice_menu = Menu(main_menu, bd=0, activeborderwidth=0)
 		main_menu.add_cascade(label="practice", menu=practice_menu)
-		##practice_menu.add_command(label="Attendings", command=self.set_attendings)
-		practice_menu.add_command(label="Attendings", command=lambda: attendingsgui.main("practice"))
+		practice_menu.add_command(label="Attendings", command=lambda: self.set_attendings("practice"))
 		practice_menu.add_separator()
 		practice_menu.add_command(label="Quick visual", command=self.practice_vis)
 		practice_menu.add_command(label="Full report", command=self.practice_report)
@@ -73,11 +73,11 @@ class Jarvs(Frame):
 		self.text_content.config( yscrollcommand=self.content_scroll.set)
 
 		# form
-		form = Frame(self.parent, bg=rvsdata.background_color, bd=0)
-		form.pack(fill=BOTH, expand=True)
+		self.form = Frame(self.parent, bg=rvsdata.background_color, bd=0)
+		self.form.pack(fill=BOTH, expand=True)
 
 		self.input_content = StringVar()
-		self.entry_main = Entry(form, fg=rvsdata.user_color, bg=rvsdata.background_color, insertbackground=rvsdata.user_color, highlightthickness=0, bd=0)
+		self.entry_main = Entry(self.form, fg=rvsdata.user_color, bg=rvsdata.background_color, insertbackground=rvsdata.user_color, highlightthickness=0, bd=0)
 		self.entry_main.bind('<Return>', self.callback)
 		self.entry_main.pack(fill=X, padx=2, pady=2)
 
@@ -93,10 +93,10 @@ class Jarvs(Frame):
 		if 'preferences' in self.input_content:
 			self.set_preferences()
 		elif 'attending' in self.input_content:
-			attendingsgui.main()
+			self.set_attendings("real")
 		elif 'practice' in self.input_content:
 			if 'attending' in self.input_content:
-				attendingsgui.main(practice)
+				self.set_attendings("practice")
 			elif 'vis' in self.input_content:
 				self.text_content.config(state=NORMAL)
 				self.text_content.insert(END, "No problem, let me crunch the numbers." + '\n')
@@ -135,6 +135,16 @@ class Jarvs(Frame):
 			self.after(500, self.report)
 		elif 'bye' in self.input_content:
 			self.end_jarvs()
+		# conversational only
+		elif 'thank' in self.input_content:
+			self.text_content.config(state=NORMAL)
+			self.text_content.insert(END, jarvisms.yourewelcome() + '\n')
+		elif 'you' in self.input_content:
+			self.text_content.config(state=NORMAL)
+			self.text_content.insert(END, jarvisms.thankyou() + '\n')
+		else:
+			self.text_content.config(state=NORMAL)
+			self.text_content.insert(END, jarvisms.response() + '\n')
 
 	def do_nothing(self):
 		tkMessageBox.showinfo("Pointless Message", "I'm doing nothing")
@@ -148,124 +158,13 @@ class Jarvs(Frame):
 		time.sleep(1)
 		quit()
 
-	# <--- preferences --->
 	def set_preferences(self):
+		preferencesgui.main(self)
 		init_vars()
-		prefs = Toplevel(self.parent)
-		prefs.wm_title("Jarvs Preferences")
-		prefs_window = Frame(prefs, bg=gray_color)
-		prefs_window.pack(fill=BOTH, expand=True)
 
-		# user_name
-		self.user_name_label = Label(prefs_window, text="User Name: ", bg=gray_color)
-		self.user_name_label.grid(row=0, column=0, sticky=E, padx=2, pady=2)
-		self.user_name_entry = Entry(prefs_window, bd=0, width=32)
-		self.user_name_entry.insert(END, rvsdata.user_name)
-		self.user_name_entry.grid(row=0, column=1, padx=2, pady=2)
-		self.user_name_entry.bind('<Return>', self.save_user_name)
-
-		# email
-		self.user_email_label = Label(prefs_window, text="User Email: ", bg=gray_color)
-		self.user_email_label.grid(row=1, column=0, sticky=E, padx=2, pady=2)
-		self.user_email_entry = Entry(prefs_window, bd=0, width=32)
-		self.user_email_entry.insert(END, rvsdata.user_email)
-		self.user_email_entry.grid(row=1, column=1, padx=2, pady=2)
-		self.user_email_entry.bind('<Return>', self.save_user_email)
-
-		# color
-		self.user_color_label = Label(prefs_window, text="User Color: ", bg=gray_color)
-		self.user_color_label.grid(row=2, column=0, sticky=E, padx=2, pady=2)
-		self.user_color_entry = Entry(prefs_window, bd=0, width=32)
-		self.user_color_entry.insert(END, rvsdata.user_color)
-		self.user_color_entry.grid(row=2, column=1, padx=2, pady=2)
-		self.user_color_entry.bind('<Return>', self.save_user_color)
-		self.user_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("user_color"))
-		self.user_color_selector.grid(row=2, column=2, padx=2, pady=2)
-
-		self.jarvs_color_label = Label(prefs_window, text="Jarvs Color: ", bg=gray_color)
-		self.jarvs_color_label.grid(row=3, column=0, sticky=E, padx=2, pady=2)
-		self.jarvs_color_entry = Entry(prefs_window, bd=0, width=32)
-		self.jarvs_color_entry.insert(END, rvsdata.jarvs_color)
-		self.jarvs_color_entry.grid(row=3, column=1, padx=2, pady=2)
-		self.jarvs_color_entry.bind('<Return>', self.save_jarvs_color)
-		self.jarvs_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("jarvs_color"))
-		self.jarvs_color_selector.grid(row=3, column=2, padx=2, pady=2)
-
-		self.background_color_label = Label(prefs_window, text="Background Color: ", bg=gray_color)
-		self.background_color_label.grid(row=4, column=0, sticky=E, padx=2, pady=2)
-		self.background_color_entry = Entry(prefs_window, bd=0, width=32)
-		self.background_color_entry.insert(END, rvsdata.background_color)
-		self.background_color_entry.grid(row=4, column=1, padx=2, pady=2)
-		self.background_color_entry.bind('<Return>', self.save_background_color)
-		self.background_color_selector = Button(prefs_window, text="Color Picker", bg="white", bd=0, command=lambda: self.select_color("background_color"))
-		self.background_color_selector.grid(row=4, column=2, padx=2, pady=2)
-
-		self.color_label = Label(prefs_window, text="( enter color as name or hex )", bg=gray_color)
-		self.color_label.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
-
-		self.root_dir_label = Label(prefs_window, text="RVS Root Directory: ", bg=gray_color)
-		self.root_dir_label.grid(row=6, column=0, sticky=E, padx=2, pady=2)
-		self.root_dir_entry = Entry(prefs_window, bd=0, width=32)
-		self.root_dir_entry.insert(END, rvsdata.root_dir)
-		self.root_dir_entry.grid(row=6, column=1, padx=2, pady=2)
-		self.root_dir_entry.bind('<Return>', self.save_root_dir)
-
-		# save all button
-		self.save_prefs_button = Button(prefs_window, text="Save", bg="white", bd=0)
-		self.save_prefs_button.bind('<Button-1>', self.save_all_preferences)
-		self.save_prefs_button.grid(row=7, column=0, columnspan=2, padx=2, pady=2)
-
-	# unit saves
-	def save_user_name(self, event):
-		rvsdata.update_user_name(self.user_name_entry.get().rstrip())
-
-	def save_user_email(self, event):
-		rvsdata.update_user_color(self.user_email_entry.get().rstrip())
-
-	def save_user_color(self, event):
-		rvsdata.update_user_color(self.user_color_entry.get().rstrip())
-
-	def save_jarvs_color(self, event):
-		rvsdata.update_jarvs_color(self.jarvs_color_entry.get().rstrip())
-
-	def save_background_color(self, event):
-		rvsdata.update_background_color(self.background_color_entry.get().rstrip())
-
-	def save_root_dir(self, event):
-		rvsdata.update_root_dir(self.root_dir_entry.get().rstrip())
-
-	# save all
-	def save_all_preferences(self, event):
-		self.save_user_name(event)
-		self.save_user_email(event)
-		self.save_user_color(event)
-		self.save_jarvs_color(event)
-		self.save_background_color(event)
-		self.save_root_dir(event)
+	def set_attendings(self, database):
+		attendingsgui.main(self, "practice")
 		init_vars()
-		self.text_content.configure(fg=rvsdata.jarvs_color, bg=rvsdata.background_color)
-		self.text_content.tag_configure('user', foreground=rvsdata.user_color)
-		self.update()
-
-	# color selector popout
-	def select_color(self, color_type):
-		# tkColorChooser outputs tuple, where second is hex, ie new_color[1]
-		# outputs (None, None) if cancelled or closed - if all(new_color) checks for None in the tuple
-		if color_type == "user_color":
-			new_color = tkColorChooser.askcolor(initialcolor=self.user_color_entry.get().rstrip())
-			if all(new_color):
-				self.user_color_entry.delete(0, 'end')
-				self.user_color_entry.insert(0, new_color[1])
-		elif color_type == "jarvs_color":
-			new_color = tkColorChooser.askcolor(initialcolor=self.jarvs_color_entry.get().rstrip())
-			if all(new_color):
-				self.jarvs_color_entry.delete(0, 'end')
-				self.jarvs_color_entry.insert(0, new_color[1])
-		elif color_type == "background_color":
-			new_color = tkColorChooser.askcolor(initialcolor=self.background_color_entry.get().rstrip())
-			if all(new_color):
-				self.background_color_entry.delete(0, 'end')
-				self.background_color_entry.insert(0, new_color[1])
 
 	# <--- rvs functionality --->
 	# only at work with scripts one dir back from jarvs
@@ -334,16 +233,12 @@ def init_vars():
 	global dark_gray_color
 	dark_gray_color = '#e6e6e6'
 
-	#global attending_image
-	#attending_image = Image.open("design/attending_icon.png")
-	#attending_image = attending_image.resize((98, 98), Image.ANTIALIAS)
-
 def main():
+	init_vars()
 	root = Tk()
-	app = Jarvs(root)
+	app_main = Jarvs(root)
 	root.mainloop()
 
 # conditionally execute script or as module if imported elsewhere
 if __name__ == '__main__':
-	init_vars()
 	main()
