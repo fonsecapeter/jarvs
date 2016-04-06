@@ -1,3 +1,4 @@
 project = jarvs
 version = 12.08.1
 template = ubuntu-application
+ppa = jarvs

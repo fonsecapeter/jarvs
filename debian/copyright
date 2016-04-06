@@ -1,0 +1,11 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: jarvs
+Upstream-Contact: Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
+Source: UNKNOWN
+
+Files: *
+Copyright: (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
+Copyright: (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu></property><property name="can_focus">False</property>
+License: GPL-3
+ The full text of the GPL is distributed in
+ /usr/share/common-licenses/GPL-3 on Debian systems.
