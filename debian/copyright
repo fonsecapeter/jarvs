@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: jarvs
 Upstream-Contact: Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
-Source: UNKNOWN
+Source: https://launchpad.net/jarvs
 
 Files: *
 Copyright: (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
