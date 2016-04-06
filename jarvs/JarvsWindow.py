@@ -54,7 +54,6 @@ class JarvsWindow(Window):
 
     def on_input_activate(self, widget, data = None):
         input_content = widget.get_text() + "\n"
-        print input_content
         self.conversation.set_editable(True)
         buffer = self.conversation.get_buffer()
         # get contents of buffer

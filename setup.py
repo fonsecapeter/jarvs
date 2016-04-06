@@ -136,13 +136,13 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
 
 DistUtilsExtra.auto.setup(
     name='jarvs',
-    version='0.1-public2',
+    version='16.04',
     license='GPL-3',
     author='Peter',
     author_email='pfonseca@mac-cloud-vm-163-239.ucsf.edu',
     #description='UI for managing …',
     #long_description='Here a longer description',
-    #url='https://launchpad.net/jarvs',
+    url='https://launchpad.net/jarvs',
     cmdclass={'install': InstallAndUpdateDataDirectory}
     )
 
