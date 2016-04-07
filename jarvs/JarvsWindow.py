@@ -46,6 +46,7 @@ class JarvsWindow(Window):
         self.runbutton = self.builder.get_object("runbutton")
         self.emailbutton = self.builder.get_object("emailbutton")
         self.visualizebutton = self.builder.get_object("visualizebutton")
+        self.mainvbox = self.builder.get_object("mainvbox")
 
         ##self.background_rgba = self.hex_to_rgba(rvsdata.background_color)        
         ##self.background_color = Gdk.RGBA(self.background_rgba)
