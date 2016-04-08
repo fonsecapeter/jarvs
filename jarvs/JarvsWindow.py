@@ -40,28 +40,29 @@ class JarvsWindow(Window):
         self.PreferencesDialog = PreferencesJarvsDialog
 
         # Code for other initialization actions should be added here.
-        self.conversation = self.builder.get_object("conversation")
-        self.input = self.builder.get_object("input")
+        self.conversation = self.builder.get_object("conversation_main")
+        self.input = self.builder.get_object("entry_main")
         
-        self.runbutton = self.builder.get_object("runbutton")
-        self.emailbutton = self.builder.get_object("emailbutton")
-        self.visualizebutton = self.builder.get_object("visualizebutton")
-        self.mainvbox = self.builder.get_object("mainvbox")
-
-        ##self.background_rgba = self.hex_to_rgba(rvsdata.background_color)        
-        ##self.background_color = Gdk.RGBA(self.background_rgba)
-        ##self.conversation.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        self.mainvbox = self.builder.get_object("box_main")
+        self.scrolledconversationwindow = self.builder.get_object("scrolledwindow_main")
+        self.mainvbox = self.builder.get_object("box_main")
+        
+        self.no_color = Gdk.RGBA(255,255, 255,0)
         self.background_color = Gdk.RGBA()
         self.background_color.parse(rvsdata.background_color)
         self.user_color = Gdk.RGBA()
         self.user_color.parse(rvsdata.user_color)
         self.jarvs_color = Gdk.RGBA()
         self.jarvs_color.parse(rvsdata.jarvs_color)
+        self.conversation.set_border_width(4)
         
+        # coloring
         self.conversation.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        self.conversation.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
+        ##self.conversation.override_background_color(Gtk.StateType.NORMAL, self.no_color)
         self.input.override_background_color(Gtk.StateType.NORMAL, self.background_color)
         self.input.override_color(Gtk.StateType.NORMAL, self.user_color)
-        self.conversation.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
+        ##self.input.override_background_color(Gtk.StateType.NORMAL, self.no_color)
         
         self.jarvs_say(jarvisms.greeting_1())
         self.jarvs_say(jarvisms.greeting_2())
@@ -77,7 +78,7 @@ class JarvsWindow(Window):
     def on_visualizebutton_clicked(self, widget, data = None):
         print "visualize pressed"
 
-    def on_input_activate(self, widget, data = None):
+    def on_entry_main_activate(self, widget, data = None):
         self.input_content = self.input.get_text()
         self.user_say(self.input_content)
 

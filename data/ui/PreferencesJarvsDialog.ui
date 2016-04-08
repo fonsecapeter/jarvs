@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <!-- interface-requires preferences_jarvs_dialog 1.0 -->
   <object class="PreferencesJarvsDialog" id="preferences_jarvs_dialog">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Jarvs Preferences</property>
-    <property name="icon">../media/jarvs.svg</property>
+    <property name="icon">jarvs.svg</property>
     <property name="type_hint">normal</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
@@ -21,10 +22,10 @@
             <child>
               <object class="GtkButton" id="btn_help">
                 <property name="label">gtk-help</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -37,10 +38,10 @@
             <child>
               <object class="GtkButton" id="btn_close">
                 <property name="label">gtk-close</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -63,8 +64,6 @@
             <property name="can_focus">False</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
-            <property name="n_rows">1</property>
-            <property name="n_columns">2</property>
             <child>
               <object class="GtkEntry" id="example_entry">
                 <property name="visible">True</property>
