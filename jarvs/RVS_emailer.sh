@@ -16,16 +16,7 @@
 # get user email the old way
 ##user_email=`cat ./jarvs/app/preferences/user_email.txt`
 
-### data_source = first parameter given, defaults to "real"
-##data_source=${0:-"real"}
-##
-## import correct RVS.db
-##if [ $data_source == "real" ]; then
-##  source rvspracticedata.cfg
-##else
-##  source RVS_db_data_fetch.cfg
-##fi
-source RVS_db_data_fetch.cfg
+source rvsdata.cfg
 # define function to be repeated for every attending
 emailer () {
   name_first="$1"
@@ -33,6 +24,7 @@ emailer () {
   name_dir="$3"
   name_email="$4"
   name_ccemail="$5"
+  root_dir="$6"
 
   filecount="0"  # initialize variables
   parsecount="0"
@@ -47,7 +39,8 @@ emailer () {
   fi
   ##echo "today is [$DATE]"
 
-  files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
+  ##files="$(ls -1 ./Outstanding${name_dir}*RVS*)"
+  files="$(ls -1 ${root_dir}${name_dir}*RVS*"  # first get all full file names in one var
   arr=$(echo "$files" | tr ";" "\n")  # parse into each short file name
   for x in $arr
   do
@@ -87,10 +80,10 @@ emailer () {
     parsecount="0"
   done
 
-  echo "You have [${rvscount}] RVS's outstanding. [${rvsoverduecount}] of these are overdue, please approve." | cat >> email.txt    # compose email
+  echo "You have [${rvscount}] RVSs outstanding. [${rvsoverduecount}] of these are overdue, please approve." | cat >> email.txt    # compose email
   cat premail.txt >> email.txt
   echo "" | cat >> email.txt
-  echo 'Files are in rvs/Outstanding/'${name_first}','${name_last} | cat >> email.txt
+  echo "Files are in ${root_dir}${name_dir}" | cat >> email.txt
   echo "" | cat >> email.txt
   echo "Do not reply to this email, please contact ${name_ccemail} if you have any questions." | cat >> email.txt
 
@@ -111,7 +104,7 @@ emailer () {
 
 # att id is the same as the index for each var
 for ID in ${attending_ids[@]}; do
-  emailer ${attending_fnames[$ID]} ${attending_lnames[$ID]} ${attending_dirnames[$ID]} ${attending_emails[$ID]} $user_email
+  emailer ${attending_fnames[$ID]} ${attending_lnames[$ID]} ${attending_dirnames[$ID]} ${attending_emails[$ID]} ${user_email} ${root_dir}
 done
 
 # unit emails without database

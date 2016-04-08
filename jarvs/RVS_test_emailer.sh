@@ -17,7 +17,7 @@
 ##user_email=`cat ./jarvs/app/preferences/user_email.txt`
 
 # import RVS.db
-source RVS_db_data_fetch.cfg
+source rvsdata.cfg
 
 # define function to be repeated for every attending
 emailer () {

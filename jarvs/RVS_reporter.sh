@@ -8,7 +8,7 @@
 # troubleshooting/development commands denoted by ##
 
 # import RVS.db
-source RVS_db_data_fetch.cfg
+source rvsdata.cfg
 
 # main method
 reporter () {
