@@ -41,11 +41,13 @@ class JarvsWindow(Window):
 
         # Code for other initialization actions should be added here.
         self.conversation = self.builder.get_object("conversation_main")
-        self.input = self.builder.get_object("entry_main")
+        ###self.input = self.builder.get_object("entry_main")
         
         self.mainvbox = self.builder.get_object("box_main")
         self.scrolledconversationwindow = self.builder.get_object("scrolledwindow_main")
         self.mainvbox = self.builder.get_object("box_main")
+        self.entry_test = self.builder.get_object("entry_test")
+        self.entry_test.connect("key-release-event", self.on_entry_test_key_release)
         
         self.no_color = Gdk.RGBA(255,255, 255,0)
         self.background_color = Gdk.RGBA()
@@ -55,32 +57,41 @@ class JarvsWindow(Window):
         self.jarvs_color = Gdk.RGBA()
         self.jarvs_color.parse(rvsdata.jarvs_color)
         self.conversation.set_border_width(4)
+
         
         # coloring
         self.conversation.override_background_color(Gtk.StateType.NORMAL, self.background_color)
         self.conversation.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
         ##self.conversation.override_background_color(Gtk.StateType.NORMAL, self.no_color)
-        self.input.override_background_color(Gtk.StateType.NORMAL, self.background_color)
-        self.input.override_color(Gtk.StateType.NORMAL, self.user_color)
+        ###self.input.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        ###self.input.override_color(Gtk.StateType.NORMAL, self.user_color)
         ##self.input.override_background_color(Gtk.StateType.NORMAL, self.no_color)
+        self.entry_test.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        self.entry_test.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
         
         self.jarvs_say(jarvisms.greeting_1())
         self.jarvs_say(jarvisms.greeting_2())
 
     # Gui Events
     # ---------------------------------------------------------------------
-    def on_runbutton_clicked(self, widget, data = None):
-        print "run pressed"
+    ##def on_runbutton_clicked(self, widget, data = None):
+    ##    print "run pressed"
 
-    def on_emailbutton_clicked(self, widget, data = None):
-        print "email pressed"
+    ##def on_emailbutton_clicked(self, widget, data = None):
+    ##    print "email pressed"
 
-    def on_visualizebutton_clicked(self, widget, data = None):
-        print "visualize pressed"
+    ##def on_visualizebutton_clicked(self, widget, data = None):
+    ##    print "visualize pressed"
 
     def on_entry_main_activate(self, widget, data = None):
         self.input_content = self.input.get_text()
         self.user_say(self.input_content)
+
+    def on_entry_test_key_release(self, widget, ev, data=None):
+        if ev.keyval == Gdk.KEY_Return: # if Return pressed, reset text
+            self.entry_buffer = self.entry_test.get_buffer()
+            self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
+            self.user_test_say(self.entry_text)
 
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
@@ -90,11 +101,18 @@ class JarvsWindow(Window):
         buffer.insert(buffer.get_end_iter(), text + "\n")
         self.conversation.set_editable(False)
 
-    def user_say(self, text):            
+    ###def user_say(self, text):            
+    ###    self.conversation.set_editable(True)
+    ###    buffer = self.conversation.get_buffer()
+    ###    buffer.insert(buffer.get_end_iter(), text + "\n")
+    ###    self.input.set_text("")
+    ###    self.conversation.set_editable(False)
+
+    def user_test_say(self, text_buffer):
         self.conversation.set_editable(True)
-        buffer = self.conversation.get_buffer()
-        buffer.insert(buffer.get_end_iter(), text + "\n")
-        self.input.set_text("")
+        self.conversation_buffer = self.conversation.get_buffer()
+        self.conversation_buffer.insert(self.conversation_buffer.get_end_iter(), text_buffer)
+        self.entry_buffer.set_text("")
         self.conversation.set_editable(False)
 
     # Explicit Helper Methods
@@ -107,3 +125,29 @@ class JarvsWindow(Window):
         (r1, g1, b1, a1) = (r1/255.00000, g1/255.00000, b1/255.00000, a1)
 
         return (r1, g1, b1, a1)
+
+    # Implicit RVS Bash Script Calls
+    # ---------------------------------------------------------------------
+	def vis(self):
+		##root_dir = os.getcwd()
+		##os.chdir("../..")
+		subprocess.Popen(["python", "./RVS_vis.py"])
+		##os.chdir(root_dir)
+
+	def report(self):
+		##root_dir = os.getcwd()
+		##os.chdir("../..")
+		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
+		##os.chdir(root_dir)
+
+	def email(self):
+		##root_dir = os.getcwd()
+		##os.chdir("../..")
+		subprocess.Popen(["./RVS_emailer.sh"], shell=True)
+		##os.chdir(root_dir)
+
+	def test_email(self):
+		##root_dir = os.getcwd()
+		##os.chdir("../..")
+		subprocess.Popen(["./RVS_test_emailer.sh"], shell=True)
+		##os.chdir(root_dir)
