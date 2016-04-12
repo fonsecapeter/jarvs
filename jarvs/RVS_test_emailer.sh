@@ -17,7 +17,7 @@
 ##user_email=`cat ./jarvs/app/preferences/user_email.txt`
 
 # import RVS.db
-source rvsdata.cfg
+source ./jarvs/rvsdata.cfg
 
 # define function to be repeated for every attending
 emailer () {
@@ -40,7 +40,8 @@ else
 fi
 ##echo "today is [$DATE]"
 
-files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
+##files="$(ls -1 ./Outstanding${name_dir}*RVS*)"
+files="$(ls -1 ${root_dir}/${name_dir}*RVS*)"  # first get all full file names in one var
 arr=$(echo "$files" | tr ";" "\n")  # parse into each short file name
 for x in $arr
 do
@@ -83,7 +84,8 @@ done
 echo "You have [${rvscount}] RVS's outstanding. [${rvsoverduecount}] of these are overdue, please approve." | cat >> email.txt    # compose email
 cat premail.txt >> email.txt
 echo "" | cat >> email.txt
-echo 'Files are in rvs/Outstanding/'${name_first}','${name_last} | cat >> email.txt
+##echo 'Files are in rvs/Outstanding/'${name_first}','${name_last} | cat >> email.txt
+echo "Files are in ${root_dir}/${name_dir}" | cat >> email.txt
 echo "" | cat >> email.txt
 echo "Do not reply to this email, please contact ${name_ccemail} if you have any questions." | cat >> email.txt
 

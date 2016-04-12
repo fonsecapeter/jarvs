@@ -26,6 +26,7 @@ from jarvs.AboutJarvsDialog import AboutJarvsDialog
 from jarvs.PreferencesJarvsDialog import PreferencesJarvsDialog
 import jarvisms
 import rvsdata
+import subprocess # Popopen, PIPE
 
 
 # See jarvs_lib.Window.py for more details about how this class works
@@ -80,13 +81,13 @@ class JarvsWindow(Window):
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
 
-    def on_mnu_report_activate(self, widget, data = None):
+    def on_mnu_report_activate(self, widget, data=None):
         self.jarvs_say("")
         self.jarvs_say("No problem, let me crunch the numbers.")
         self.jarvs_say("I'll show you all the practice rvs's currently")
         self.jarvs_say("waiting for approval.")
         self.jarvs_say("I will log the data on this one.")
-        ##self.report
+        self.report()
 
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
@@ -110,25 +111,21 @@ class JarvsWindow(Window):
     # Implicit RVS Bash Script Calls
     # ---------------------------------------------------------------------
 	def vis(self):
-		##root_dir = os.getcwd()
-		##os.chdir("../..")
-		subprocess.Popen(["python", "./RVS_vis.py"])
-		##os.chdir(root_dir)
+		pipe = subprocess.Popen(["python", "./jarvs/RVS_vis.py"], stdout=subprocess.PIPE).stdout
+        self.jarvs_say("")
+        self.jarvs_say(pipe.read())
 
 	def report(self):
-		##root_dir = os.getcwd()
-		##os.chdir("../..")
-		subprocess.Popen(["./RVS_reporter.sh"], shell=True)
-		##os.chdir(root_dir)
+    	pipe = subprocess.Popen(["./jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
+        self.jarvs_say("")
+        self.jarvs_say(pipe.read())
 
 	def email(self):
-		##root_dir = os.getcwd()
-		##os.chdir("../..")
-		subprocess.Popen(["./RVS_emailer.sh"], shell=True)
-		##os.chdir(root_dir)
+		pipe = subprocess.Popen(["./jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout)
+        self.jarvs_say("")
+        self.jarvs_say(pipe.read())
 
 	def test_email(self):
-		##root_dir = os.getcwd()
-		##os.chdir("../..")
-		subprocess.Popen(["./RVS_test_emailer.sh"], shell=True)
-		##os.chdir(root_dir)
+		pipe = subprocess.Popen(["./jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout)
+        self.jarvs_say("")
+        self.jarvs_say(pipe.read())

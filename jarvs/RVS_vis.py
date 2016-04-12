@@ -6,7 +6,7 @@ import matplotlib
 matplotlib.style.use('ggplot')
 
 # import and massage data
-df = pd.read_csv("./RVS_report.csv", header=None, names=["att", "date", "num_rvs", ">6mo old"])
+df = pd.read_csv("./jarvs/RVS_report.csv", header=None, names=["att", "date", "num_rvs", ">6mo old"])
 df['<6mo old'] = df['num_rvs'] - df['>6mo old']
 
 cols_to_keep = ['att', '<6mo old', '>6mo old']

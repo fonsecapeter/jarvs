@@ -8,7 +8,7 @@
 # troubleshooting/development commands denoted by ##
 
 # import RVS.db
-source rvsdata.cfg
+source ./jarvs/rvsdata.cfg
 
 # main method
 reporter () {
@@ -31,7 +31,7 @@ fi
 
 # first get all files in one var
 ##files="$(ls -1 ./Outstanding/$name_dir/*RVS*)"
-files="$(ls -1 ./Outstanding${name_dir}*RVS*)"  # first get all full file names in one var
+files="$(ls -1 ${root_dir}/${name_dir}*RVS*)"  # first get all full file names in one var
 ##echo "files: $files"
 # parse into each files
 arr=$(echo "$files" | tr ";" "\n")
@@ -79,8 +79,14 @@ do
   parsecount="0"
 done
 
+# make new report if current one gets to be too big
+if [[ $(wc -l <./jarvs/RVS_report.csv) -ge 1000 ]]; then
+  mv "./jarvs/RVS_report.csv" "./jarvs/old_reports/RVS_report_${datedash}.csv"
+  touch ./jarvs/RVS_report.csv
+fi
+
 # append new line to RVS_report.csv with attending's notes
-echo "$name_first,$datedash,$rvscount,$rvsoverduecount"  >> ./RVS_report.csv
+echo "$name_first,$datedash,$rvscount,$rvsoverduecount"  >> ./jarvs/RVS_report.csv
 echo "> $name_first's RVS's reported on [$datedash]"
 }
 
@@ -98,4 +104,4 @@ for ID in ${attending_ids[@]}; do
 done
 
 # visualize the RVS_report.csv
-./RVS_vis.py
+./jarvs/RVS_vis.py
