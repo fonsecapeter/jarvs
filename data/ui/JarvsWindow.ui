@@ -372,7 +372,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="has_focus">True</property>
-            <property name="vscroll_policy">natural</property>
             <property name="left_margin">4</property>
             <property name="right_margin">4</property>
             <signal name="key-release-event" handler="on_entry_test_key_release_event" swapped="no"/>
