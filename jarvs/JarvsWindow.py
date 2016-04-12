@@ -63,7 +63,7 @@ class JarvsWindow(Window):
         self.entry_test.override_background_color(Gtk.StateType.NORMAL, self.background_color)
         self.entry_test.override_color(Gtk.StateType.NORMAL, self.user_color)
         self.entry_test.connect("key-release-event", self.on_entry_test_key_release)
-        
+
         # greet user on startup
         self.jarvs_say(jarvisms.greeting_1())
         self.jarvs_say(jarvisms.greeting_2())
@@ -79,6 +79,14 @@ class JarvsWindow(Window):
             self.entry_buffer = self.entry_test.get_buffer()
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
+
+    def on_mnu_report_activate(self, widget, data = None):
+        self.jarvs_say("")
+        self.jarvs_say("No problem, let me crunch the numbers.")
+        self.jarvs_say("I'll show you all the practice rvs's currently")
+        self.jarvs_say("waiting for approval.")
+        self.jarvs_say("I will log the data on this one.")
+        ##self.report
 
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
