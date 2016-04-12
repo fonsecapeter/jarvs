@@ -71,7 +71,10 @@ class JarvsWindow(Window):
         ###self.input.override_color(Gtk.StateType.NORMAL, self.user_color)
         ##self.input.override_background_color(Gtk.StateType.NORMAL, self.no_color)
         self.entry_test.override_background_color(Gtk.StateType.NORMAL, self.background_color)
-        self.entry_test.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
+        self.entry_test.override_color(Gtk.StateType.NORMAL, self.user_color)
+
+        self.conversation_buffer = self.conversation.get_buffer()
+        self.user_tag = self.conversation_buffer.create_tag("user", foreground = rvsdata.user_color)
         
         self.jarvs_say(jarvisms.greeting_1())
         self.jarvs_say(jarvisms.greeting_2())
@@ -94,6 +97,7 @@ class JarvsWindow(Window):
     def on_entry_test_key_release(self, widget, ev, data=None):
         if ev.keyval == Gdk.KEY_Return: # if Return pressed, reset text
             self.entry_buffer = self.entry_test.get_buffer()
+            ##self.entry_buffer.apply_tag(self.user_tag, self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter())
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
 
@@ -113,13 +117,14 @@ class JarvsWindow(Window):
     ###    self.input.set_text("")
     ###    self.conversation.set_editable(False)
 
-    def user_test_say(self, text_buffer):
+    def user_test_say(self, text):
         self.conversation.set_editable(True)
         self.conversation_buffer = self.conversation.get_buffer()
-        self.conversation_buffer.insert(self.conversation_buffer.get_end_iter(), text_buffer)
+        
+        self.insert_start_iter = self.conversation_buffer.get_end_iter()
+        self.conversation_buffer.insert_with_tags(self.conversation_buffer.get_end_iter(), text, self.user_tag)
+
         self.entry_buffer.set_text("")
-        user_tag = self.entry_buffer.create_tag("user", background = self.user_color)
-        self.entry_buffer.set_tag(user_tag, self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter())
         self.conversation.set_editable(False)
         self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
 
