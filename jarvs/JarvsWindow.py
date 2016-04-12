@@ -41,7 +41,6 @@ class JarvsWindow(Window):
 
         # Code for other initialization actions should be added here.
         self.conversation = self.builder.get_object("conversation_main")
-        ###self.input = self.builder.get_object("entry_main")
         
         self.mainvbox = self.builder.get_object("box_main")
         self.scrolledconversationwindow = self.builder.get_object("scrolledwindow_main")
