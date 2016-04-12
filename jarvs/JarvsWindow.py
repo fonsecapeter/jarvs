@@ -56,6 +56,10 @@ class JarvsWindow(Window):
         self.user_color.parse(rvsdata.user_color)
         self.jarvs_color = Gdk.RGBA()
         self.jarvs_color.parse(rvsdata.jarvs_color)
+        
+        ###user_tag = Gtk.TextBuffer.create_tag("user", background = self.user_color)
+        ###jarvs_tag = Gtl.TextBuffer.create_tag("jarvs", background = self.jarvs_color)
+
         self.conversation.set_border_width(4)
 
         
@@ -100,6 +104,7 @@ class JarvsWindow(Window):
         buffer = self.conversation.get_buffer()
         buffer.insert(buffer.get_end_iter(), text + "\n")
         self.conversation.set_editable(False)
+        self.conversation.scroll_mark_onscreen(buffer.get_insert())
 
     ###def user_say(self, text):            
     ###    self.conversation.set_editable(True)
@@ -113,7 +118,10 @@ class JarvsWindow(Window):
         self.conversation_buffer = self.conversation.get_buffer()
         self.conversation_buffer.insert(self.conversation_buffer.get_end_iter(), text_buffer)
         self.entry_buffer.set_text("")
+        user_tag = self.entry_buffer.create_tag("user", background = self.user_color)
+        self.entry_buffer.set_tag(user_tag, self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter())
         self.conversation.set_editable(False)
+        self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
 
     # Explicit Helper Methods
     # ---------------------------------------------------------------------
