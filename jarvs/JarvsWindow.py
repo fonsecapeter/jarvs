@@ -17,7 +17,7 @@
 from locale import gettext as _
 
 from gi.repository import Pango
-from gi.repository import Gtk, Gdk # pylint: disable=E0611
+from gi.repository import Gtk, Gdk, GObject # pylint: disable=E0611
 import logging
 logger = logging.getLogger('jarvs')
 
@@ -40,6 +40,8 @@ class JarvsWindow(Window):
         self.AboutDialog = AboutJarvsDialog
         self.PreferencesDialog = PreferencesJarvsDialog     
         
+        GObject.idle_add(self.update_progress)
+
         # define colors
         self.no_color = Gdk.RGBA(255,255, 255,0)
         self.background_color = Gdk.RGBA()
@@ -71,10 +73,6 @@ class JarvsWindow(Window):
 
     # Gui Events
     # ---------------------------------------------------------------------
-    def on_entry_main_activate(self, widget, data = None):
-        self.input_content = self.input.get_text()
-        self.user_say(self.input_content)
-
     def on_entry_test_key_release(self, widget, ev, data=None):
         if ev.keyval == Gdk.KEY_Return: # if Return pressed, reset text
             self.entry_buffer = self.entry_test.get_buffer()
@@ -82,11 +80,6 @@ class JarvsWindow(Window):
             self.user_test_say(self.entry_text)
 
     def on_mnu_report_activate(self, widget, data=None):
-        self.jarvs_say("")
-        self.jarvs_say("No problem, let me crunch the numbers.")
-        self.jarvs_say("I'll show you all the practice rvs's currently")
-        self.jarvs_say("waiting for approval.")
-        self.jarvs_say("I will log the data on this one.")
         self.report()
 
     # Implicit Helper Methods
@@ -108,24 +101,62 @@ class JarvsWindow(Window):
         self.conversation.set_editable(False)
         self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
 
+        self.interpret(text)
+
+    def end_jarvs():
+        self.jarvs_say(jarvisms.signoff())
+        time.sleep(1)
+        Gtk.main_quit()
+
     # Implicit RVS Bash Script Calls
     # ---------------------------------------------------------------------
 	def vis(self):
+        self.jarvs_say("")
+        self.jarvs_say("No problem, let me crunch the numbers.")
+        self.jarvs_say("I'll show you all the rvs's waiting for approval since the last full report.")
+        self.jarvs_say("I won't log the data on this one.")
+
 		pipe = subprocess.Popen(["python", "./jarvs/RVS_vis.py"], stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def report(self):
+        self.jarvs_say("")
+        self.jarvs_say("No problem, let me crunch the numbers.")
+        self.jarvs_say("I'll show you all the practice rvs's currently waiting for approval.")
+        self.jarvs_say("I will log the data on this one.")
+
     	pipe = subprocess.Popen(["./jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def email(self):
-		pipe = subprocess.Popen(["./jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout)
+		pipe = subprocess.Popen(["./jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def test_email(self):
-		pipe = subprocess.Popen(["./jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout)
+		pipe = subprocess.Popen(["./jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
+
+    # Command Interpretation
+    # ---------------------------------------------------------------------
+    def interpret(self, command):
+        if 'vis' in command:
+	        self.vis()
+        elif 'report' in command:
+	        self.report()
+        ##elif 'email' in command:
+        ##    if 'test' in command:
+        ##    else:
+        elif 'bye' in command:
+	        self.end_jarvs()
+        # conversational only
+        elif 'thank' in command:
+	        self.jarvs_say(jarvisms.yourewelcome())
+        elif 'you' in command:
+	        self.jarvs_say(jarvisms.thankyou())
+        else:
+	        self.jarvs_say(jarvisms.response())
+            
