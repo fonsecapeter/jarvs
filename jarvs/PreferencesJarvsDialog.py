@@ -29,6 +29,8 @@ logger = logging.getLogger('jarvs')
 
 from jarvs_lib.PreferencesDialog import PreferencesDialog
 
+import rvsdata
+
 class PreferencesJarvsDialog(PreferencesDialog):
     __gtype_name__ = "PreferencesJarvsDialog"
 
@@ -37,8 +39,9 @@ class PreferencesJarvsDialog(PreferencesDialog):
         super(PreferencesJarvsDialog, self).finish_initializing(builder)
 
         # Bind each preference widget to gsettings
-        settings = Gio.Settings("net.launchpad.jarvs")
-        widget = self.builder.get_object('example_entry')
-        settings.bind("example", widget, "text", Gio.SettingsBindFlags.DEFAULT)
+        ###settings = Gio.Settings("net.launchpad.jarvs")
+        ###widget = self.builder.get_object('example_entry')
+        ###settings.bind("example", widget, "text", Gio.SettingsBindFlags.DEFAULT)
 
         # Code for other initialization actions should be added here.
+

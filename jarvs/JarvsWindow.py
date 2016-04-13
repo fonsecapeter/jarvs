@@ -23,7 +23,7 @@ logger = logging.getLogger('jarvs')
 
 from jarvs_lib import Window
 from jarvs.AboutJarvsDialog import AboutJarvsDialog
-from jarvs.PreferencesJarvsDialog import PreferencesJarvsDialog
+from jarvs.PreferencesDialog import PreferencesDialog
 import jarvisms
 import rvsdata
 import subprocess # Popopen, PIPE
@@ -38,7 +38,7 @@ class JarvsWindow(Window):
         super(JarvsWindow, self).finish_initializing(builder)
 
         self.AboutDialog = AboutJarvsDialog
-        self.PreferencesDialog = PreferencesJarvsDialog     
+        self.PreferencesDialog = PreferencesDialog     
 
         # define colors
         self.no_color = Gdk.RGBA(255,255, 255,0)
