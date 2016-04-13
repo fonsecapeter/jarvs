@@ -18,7 +18,7 @@ import optparse
 
 from locale import gettext as _
 
-from gi.repository import Gtk # pylint: disable=E0611
+from gi.repository import Gtk, GObject # pylint: disable=E0611
 
 from jarvs import JarvsWindow
 
@@ -39,6 +39,7 @@ def main():
     parse_options()
 
     # Run the application.    
+    GObject.threads_init()    
     window = JarvsWindow.JarvsWindow()
     window.show()
     Gtk.main()
