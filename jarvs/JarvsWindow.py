@@ -17,7 +17,7 @@
 from locale import gettext as _
 
 from gi.repository import Pango
-from gi.repository import Gtk, Gdk, GObject # pylint: disable=E0611
+from gi.repository import Gtk, Gdk # pylint: disable=E0611
 import logging
 logger = logging.getLogger('jarvs')
 
@@ -39,8 +39,6 @@ class JarvsWindow(Window):
 
         self.AboutDialog = AboutJarvsDialog
         self.PreferencesDialog = PreferencesJarvsDialog     
-        
-        GObject.idle_add(self.update_progress)
 
         # define colors
         self.no_color = Gdk.RGBA(255,255, 255,0)
