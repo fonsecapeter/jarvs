@@ -91,7 +91,7 @@ echo "> $name_first's RVS's reported on [$datedash]"
 }
 
 
-# ---> Run Emailer Method for all Attendings in RVS.db
+# ---> Run reporter Method for all Attendings in RVS.db
 # reporter method syntax:
 # name_first = first name
 # name_dir = attendings directory

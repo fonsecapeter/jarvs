@@ -27,6 +27,7 @@ from jarvs.PreferencesDialog import PreferencesDialog
 import jarvisms
 import rvsdata
 import subprocess # Popopen, PIPE
+import data_builder
 
 
 # See jarvs_lib.Window.py for more details about how this class works
@@ -38,7 +39,10 @@ class JarvsWindow(Window):
         super(JarvsWindow, self).finish_initializing(builder)
 
         self.AboutDialog = AboutJarvsDialog
-        self.PreferencesDialog = PreferencesDialog     
+        self.PreferencesDialog = PreferencesDialog
+
+        # build scripts and database if not yet built
+        data_builder.main()
 
         # define colors
         self.no_color = Gdk.RGBA(255,255, 255,0)

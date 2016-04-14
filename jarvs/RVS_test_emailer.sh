@@ -1,5 +1,5 @@
 #!/bin/bash
-# PPG RVS emailer by Peter Fonseca
+# PPG RVS test-emailer by Peter Fonseca
 # troubleshooting/development commands denoted by ##
 # cron job should be  0 9 * * Wed /<path>/RVS_emailer.sh
 # crontab -e opens crontab for editting, choose nano
