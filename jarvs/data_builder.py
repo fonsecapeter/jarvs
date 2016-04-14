@@ -18,7 +18,7 @@
 def main():
 	import os
 	home = os.path.expanduser("~")
-	home_jarvs = home + "/jarvs"
+	home_jarvs = home + "/.jarvs"
 
 	# only do any of this if no ~/.jarvs directory
 	if not os.path.isdir(home_jarvs):
@@ -35,7 +35,7 @@ def build(scripts):
 		if not os.path.isdir(home_jarvs):
 			raise
  	# create database
-	conn = sqlite3.connect(home_jarvs + "RVS.db")
+	conn = sqlite3.connect(home_jarvs + "/RVS.db")
 	conn.execute("""
 			CREATE TABLE Preferences (
 			id   INT PRIMARY KEY   NOT NULL,

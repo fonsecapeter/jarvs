@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 import sqlite3 as sql
+import os
 
+home = os.path.expanduser("~")
+home_jarvs = home + "/.jarvs"
 
-connection = sql.connect('./jarvs/RVS.db')
+connection = sql.connect(home_jarvs + "/RVS.db")
 c = connection.cursor()
 
 #-----------------------------------------------------------------------------------------------
