@@ -20,6 +20,9 @@ from locale import gettext as _
 
 from gi.repository import Gtk # pylint: disable=E0611
 
+import data_builder
+data_builder.main() 
+
 from jarvs import JarvsWindow
 
 from jarvs_lib import set_up_logging, get_version
@@ -38,7 +41,7 @@ def main():
     'constructor for your class instances'
     parse_options()
 
-    # Run the application.        
+    # Run the application.       
     window = JarvsWindow.JarvsWindow()
     window.show()
     Gtk.main()

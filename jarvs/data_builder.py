@@ -15,19 +15,19 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-def main():
-	import os
-	home = os.path.expanduser("~")
-	home_jarvs = home + "/.jarvs"
+import os
+import sqlite3
+home = os.path.expanduser("~")
+home_jarvs = home + "/.jarvs"
 
+
+def main():
 	# only do any of this if no ~/.jarvs directory
 	if not os.path.isdir(home_jarvs):
 		rvs_scripts = Scripts()
 		build(rvs_scripts)
 
 def build(scripts):
-	import sqlite3
-
 	# make ~/.jarvs
 	try:
 		os.makedirs(home_jarvs)
@@ -46,6 +46,8 @@ def build(scripts):
 			backgroundcolor TEXT   NOT NULL,
 			rootdir         TEXT   NOT NULL);""")
 
+	conn.execute('INSERT INTO Preferences VALUES (?, ?, ?, ?, ?, ?, ?)', ("0", "Peter", "peter.nfonseca@gmail.com", "#e6e6e6", "#e29d36", "#2c303e", "/home/pfonseca/jarvs/app/rvs/"))
+
 	conn.execute("""
 			CREATE TABLE Attendings (
 			id   INT PRIMARY KEY   NOT NULL,
@@ -53,6 +55,8 @@ def build(scripts):
 			lname           TEXT   NOT NULL,
 			dirname         TEXT   NOT NULL,
 			email           TEXT   NOT NULL);""")
+
+	conn.execute('INSERT INTO Attendings VALUES (?, ?, ?, ?, ?)', ("0", "fname", "lname", "dirname", "email"))
 
 	conn.close()
 
@@ -66,7 +70,7 @@ def build(scripts):
 	reporter_cmd = "cat " + scripts.rvs_reporter + " > ${HOME}/.jarvs/RVS_reporter.sh"
 	os.system(reporter_cmd)
 
-	rvs_data_cmd = "cat " + scripts.rvs__data_cfg + " > ${HOME}/.jarvs/rvsdata.cfg"
+	rvs_data_cmd = "cat " + scripts.rvs_data_cfg + " > ${HOME}/.jarvs/rvsdata.cfg"
 	os.system(rvs_data_cmd)
 
 
