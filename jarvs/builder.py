@@ -76,6 +76,7 @@ def build(scripts):
 		os.system("touch ${HOME}/.jarvs/RVS_emailer.sh")
 		for line in scripts.rvs_emailer:
 			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_emailer.sh'
+			os.stdout.write('.')
 
 
 	if not os.path.isfile(home_jarvs + "/RVS_test_emailer.sh"):
@@ -83,18 +84,21 @@ def build(scripts):
 		os.system("touch ${HOME}/.jarvs/RVS_test_emailer.sh")
 		for line in scripts.rvs_test_emailer:
 			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_test_emailer.sh'
+			os.stdout.write('.')
 
 	if not os.path.isfile(home_jarvs + "/RVS_reporter.sh"):
 		print "writing RVS_reporter.sh..."
 		os.system("touch ${HOME}/.jarvs/RVS_reporter.sh")
 		for line in scripts.rvs_reporter:
 			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_reporter.sh'
+			os.stdout.write('.')
 
 	if not os.path.isfile(home_jarvs + "/rvsdata.cfg"):
 		print "writing rvsdata.cfg..."
 		os.system("touch ${HOME}/.jarvs/rvsdata.cfg")
 		for line in scripts.rvs_data_cfg:
 			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/rvsdata.cfg'
+			os.stdout.write('.')
 
 def main():
 	# only do any of this if no ~/.jarvs directory

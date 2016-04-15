@@ -148,6 +148,11 @@ class JarvsWindow(Window):
         ##elif 'email' in command:
         ##    if 'test' in command:
         ##    else:
+        elif 'preferences' in command:
+            prefs = PreferencesDialog
+            prefs.run()
+            prefs.destroy()
+            reload(rvsdata)
         elif 'bye' in command:
 	        self.end_jarvs()
         # conversational only
