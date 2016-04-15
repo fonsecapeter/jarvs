@@ -20,8 +20,8 @@ from locale import gettext as _
 
 from gi.repository import Gtk # pylint: disable=E0611
 
-import data_builder
-data_builder.main() 
+import builder
+builder.main() 
 
 from jarvs import JarvsWindow
 
