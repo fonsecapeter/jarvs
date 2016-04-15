@@ -29,15 +29,18 @@ def main():
 
 def build(scripts):
 	# make ~/.jarvs
+	print "checking " + home_jarvs + "..."
 	try:
 		os.makedirs(home_jarvs)
 	except OSError as exception:
 		if not os.path.isdir(home_jarvs):
 			raise
  	# create database
+	print "checking database..."
 	conn = sqlite3.connect(home_jarvs + "/RVS.db")
+	print "checking preferences table..."
 	conn.execute("""
-			CREATE TABLE Preferences (
+			CREATE TABLE IF NOT EXISTS Preferences (
 			id   INT PRIMARY KEY   NOT NULL,
 			username        TEXT   NOT NULL,
 			useremail       TEXT   NOT NULL,
@@ -45,33 +48,45 @@ def build(scripts):
 			jarvscolor      TEXT   NOT NULL,
 			backgroundcolor TEXT   NOT NULL,
 			rootdir         TEXT   NOT NULL);""")
+	conn.commit()
 
-	conn.execute('INSERT INTO Preferences VALUES (?, ?, ?, ?, ?, ?, ?)', ("0", "Peter", "peter.nfonseca@gmail.com", "#e6e6e6", "#e29d36", "#2c303e", "/home/pfonseca/jarvs/app/rvs/"))
+	try:
+		conn.execute('INSERT INTO Preferences VALUES (0, "Peter", "peter.nfonseca@gmail.com", "#e6e6e6", "#e29d36", "#2c303e", "/home/pfonseca/jarvs/app/rvs/");')
+		conn.commit()
+	except:		
+		pass
 
+	print "checking attendings table..."
 	conn.execute("""
-			CREATE TABLE Attendings (
+			CREATE TABLE IF NOT EXISTS Attendings (
 			id   INT PRIMARY KEY   NOT NULL,
 			fname           TEXT   NOT NULL,
 			lname           TEXT   NOT NULL,
 			dirname         TEXT   NOT NULL,
 			email           TEXT   NOT NULL);""")
+	conn.commit()
 
-	conn.execute('INSERT INTO Attendings VALUES (?, ?, ?, ?, ?)', ("0", "fname", "lname", "dirname", "email"))
+	try:
+		conn.execute('INSERT INTO Attendings VALUES (0, "Peter", "Fonseca", "PeterFonseca", "peter.nfonseca@gmail.com");')
+		conn.commit()
+	except:
+		pass
 
 	conn.close()
 
 	# build scripts in ./jarvs
-	emailer_cmd = "cat " + scripts.rvs_emailer + " > ${HOME}/.jarvs/RVS_emailer.sh"
-	os.system(emailer_cmd)
+	#emailer_cmd = "cat " + scripts.rvs_emailer + " > ${HOME}/.jarvs/RVS_emailer.sh"
+	#os.system(emailer_cmd)
+	# if not os.path.isfile
 
-	test_emailer_cmd = "cat " + scripts.rvs_test_emailer + " > ${HOME}/.jarvs/RVS_test_emailer.sh"
-	os.system(test_emailer_cmd)
+	#test_emailer_cmd = "cat " + scripts.rvs_test_emailer + " > ${HOME}/.jarvs/RVS_test_emailer.sh"
+	#os.system(test_emailer_cmd)
 
-	reporter_cmd = "cat " + scripts.rvs_reporter + " > ${HOME}/.jarvs/RVS_reporter.sh"
-	os.system(reporter_cmd)
+	#reporter_cmd = "cat " + scripts.rvs_reporter + " > ${HOME}/.jarvs/RVS_reporter.sh"
+	#os.system(reporter_cmd)
 
-	rvs_data_cmd = "cat " + scripts.rvs_data_cfg + " > ${HOME}/.jarvs/rvsdata.cfg"
-	os.system(rvs_data_cmd)
+	#rvs_data_cmd = "cat " + scripts.rvs_data_cfg + " > ${HOME}/.jarvs/rvsdata.cfg"
+	#os.system(rvs_data_cmd)
 
 
 class Scripts:
