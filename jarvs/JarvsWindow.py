@@ -148,6 +148,7 @@ class JarvsWindow(Window):
         ##elif 'email' in command:
         ##    if 'test' in command:
         ##    else:
+        ##elif 'attendings' in command:
         elif 'preferences' in command:
             prefs = PreferencesDialog
             prefs.run()
