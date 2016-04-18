@@ -1,3 +1,9 @@
+jarvs (16.04.37) trusty; urgency=medium
+
+  * first package/source ppa/project upload without quickly release
+
+ -- Peter <peter.nfonseca@gmail.com>  Mon, 18 Apr 2016 09:29:04 -0700
+
 jarvs (16.04.36) trusty; urgency=medium
 
   [ Peter ]
