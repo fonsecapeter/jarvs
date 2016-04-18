@@ -68,6 +68,7 @@ class JarvsWindow(Window):
         # greet user on startup
         self.jarvs_say(jarvisms.greeting_1())
         self.jarvs_say(jarvisms.greeting_2())
+        
 
     # Gui Events
     # ---------------------------------------------------------------------
@@ -80,6 +81,9 @@ class JarvsWindow(Window):
     def on_mnu_report_activate(self, widget, data=None):
         self.report()
 
+    def on_mnu_preferences_activate(self, widget, data=None):
+        self.set_preferences()
+
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
     def jarvs_say(self, text):
@@ -89,6 +93,13 @@ class JarvsWindow(Window):
         
         self.conversation.set_editable(False)
         self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
+
+    def set_preferences(self):
+            prefs = self.PreferencesDialog()
+            prefs.run()
+            prefs.destroy()
+            reload(rvsdata)
+            self.update_colors()
 
     def user_test_say(self, text):
         self.conversation.set_editable(True)
@@ -101,7 +112,25 @@ class JarvsWindow(Window):
 
         self.interpret(text)
 
-    def end_jarvs():
+    def update_colors(self):
+        # define colors
+        self.no_color = Gdk.RGBA(255,255, 255,0)
+        self.background_color = Gdk.RGBA()
+        self.background_color.parse(rvsdata.background_color)
+        self.user_color = Gdk.RGBA()
+        self.user_color.parse(rvsdata.user_color)
+        self.jarvs_color = Gdk.RGBA()
+        self.jarvs_color.parse(rvsdata.jarvs_color)
+        
+        # define widget colors
+        self.conversation.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        self.conversation.override_color(Gtk.StateType.NORMAL, self.jarvs_color)
+        self.user_tag.set_property("foreground", rvsdata.user_color)
+
+        self.entry_test.override_background_color(Gtk.StateType.NORMAL, self.background_color)
+        self.entry_test.override_color(Gtk.StateType.NORMAL, self.user_color)
+
+    def end_jarvs(self):
         self.jarvs_say(jarvisms.signoff())
         time.sleep(1)
         Gtk.main_quit()
@@ -150,10 +179,7 @@ class JarvsWindow(Window):
         ##    else:
         ##elif 'attendings' in command:
         elif 'preferences' in command:
-            prefs = PreferencesDialog
-            prefs.run()
-            prefs.destroy()
-            reload(rvsdata)
+            self.set_preferences()
         elif 'bye' in command:
 	        self.end_jarvs()
         # conversational only

@@ -207,7 +207,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -226,7 +226,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -245,7 +245,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">6</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -261,7 +261,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -277,7 +277,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -293,7 +293,7 @@
                 <property name="margin_bottom">4</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">6</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
