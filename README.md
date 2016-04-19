@@ -2,12 +2,15 @@
 
 #### Jarvs is a research visist summary management system, build with large-scale clinical research in mind.
 
-At the moment, the GitHub version of Jarvs works on both os x and linux operating systems, but it is being transitioned into an Ubuntu application. Development is still underway for the transfer, but users have two options at the moment.
+At the moment, the GitHub version of Jarvs works on both os x and linux operating systems, but it is being transitioned into an Ubuntu application. Development is still underway for the transfer, but users have two options in the meantime:
 * Use the stable tkinter-based GitHub version with a simple `git clone http://github.com/fonsecapeter/jarvs` in your home directory (os x or linux)
-** This will require the user to `cd ~/jarvs/app` then `./gui.py` to run the program
+  * This will require the user to `cd ~/jarvs/app` then `./gui.py` to run the program
+
+or
 
 * Patiently follow the development of the GTK-based [Ubuntu release](http://launchpad.net/jarvs) with a more familiar:
-```sudo add-apt-reposoity ppa:peter-nfonseca/jarvs
+```bash
+sudo add-apt-reposoity ppa:peter-nfonseca/jarvs
 sudo apt-get update
 sudo apt-get install jarvs
 ``` 
