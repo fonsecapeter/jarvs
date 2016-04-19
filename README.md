@@ -28,8 +28,11 @@ Now Jarvs is ready to help save manage research visit summaries (RVSs). There ar
 4. Weekly Emails (uses crontab to send weekly emails to the attendings who have outstanding RVSs)
 
 Obligatory screenshot:
+
 ![jarvs_16.04_prefs](app/design/jarvs_16.04_prefs.png)
+
 Jarvs started life as a terminal-app, including a quick description of what an RVS is and what an RVS manager has to do:
+
 ![what_is_rvs.png](app/design/what_is_rvs.png)
 ![what_is_rvs_manager_1.png](app/design/what_is_rvs_manager_1.png)
 <a href="url"><img src="https://github.com/fonsecapeter/jarvs/blob/master/app/rvs/sample_docs/rvs_lifecycle.png" width="600"></a>
