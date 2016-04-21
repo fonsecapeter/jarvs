@@ -49,6 +49,8 @@ class PreferencesDialog(Gtk.Dialog):
         # Get a reference to the builder and set up the signals.
         self.builder = builder
         self.ui = builder.get_ui(self)
+
+        self.set_title("Jarvs Preferences")
         
         self.user_name_entry = builder.get_object("user_name_entry")
         self.user_name_entry.set_text(rvsdata.user_name)

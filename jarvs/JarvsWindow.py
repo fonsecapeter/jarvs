@@ -24,6 +24,7 @@ logger = logging.getLogger('jarvs')
 from jarvs_lib import Window
 from jarvs.AboutJarvsDialog import AboutJarvsDialog
 from jarvs.PreferencesDialog import PreferencesDialog
+from jarvs.AttendingsDialog import AttendingsDialog
 import jarvisms
 import subprocess # Popopen, PIPE
 import rvsdata
@@ -39,6 +40,7 @@ class JarvsWindow(Window):
 
         self.AboutDialog = AboutJarvsDialog
         self.PreferencesDialog = PreferencesDialog
+        self.AttendingsDialog = AttendingsDialog
 
         # define colors
         self.no_color = Gdk.RGBA(255,255, 255,0)
@@ -84,6 +86,9 @@ class JarvsWindow(Window):
     def on_mnu_preferences_activate(self, widget, data=None):
         self.set_preferences()
 
+    def on_mnu_attendings_activate(self, widget, data=None):
+        self.set_attendings()
+
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
     def jarvs_say(self, text):
@@ -100,6 +105,11 @@ class JarvsWindow(Window):
             prefs.destroy()
             reload(rvsdata)
             self.update_colors()
+
+    def set_attendings(self):
+            attends = self.AttendingsDialog()
+            attends.run()
+            attends.destroy()
 
     def user_test_say(self, text):
         self.conversation.set_editable(True)
