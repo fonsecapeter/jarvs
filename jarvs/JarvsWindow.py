@@ -28,6 +28,7 @@ from jarvs.AttendingsDialog import AttendingsDialog
 import jarvisms
 import subprocess # Popopen, PIPE
 import rvsdata
+import RVS_vis
 
 
 # See jarvs_lib.Window.py for more details about how this class works
@@ -83,11 +84,15 @@ class JarvsWindow(Window):
     def on_mnu_report_activate(self, widget, data=None):
         self.report()
 
+    def on_mnu_visual_activate(self, widget, data=None):
+        self.vis()
+
     def on_mnu_preferences_activate(self, widget, data=None):
         self.set_preferences()
 
     def on_mnu_attendings_activate(self, widget, data=None):
         self.set_attendings()
+        reload(rvsdata)
 
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
@@ -153,9 +158,10 @@ class JarvsWindow(Window):
         self.jarvs_say("I'll show you all the rvs's waiting for approval since the last full report.")
         self.jarvs_say("I won't log the data on this one.")
 
-		pipe = subprocess.Popen(["python", "./jarvs/RVS_vis.py"], stdout=subprocess.PIPE).stdout
-        self.jarvs_say("")
-        self.jarvs_say(pipe.read())
+        RVS_vis.main()
+		#pipe = subprocess.Popen(["python", "./jarvs/RVS_vis.py"], stdout=subprocess.PIPE).stdout
+        #self.jarvs_say("")
+        #self.jarvs_say(pipe.read())
 
 	def report(self):
         self.jarvs_say("")
@@ -163,17 +169,17 @@ class JarvsWindow(Window):
         self.jarvs_say("I'll show you all the practice rvs's currently waiting for approval.")
         self.jarvs_say("I will log the data on this one.")
 
-    	pipe = subprocess.Popen(["./jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
+    	pipe = subprocess.Popen(["bash ~/.jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def email(self):
-		pipe = subprocess.Popen(["./jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
+		pipe = subprocess.Popen(["bash ~/.jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def test_email(self):
-		pipe = subprocess.Popen(["./jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
+		pipe = subprocess.Popen(["bash ~/.jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 

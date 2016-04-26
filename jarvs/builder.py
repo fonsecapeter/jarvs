@@ -45,7 +45,7 @@ def build(scripts):
 	conn.commit()
 
 	try:
-		conn.execute('INSERT INTO Preferences VALUES (0, "Peter", "peter.nfonseca@gmail.com", "#e6e6e6", "#e29d36", "#2c303e", "/home/pfonseca/jarvs/app/rvs/");')
+		conn.execute('INSERT INTO Preferences VALUES (0, "Peter", "peter.nfonseca@gmail.com", "#e6e6e6", "#e29d36", "#2c303e", "/home/peter/jarvs/app/rvs/Outstanding/");')
 		conn.commit()
 		print "initializing preferences..."
 	except:		
@@ -62,7 +62,18 @@ def build(scripts):
 	conn.commit()
 
 	try:
-		conn.execute('INSERT INTO Attendings VALUES (0, "Peter", "Fonseca", "PeterFonseca", "peter.nfonseca@gmail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 0, "Elaine",    "Benes",    "Benes,Elaine/",    "elaine.benes@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 1, "George",    "Costanza", "Costanza,George/", "geaorge.costanza@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 2, "Julius",    "Hibbert",  "Hibbert,Julius/",  "julius.hibbert@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 3, "Clark",     "Kent",     "Kent,Clark/",      "super.man@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 4, "Cosmo",     "Kramer",   "Kramer,Cosmo/",    "cosmo@gmail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 5, "Elizabeth", "Lemon",    "Lemon,Elizabeth/", "the.lizard@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 6, "Lex",       "Luthor",   "Luthor,Lex/",      "kryptonite@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 7, "Nick",      "Riviera",  "Riviera,Nick/",    "nick.riviera@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 8, "Jerry",     "Seinfeld", "Seinfeld,Jerry/",  "jerry.seinfeld@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 9, "Neil",      "Spaceman", "Spaceman,Neil/",   "dr.spaceman@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES (10, "Bob",       "Vance",    "Vance,Bob/",       "bob.vance@vancerefridgeration.com");')
+		conn.execute('INSERT INTO Attendings VALUES (11, "Art",       "Vandalay", "Vandalay,Art/",    "art.vandalay@vandalayarchitecture.com");')
 		conn.commit()
 		print "initializing attendings..."
 	except:
@@ -75,26 +86,34 @@ def build(scripts):
 		print "writing RVS_emailer.sh..."
 		os.system("touch ${HOME}/.jarvs/RVS_emailer.sh")
 		for line in scripts.rvs_emailer:
-			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_emailer.sh'
+			command = "echo '" + line + "' | cat >> ${HOME}/.jarvs/RVS_emailer.sh"
+			os.system(command)
 
 
 	if not os.path.isfile(home_jarvs + "/RVS_test_emailer.sh"):
 		print "writing RVS_test_emailer.sh..."
 		os.system("touch ${HOME}/.jarvs/RVS_test_emailer.sh")
 		for line in scripts.rvs_test_emailer:
-			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_test_emailer.sh'
+			command = "echo '" + line + "' | cat >> ${HOME}/.jarvs/RVS_test_emailer.sh"
+			os.system(command)
 
 	if not os.path.isfile(home_jarvs + "/RVS_reporter.sh"):
 		print "writing RVS_reporter.sh..."
 		os.system("touch ${HOME}/.jarvs/RVS_reporter.sh")
 		for line in scripts.rvs_reporter:
-			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/RVS_reporter.sh'
+			command = "echo '" + line + "' | cat >> ${HOME}/.jarvs/RVS_reporter.sh"
+			os.system(command)
 
 	if not os.path.isfile(home_jarvs + "/rvsdata.cfg"):
 		print "writing rvsdata.cfg..."
 		os.system("touch ${HOME}/.jarvs/rvsdata.cfg")
-		for line in scripts.rvs_data_cfg:
-			command = 'echo "' + line + '" | cat >> ${HOME}/.jarvs/rvsdata.cfg'
+		for index, line in enumerate(scripts.rvs_data_cfg):
+			# reverse " and ' for the crazy awk lines that have all kinds of quotes
+			#if index < 20 or ( index > 25 and index < 43 ) or index > 49:
+			command = "echo '" + line + "' | cat >> ${HOME}/.jarvs/rvsdata.cfg"
+			#else:
+			#	command = "echo '" + line + "' | cat >> ${HOME}/.jarvs/rvsdata.cfg"
+			os.system(command)
 
 def main():
 	# only do any of this if no ~/.jarvs directory
