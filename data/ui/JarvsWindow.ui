@@ -5,40 +5,10 @@
   <!-- interface-requires jarvs_window 1.0 -->
   <!-- interface-local-resource-path ../media -->
   <object class="GtkActionGroup" id="actiongroup1"/>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">jarvs.svg</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">jarvs.svg</property>
-  </object>
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-help</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-orientation-landscape</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">jarvs.svg</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">jarvs.svg</property>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">jarvs.svg</property>
   </object>
   <object class="JarvsWindow" id="jarvs_window">
     <property name="width_request">480</property>
@@ -66,38 +36,26 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="mn_report">
-                        <property name="label" translatable="yes">Report</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkMenuItem" id="mn_report">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image1</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mnu_report_activate" swapped="no"/>
+                        <property name="label" translatable="yes">Report</property>
                         <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_email">
-                        <property name="label" translatable="yes">Email</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkMenuItem" id="mnu_email">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image7</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mnu_email_activate" swapped="no"/>
+                        <property name="label" translatable="yes">Email</property>
                         <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_testemail">
-                        <property name="label" translatable="yes">Test Email</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkMenuItem" id="mnu_testemail">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image6</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mnu_testemail_activate" swapped="no"/>
+                        <property name="label" translatable="yes">Test Email</property>
                         <accelerator key="e" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
                     </child>
@@ -193,14 +151,10 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_attendings">
-                        <property name="label" translatable="yes">Attendings</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkMenuItem" id="mnu_attendings">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image2</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mnu_attendings_activate" swapped="no"/>
+                        <property name="label" translatable="yes">Attendings</property>
                       </object>
                     </child>
                   </object>
@@ -218,14 +172,10 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_visual">
-                        <property name="label" translatable="yes">Visualize</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkMenuItem" id="mnu_visual">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image4</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mnu_visual_activate" swapped="no"/>
+                        <property name="label" translatable="yes">Visualize</property>
                         <accelerator key="r" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                       </object>
                     </child>
@@ -312,5 +262,10 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">jarvs.svg</property>
   </object>
 </interface>
