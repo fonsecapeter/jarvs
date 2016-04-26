@@ -81,6 +81,12 @@ class JarvsWindow(Window):
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
 
+    def on_email_activate(self, widget, data=None):
+        self.email()
+
+    def on_test_email_activate(self, widget, data=None):
+        self.test_email()   
+
     def on_mnu_report_activate(self, widget, data=None):
         self.report()
 
@@ -155,30 +161,30 @@ class JarvsWindow(Window):
 	def vis(self):
         self.jarvs_say("")
         self.jarvs_say("No problem, let me crunch the numbers.")
-        self.jarvs_say("I'll show you all the rvs's waiting for approval since the last full report.")
-        self.jarvs_say("I won't log the data on this one.")
+        self.jarvs_say("I'll show you a slick bar-chart of the most recent report.")
 
         RVS_vis.main()
-		#pipe = subprocess.Popen(["python", "./jarvs/RVS_vis.py"], stdout=subprocess.PIPE).stdout
-        #self.jarvs_say("")
-        #self.jarvs_say(pipe.read())
 
 	def report(self):
         self.jarvs_say("")
-        self.jarvs_say("No problem, let me crunch the numbers.")
-        self.jarvs_say("I'll show you all the practice rvs's currently waiting for approval.")
-        self.jarvs_say("I will log the data on this one.")
+        self.jarvs_say("No problem, I'll just pop into" + rvsdata.root_dir + " and have a look around.")
+        self.jarvs_say("I'll generate a report of all the RVSs currently waiting for approval in ~/.jarvs/RVS_report.csv.")
+        self.jarvs_say("Just ask if you'd like me to visualize that data.")
 
     	pipe = subprocess.Popen(["bash ~/.jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def email(self):
+        self.jarvs_say("")
+        self.jarvs_say("Time to lay down the hammer, eh? I'll send an email directly to each attending that has any outstatnding RVSs.")
 		pipe = subprocess.Popen(["bash ~/.jarvs/RVS_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
 
 	def test_email(self):
+        self.jarvs_say("")
+        self.jarvs_say("I'll take a look and see which attendings have any outstanding RVSs. I'll email you this time, but just ask if you want me to email the attendings diretly")
 		pipe = subprocess.Popen(["bash ~/.jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
@@ -190,10 +196,13 @@ class JarvsWindow(Window):
 	        self.vis()
         elif 'report' in command:
 	        self.report()
-        ##elif 'email' in command:
-        ##    if 'test' in command:
-        ##    else:
-        ##elif 'attendings' in command:
+        elif 'email' in command:
+            if 'test' in command:
+                self.test_email()
+            else:
+                self.email()
+        elif 'attendings' in command:
+            self.set_attendings()
         elif 'preferences' in command:
             self.set_preferences()
         elif 'bye' in command:
