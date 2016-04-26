@@ -17,12 +17,13 @@ sudo apt-get install jarvs
   * Updates are as simple as `sudo apt-get update` then `sudo apt-get upgrade`
   * Running is as simple as clicking the icon (in accessories) or typing `jarvs` into a terminal
 
-Either way, the first order of business will be configuring settings. Jarvs has a terminal-like text display, which operates through natural language commands (all lower-case for now), ad well as standard gui main-menu drop downs.
+Either way, the first order of business will be configuring settings. Jarvs has a terminal-like text display, which operates through natural language commands (all lower-case for now), as well as standard gui main-menu drop downs.
 "User Email" and "RVS Directory" are the important bits. (RVS Directory takes an absolute path, ending in "/" - file chooser dialog to come)
 
 After that, just set the attendings (give their information in the contacts-like dialog - "Direcoty Name" is the important one here and should end in "/" - this one is just the name of the terminal directory, not the full absolute path)
 
-Now Jarvs is ready to help save manage research visit summaries (RVSs). There are four main featurs: 
+Now Jarvs is ready to help manage research visit summaries (RVSs). There are four main featurs: 
+
 1. Optional directory set-up (still in development on the ubuntu release)
 2. Reporting (logs which attendings have outstanding RVSs in a spreadshet - RVS_report.csv)
 3. Data Visualization (visualizes the most recent entry in RVS_report.csv)
