@@ -16,26 +16,53 @@ sudo apt-get install jarvs
 ``` 
   * Updates are as simple as `sudo apt-get update` then `sudo apt-get upgrade`
   * Running is as simple as clicking the icon (in accessories) or typing `jarvs` into a terminal
+    * The first startup may take a littel extra time, just be patient - using the terminal on this first startup will give some helpful details about what is happening (building ~/.jarvs and it's contents)
 
 Either way, the first order of business will be configuring settings. Jarvs has a terminal-like text display, which operates through natural language commands (all lower-case for now), as well as standard gui main-menu drop downs.
-"User Email" and "RVS Directory" are the important bits. (RVS Directory takes an absolute path, ending in "/" - file chooser dialog to come)
 
-After that, just set the attendings (give their information in the contacts-like dialog - "Direcoty Name" is the important one here and should end in "/" - this one is just the name of the terminal directory, not the full absolute path)
+![jarvs_prefs](app/design/jarvs_prefs.png)
 
-Now Jarvs is ready to help manage research visit summaries (RVSs). There are four main featurs: 
+(RVS Directory takes an absolute path, ending in "/" - file chooser dialog to come.)
+  -- Spaces are currently not supported in this path --
 
-1. Optional directory set-up (still in development on the ubuntu release)
-2. Reporting (logs which attendings have outstanding RVSs in a spreadshet - RVS_report.csv)
-3. Data Visualization (visualizes the most recent entry in RVS_report.csv)
-4. Weekly Emails (uses crontab to send weekly emails to the attendings who have outstanding RVSs)
+After that, just set the attendings
 
-Obligatory screenshot:
+![jarvs_attends](app/design/jarvs_attends.png)
 
-![jarvs_16.04_prefs](app/design/jarvs_16.04_prefs.png)
+("Directory Name" should end in "/" - this is the name of the folder inside RVS Directory)
+  -- Spaces also not currently supported in this name --
 
-Jarvs started life as a terminal-app, including a quick description of what an RVS is and what an RVS manager has to do:
+The optional directory set-up feature is still in the works, but at this point you should either already have or should go set up your RVS directory, which should have a folder for each attending. Each of these folders will hold the RVSs (usually .doc or .docx). It is very important that each RVS is named exactly under the convention "Lname, Fname_pidn_yyyy.mm.dd_RVS"
 
-> dependencies:
+Once you are all set, you can run your first report.
+
+![jarvs_report](app/design/jarvs_report.png)
+
+After that, Jarvs can visualize the latest entry in that report - which is great for just keeping an eye on the attendings or even using as a motivational tool (if you work with a friednly, competitive group).
+
+![jarvs_vis](app/design/jarvs_vis.png)
+
+If there are a lot of RVSs waiting for approval, it might be a good idea to let Jarvs email a friendly reminder to the attendings who have outstanding RVSs. If this is the first time, you might want to send out some test emails that only go to your email (the one you provided in your preferences)
+
+![jarvs_test_email](app/design/jarvs_test_email.png)
+
+If that looks good to you, give jarvs the green-light to send them out to the attenings.
+
+![jarvs_test_email](app/design/jarvs_test_email.png)
+
+Because these core features run off of bash scripts (in ~/.jarvs) - you can set up some very helpful crontab jobs. I keep a weekly email every monday at 10:00 am and a matching report. To set this up, just open a terminal and type `crontab -e` - this will open the crontab in nano. Go to the bottom (after all the lines beginning with `#`) and add:
+
+`0 10 * * mon /home/peter/.jarvs/RVS_emailer.sh`
+`0 10 * * mon /home/peter/.jarvs/RVS_reporter.sh`
+
+This translates in english to: at 0 minutes after 10am (any day of month, any month of year) on every Monday, run the emailer and reporter scripts in the ~/.jarvs directory. When you are done adding those lines, press <ctrl^O> (the letter) to save, <enter> to select the right place to save (will auto-choose the right spot), then <ctrl^X> to exit nano. You can verify that it saved by typing `crontab -l` into the terminal.
+
+You can also always add a `#` before the line that you want to "turn-off" if you need to.
+
+> ubuntu version dependencies:
+python 2, matplotlib 1.5, pandas, numpy, recommend anaconda (comes will these python libraries and more)
+
+> github version dependencies:
 mac os x or linux-based operating system, bash shell, python 2, matplotlib, pandas, numpy, recommend  anaconda (comes with all python libraries and more), gcalcli
 >> if using linux: weather-util, weather-util-data
 >>
