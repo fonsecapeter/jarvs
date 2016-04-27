@@ -32,7 +32,7 @@ After that, just set the attendings
 ("Directory Name" should end in "/" - this is the name of the folder inside RVS Directory)
 > Spaces also not currently supported, work one at a time (starting with 0) and save over defaults, deleting the remaning defaults after or adding additional if needed
 
-The optional directory set-up feature is still in the works, but at this point you should either already have or should go set up your RVS directory, which should have a folder for each attending. Each of these folders will hold the RVSs (usually .doc or .docx). It is very important that each RVS is named exactly under the convention "Lname, Fname_pidn_yyyy.mm.dd_RVS"
+The optional directory set-up feature is still in the works, but at this point you should either already have or should go set up your RVS directory, which should have a folder for each attending. Each of these folders will hold the RVSs (usually .doc or .docx). It is very important that each RVS is named exactly under the convention `Lname, Fname_pidn_yyyy.mm.dd_RVS`
 
 Once you are all set, you can run your first report.
 
@@ -50,7 +50,7 @@ If that looks good to you, give jarvs the green-light to send them out to the at
 
 ![jarvs_email](app/design/jarvs_email.png)
 
-Because these core features run off of bash scripts (in ~/.jarvs) - you can set up some very helpful crontab jobs. I keep a weekly email every monday at 10:00 am and a matching report. To set this up, just open a terminal and type `crontab -e` - this will open the crontab in nano. Go to the bottom (after all the lines beginning with `#`) and add:
+Because these core features run off of bash scripts (in ~/.jarvs) - you can set up some very helpful crontab jobs. I keep a weekly email every monday at 10:00 am and a matching report. To set this up, just open a terminal and type `crontab -e` - this will open the crontab in nano. Go to the bottom (after all the lines beginning with `#`) and add your commands. I added:
 ```bash
 0 10 * * mon /home/peter/.jarvs/RVS_emailer.sh
 0 10 * * mon /home/peter/.jarvs/RVS_reporter.sh
