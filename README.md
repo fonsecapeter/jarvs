@@ -23,6 +23,7 @@ Either way, the first order of business will be configuring settings. Jarvs has 
 ![jarvs_prefs](app/design/jarvs_prefs.png)
 
 (RVS Directory takes an absolute path, ending in "/" - file chooser dialog to come.)
+
   -- Spaces are currently not supported in this path --
 
 After that, just set the attendings
@@ -30,7 +31,8 @@ After that, just set the attendings
 ![jarvs_attends](app/design/jarvs_attends.png)
 
 ("Directory Name" should end in "/" - this is the name of the folder inside RVS Directory)
-  -- Spaces also not currently supported in this name --
+
+  -- Spaces also not currently supported, work one at a time (starting with 0) and save over defaults, deleting the remaning defaults after or adding additional if needed --
 
 The optional directory set-up feature is still in the works, but at this point you should either already have or should go set up your RVS directory, which should have a folder for each attending. Each of these folders will hold the RVSs (usually .doc or .docx). It is very important that each RVS is named exactly under the convention "Lname, Fname_pidn_yyyy.mm.dd_RVS"
 
@@ -48,14 +50,15 @@ If there are a lot of RVSs waiting for approval, it might be a good idea to let 
 
 If that looks good to you, give jarvs the green-light to send them out to the attenings.
 
-![jarvs_test_email](app/design/jarvs_test_email.png)
+![jarvs_email](app/design/jarvs_email.png)
 
 Because these core features run off of bash scripts (in ~/.jarvs) - you can set up some very helpful crontab jobs. I keep a weekly email every monday at 10:00 am and a matching report. To set this up, just open a terminal and type `crontab -e` - this will open the crontab in nano. Go to the bottom (after all the lines beginning with `#`) and add:
+```bash
+0 10 * * mon /home/peter/.jarvs/RVS_emailer.sh
+0 10 * * mon /home/peter/.jarvs/RVS_reporter.sh
+```
 
-`0 10 * * mon /home/peter/.jarvs/RVS_emailer.sh`
-`0 10 * * mon /home/peter/.jarvs/RVS_reporter.sh`
-
-This translates in english to: at 0 minutes after 10am (any day of month, any month of year) on every Monday, run the emailer and reporter scripts in the ~/.jarvs directory. When you are done adding those lines, press <ctrl^O> (the letter) to save, <enter> to select the right place to save (will auto-choose the right spot), then <ctrl^X> to exit nano. You can verify that it saved by typing `crontab -l` into the terminal.
+This translates in english to: at 0 minutes after 10am (any day of month, any month of year) on every Monday, run the emailer and reporter scripts in the ~/.jarvs directory. When you are done adding those lines, press `<ctrl^O>` to save, `<enter>` to select the right place to save (will auto-choose the right spot), then `<ctrl^X>` to exit nano. You can verify that it saved by typing `crontab -l` into the terminal.
 
 You can also always add a `#` before the line that you want to "turn-off" if you need to.
 
