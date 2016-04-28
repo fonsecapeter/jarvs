@@ -81,10 +81,10 @@ class JarvsWindow(Window):
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
 
-    def on_email_activate(self, widget, data=None):
+    def on_mnu_email_activate(self, widget, data=None):
         self.email()
 
-    def on_test_email_activate(self, widget, data=None):
+    def on_mnu_test_email_activate(self, widget, data=None):
         self.test_email()   
 
     def on_mnu_report_activate(self, widget, data=None):

@@ -63,7 +63,7 @@ def build(scripts):
 
 	try:
 		conn.execute('INSERT INTO Attendings VALUES ( 0, "Elaine",    "Benes",    "Benes,Elaine/",    "elaine.benes@fakemail.com");')
-		conn.execute('INSERT INTO Attendings VALUES ( 1, "George",    "Costanza", "Costanza,George/", "geaorge.costanza@fakemail.com");')
+		conn.execute('INSERT INTO Attendings VALUES ( 1, "George",    "Costanza", "Costanza,George/", "george.costanza@fakemail.com");')
 		conn.execute('INSERT INTO Attendings VALUES ( 2, "Julius",    "Hibbert",  "Hibbert,Julius/",  "julius.hibbert@fakemail.com");')
 		conn.execute('INSERT INTO Attendings VALUES ( 3, "Clark",     "Kent",     "Kent,Clark/",      "super.man@fakemail.com");')
 		conn.execute('INSERT INTO Attendings VALUES ( 4, "Cosmo",     "Kramer",   "Kramer,Cosmo/",    "cosmo@gmail.com");')

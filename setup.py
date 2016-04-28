@@ -136,7 +136,7 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
 
 DistUtilsExtra.auto.setup(
     name='jarvs',
-    version='16.04.48',
+    version='16.04.48-public1',
     license='GPL-3',
     author='Peter',
     author_email='peter.nfonseca@gmail.com',
