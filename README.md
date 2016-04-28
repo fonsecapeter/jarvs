@@ -30,7 +30,7 @@ After that, just set the attendings
 ![jarvs_attends](app/design/jarvs_attends.png)
 
 ("Directory Name" should end in "/" - this is the name of the folder inside RVS Directory)
-> Spaces also not currently supported, work one at a time (starting with 0) and save over defaults, deleting the remaning defaults after or adding additional if needed
+> Spaces also not currently supported
 
 The optional directory set-up feature is still in the works, but at this point you should either already have or should go set up your RVS directory, which should have a folder for each attending. Each of these folders will hold the RVSs (usually .doc or .docx). It is very important that each RVS is named exactly under the convention `Lname, Fname_pidn_yyyy.mm.dd_RVS`
 
