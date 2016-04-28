@@ -76,7 +76,7 @@ class JarvsWindow(Window):
     # Gui Events
     # ---------------------------------------------------------------------
     def on_entry_test_key_release(self, widget, ev, data=None):
-        if ev.keyval == Gdk.KEY_Return: # if Return pressed, reset text
+        if ev.keyval == Gdk.KEY_Return: # if Return pressed
             self.entry_buffer = self.entry_test.get_buffer()
             self.entry_text = self.entry_buffer.get_text(self.entry_buffer.get_start_iter(), self.entry_buffer.get_end_iter(), False)
             self.user_test_say(self.entry_text)
@@ -98,16 +98,16 @@ class JarvsWindow(Window):
 
     def on_mnu_attendings_activate(self, widget, data=None):
         self.set_attendings()
-        reload(rvsdata)
 
     # Implicit Helper Methods
     # ---------------------------------------------------------------------
     def jarvs_say(self, text):
+        # push into conversation
         self.conversation.set_editable(True)
         self.conversation_buffer = self.conversation.get_buffer()
         self.conversation_buffer.insert(self.conversation_buffer.get_end_iter(), text + "\n")
-        
         self.conversation.set_editable(False)
+        # scroll down
         self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
 
     def set_preferences(self):
@@ -121,16 +121,19 @@ class JarvsWindow(Window):
             attends = self.AttendingsDialog()
             attends.run()
             attends.destroy()
+            reload(rvsdata)
 
     def user_test_say(self, text):
+        # push into conversation, formatted at user
         self.conversation.set_editable(True)
         self.conversation_buffer = self.conversation.get_buffer()
-        self.conversation_buffer.insert_with_tags(self.conversation_buffer.get_end_iter(), text, self.user_tag)
-
+        self.conversation_buffer.insert_with_tags(self.conversation_buffer.get_end_iter(), text, self.user_tag)        
+        self.conversation.set_editable(False)        
+        # reset entry text
         self.entry_buffer.set_text("")
-        self.conversation.set_editable(False)
+        # scroll down
         self.conversation.scroll_mark_onscreen(self.conversation_buffer.get_insert())
-
+        # interpret the text
         self.interpret(text)
 
     def update_colors(self):
@@ -167,8 +170,7 @@ class JarvsWindow(Window):
 
 	def report(self):
         self.jarvs_say("")
-        self.jarvs_say("No problem, I'll just pop into" + rvsdata.root_dir + " and have a look around.")
-        self.jarvs_say("I'll generate a report of all the RVSs currently waiting for approval in ~/.jarvs/RVS_report.csv.")
+        self.jarvs_say("No problem, I'll just pop into " + rvsdata.root_dir + " and have a look around. I'll generate a report of all the RVSs currently waiting for approval in ~/.jarvs/RVS_report.csv.")
         self.jarvs_say("Just ask if you'd like me to visualize that data.")
 
     	pipe = subprocess.Popen(["bash ~/.jarvs/RVS_reporter.sh"], shell=True, stdout=subprocess.PIPE).stdout
@@ -184,7 +186,7 @@ class JarvsWindow(Window):
 
 	def test_email(self):
         self.jarvs_say("")
-        self.jarvs_say("I'll take a look and see which attendings have any outstanding RVSs. I'll email you this time, but just ask if you want me to email the attendings diretly")
+        self.jarvs_say("I'll take a look and see which attendings have any outstanding RVSs. Since this is just a test, I'll only email you, but just ask if you want me to send these to the attendings diretly.")
 		pipe = subprocess.Popen(["bash ~/.jarvs/RVS_test_emailer.sh"], shell = True, stdout=subprocess.PIPE).stdout
         self.jarvs_say("")
         self.jarvs_say(pipe.read())
