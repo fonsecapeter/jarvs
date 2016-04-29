@@ -78,7 +78,7 @@ class PreferencesDialog(Gtk.Dialog):
         Called before the dialog returns Gtk.ResponseType.OK from run().
         """
         rvsdata.update_user_name(self.user_name_entry.get_text().rstrip())
-		rvsdata.update_user_color(self.user_email_entry.get_text().rstrip())
+		rvsdata.update_user_email(self.user_email_entry.get_text().rstrip())
 		rvsdata.update_user_color(self.user_color_entry.get_text().rstrip())
 		rvsdata.update_jarvs_color(self.jarvs_color_entry.get_text().rstrip())
 		rvsdata.update_background_color(self.background_color_entry.get_text().rstrip())
