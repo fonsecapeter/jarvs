@@ -1,3 +1,9 @@
+jarvs (16.04.49) trusty; urgency=medium
+
+  * updated reporter echo statements, added attendings svg
+
+ -- Peter <peter.nfonseca@gmail.com>  Fri, 29 Apr 2016 10:11:19 -0700
+
 jarvs (16.04.48-public2) trusty; urgency=medium
 
   * New release.
