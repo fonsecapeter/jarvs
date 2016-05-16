@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import matplotlib
 import rvsdata
-matplotlib.style.use('ggplot')
+## matplotlib.style.use('ggplot') remove dependency for higher than standard matplotlib
 
 def main():
 	# import and massage data
