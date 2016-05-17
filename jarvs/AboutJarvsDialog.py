@@ -1,4 +1,4 @@
-# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: spaces; tab-width: 2 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
 # This program is free software: you can redistribute it and/or modify it 
@@ -23,11 +23,11 @@ from jarvs_lib.AboutDialog import AboutDialog
 
 # See jarvs_lib.AboutDialog.py for more details about how this class works.
 class AboutJarvsDialog(AboutDialog):
-    __gtype_name__ = "AboutJarvsDialog"
-    
-    def finish_initializing(self, builder): # pylint: disable=E1002
-        """Set up the about dialog"""
-        super(AboutJarvsDialog, self).finish_initializing(builder)
+  __gtype_name__ = "AboutJarvsDialog"
+  
+  def finish_initializing(self, builder): # pylint: disable=E1002
+    """Set up the about dialog"""
+    super(AboutJarvsDialog, self).finish_initializing(builder)
 
-        # Code for other initialization actions should be added here.
+    # Code for other initialization actions should be added here.
 

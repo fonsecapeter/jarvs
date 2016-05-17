@@ -1,4 +1,4 @@
-# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: spaces; tab-width: 2 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
 # This program is free software: you can redistribute it and/or modify it 
@@ -28,20 +28,20 @@ from jarvs import JarvsWindow
 from jarvs_lib import set_up_logging, get_version
 
 def parse_options():
-    """Support for command line options"""
-    parser = optparse.OptionParser(version="%%prog %s" % get_version())
-    parser.add_option(
-        "-v", "--verbose", action="count", dest="verbose",
-        help=_("Show debug messages (-vv debugs jarvs_lib also)"))
-    (options, args) = parser.parse_args()
+  """Support for command line options"""
+  parser = optparse.OptionParser(version="%%prog %s" % get_version())
+  parser.add_option(
+    "-v", "--verbose", action="count", dest="verbose",
+    help=_("Show debug messages (-vv debugs jarvs_lib also)"))
+  (options, args) = parser.parse_args()
 
-    set_up_logging(options)
+  set_up_logging(options)
 
 def main():
-    'constructor for your class instances'
-    parse_options()
+  'constructor for your class instances'
+  parse_options()
 
-    # Run the application.       
-    window = JarvsWindow.JarvsWindow()
-    window.show()
-    Gtk.main()
+  # Run the application.       
+  window = JarvsWindow.JarvsWindow()
+  window.show()
+  Gtk.main()

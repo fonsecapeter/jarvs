@@ -1,4 +1,4 @@
-# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: spaces; tab-width: 2 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
 # This program is free software: you can redistribute it and/or modify it 
