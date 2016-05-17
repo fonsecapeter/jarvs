@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # build the user's $HOME/.jarvs/ directory containing shell scripts and user-level data
 ### BEGIN LICENSE
-# Copyright (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
+# Copyright (C) 2016 Peter <peter.nfonseca@gmail.com>
 # This program is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License version 3, as published 
 # by the Free Software Foundation.

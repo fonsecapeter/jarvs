@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ### BEGIN LICENSE
-# Copyright (C) 2016 Peter <pfonseca@mac-cloud-vm-163-239.ucsf.edu>
+# Copyright (C) 2016 Peter <peter.nfonseca@gmail.com>
 # This program is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License version 3, as published 
 # by the Free Software Foundation.
@@ -18,7 +18,11 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import matplotlib
 import rvsdata
-## matplotlib.style.use('ggplot') remove dependency for higher than standard matplotlib
+
+try:
+  matplotlib.style.use('ggplot') # optional for those with newer than standard matplotlib
+except Exception:
+  pass
 
 def main():
   # import and massage data
