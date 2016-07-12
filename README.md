@@ -19,6 +19,8 @@ sudo apt-get install jarvs
   * Running is as simple as clicking the icon (in accessories) or typing `jarvs` into a terminal
     * The first startup may take a littel extra time, just be patient - using the terminal on this first startup will give some helpful details about what is happening (building ~/.jarvs and it's contents)
     > if anything goes wrong, you may need to `sudo apt-get python-gobject` and/or change the software source to match `universe trusty`
+    
+> you can always grab the latest tar.gz by navigating to the [Releases Tab](https://github.com/fonsecapeter/jarvs/releases)
 
 Either way, the first order of business will be configuring settings. Jarvs has a terminal-like text display, which operates through natural language commands (all lower-case for now), as well as standard gui main-menu drop downs.
 
