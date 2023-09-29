@@ -1,6 +1,6 @@
 ## Jarvs
 
-#### Jarvs is a research visist summary management system, build with large-scale clinical research in mind.
+#### Jarvs is a research visist summary management system, built with large-scale clinical research in mind.
 
 Resarch visit summaries (RVSs) are written descriptions of a patient's clinical visit. An RVS is written by the research-doctor-on-point for a given participant after they undergo strenuous participation in a clinical reserach program. For the one I worked for at UCSF, this involved a 40-hour week of being questioned, tested, poked, prodded, and scanned, often after a flight across the country. So this summary is full of personal health insights that a traditional hospital usually doesn't have the resources to offer and is deeply valuable to patients and their families.
 
