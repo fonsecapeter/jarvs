@@ -2,14 +2,26 @@
 
 #### Jarvs is a research visist summary management system, build with large-scale clinical research in mind.
 
-At the moment, the master branch works on both os x and linux operating systems, but is being depreciated for the Ubuntu application. Development is not yet finished, but is functional. Users have two options in the meantime:
-* Use the depreciated tkinter-based master branch version with `git clone http://github.com/fonsecapeter/jarvs` in your home directory (os x or linux)
-  * This will require the user to `cd ~/jarvs/app` then `./gui.py` to run the program
-  * Dependencies may be needed
+Resarch visit summaries (RVSs) are written descriptions of a patient's clinical visit. An RVS is written by the research-doctor-on-point for a given participant after they undergo strenuous participation in a clinical reserach program. For the one I worked for at UCSF, this involved a 40-hour week of being questioned, tested, poked, prodded, and scanned, often after a flight across the country. So this summary is full of personal health insights that a traditional hospital usually doesn't have the resources to offer and is deeply valuable to patients and their families.
+
+In a busy program such as this, it's important to write, review and send out these summaries in a timely fashion. One of my many responsiblities during my time at UCSF was managing this process and ensuring it ran smoothly. I was having a hard time staying on top of this manually and, under my hands, it sometimes took almost a full year for folks to get their summaries, right before their next visit. At the time, I was also teaching myself how to write code in my free time, so I saw an opportunity to automate it, and hopefully get them in patients hands quicker.
+
+I'm proud to say it did – we were even able to reduce our "red metric" of > 6 months after I automated my RVS responsiblities with JARVS and am told it's still being used today. As a now professional software engineer, I look back on the things about this that I would implement differently, but more than that, I'm proud of the way I was able to learn by doing something that offered tangible benefits to the peolpe around me, and how I put in the work to package + open-source it in case other research programs needed something similar.
+
+This project is also special to me becuase it showed me how much I loved software engineering and motivated me to figure out how to do it for a living.
+
+## Note:
+At the moment, the master branch works on both os x and linux operating systems, but was being depreciated for an Ubuntu-specific version. I am not activitely developing this, but if you are using this and something is broken or missing, please let me know and I'd be happy to make improvements.
+
+## Installation
+You have two options:
+* Use the tkinter-based master branch version with `git clone http://github.com/fonsecapeter/jarvs` in your home directory (os x or linux)
+  * Enter the project `cd ~/jarvs/app` then `./gui.py` to run the program
+  * Dependencies may be needed (see more information below)
 
 or
 
-* Follow the development of the GTK-based [Ubuntu release](http://launchpad.net/jarvs) with a more familiar:
+* Use the GTK-based [Ubuntu release](http://launchpad.net/jarvs) with a more familiar:
 ```bash
 sudo add-apt-reposoity ppa:peter-nfonseca/jarvs
 sudo apt-get update
@@ -19,9 +31,10 @@ sudo apt-get install jarvs
   * Running is as simple as clicking the icon (in accessories) or typing `jarvs` into a terminal
     * The first startup may take a littel extra time, just be patient - using the terminal on this first startup will give some helpful details about what is happening (building ~/.jarvs and it's contents)
     > if anything goes wrong, you may need to `sudo apt-get python-gobject` and/or change the software source to match `universe trusty`
-    
-> you can always grab the latest tar.gz by navigating to the [Releases Tab](https://github.com/fonsecapeter/jarvs/releases)
 
+> you can also grab the latest tar.gz by navigating to the [Releases Tab](https://github.com/fonsecapeter/jarvs/releases)
+
+## Usage
 Either way, the first order of business will be configuring settings. Jarvs has a terminal-like text display, which operates through natural language commands (all lower-case for now), as well as standard gui main-menu drop downs.
 
 ![jarvs_prefs](docs/jarvs_prefs.png)
